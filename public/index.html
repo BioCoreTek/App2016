@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="A new frontier in biology and technology">
+	<meta name="author" content="BioCoreTek">
+
+	<link rel="icon" type="image/png" href="img/favicon.png">
+
+	<title>BioCoreTek Administration GUI</title>
+
+	<link rel="stylesheet" href="css/bootstrap.min.css" />
+	<link rel="stylesheet" href="css/font-awesome.min.css" />
+	<link rel="stylesheet" href="css/style.css" />
+
+</head>
+<body>
+
+	<!-- ////////////////////////////////////////////////////////////////// -->
+
+	<footer class="footer">
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<img id="img-nav-logo-inverted" src="img/biocoretek-inverted.png"/>
+			</div>	
+
+			<div class="">
+				<ul class="nav nav-tabs nav-justified">
+					<li id="li-lifesupport">
+						<a id="link-lifesupport" href="javascript: void(0);"><span>Life Support</span></a>
+					</li>
+					<li id="li-communications">
+						<a id="link-communications" href="javascript: void(0);"><span>Communications</span></a>
+					</li>
+					<li id="li-shields">
+						<a id="link-shields" href="javascript: void(0);"><span>Shields</span></a>
+					</li>
+					<li id="li-schematics">
+						<a id="link-schematics" href="javascript: void(0);"><span>Schematics</span></a>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</footer>
+
+	<div class="sidebar">
+		<div class="counter">
+			00:00
+		</div>
+		<div class="wrapper">
+			<div class="notifications">
+				<div id="note-lifesupport">
+					<div id="note-lifesupport-error" class="note error" style="display: none">
+						<i class="fa fa-fw fa-lg fa-life-saver"></i> Life Support Failure
+					</div>
+					<div id="note-lifesupport-success" class="note success">
+						<i class="fa fa-fw fa-lg fa-life-saver"></i> Life Support Active
+					</div>
+				</div>
+				<div id="note-network">
+					<div id="note-network-error" class="note error">
+						<i class="fa fa-fw fa-lg fa-wifi"></i> Network Unreachable
+					</div>
+					<div id="note-network-success" class="note success" style="display: none">
+						<i class="fa fa-fw fa-lg fa-wifi"></i> Network Connected
+					</div>
+				</div>
+				<div id="note-shields">
+					<div id="note-shields-error" class="note error" style="display: none">
+						<i class="fa fa-fw fa-lg fa-shield"></i> Shields Disabled
+					</div>
+					<div id="note-shields-success" class="note success">
+						<i class="fa fa-fw fa-lg fa-shield"></i> Shields Enabled
+					</div>
+				</div>
+				<div id="note-ai">
+					<div id="note-ai-error" class="note error" style="display: none">
+						<i class="fa fa-fw fa-lg fa-universal-access"></i> AI Offline
+					</div>
+					<div id="note-ai-success" class="note success">
+						<i class="fa fa-fw fa-lg fa-universal-access"></i> AI Online
+					</div>
+				</div>
+			</div>
+			<div class="stats">
+				<canvas id="statsChart"></canvas>
+			</div>
+		</div>
+	</div>
+
+	<div class="topbar">
+		<div class="container-fluid">
+			<h1 id="topbar-lifesupport" style="display: none">Life Support</h1>
+			<h1 id="topbar-communications" style="display: none">Communications</h1>
+			<h1 id="topbar-shields" style="display: none">Shields</h1>
+			<h1 id="topbar-schematics" style="display: none">Schematics</h1>
+		</div>
+	</div>
+
+	<div class="content">
+		<div class="container-fluid">
+			<div class="section" id="section">
+			</div>
+		</div>
+	</div>
+
+	<!-- ////////////////////////////////////////////////////////////////// -->
+	<!-- /////////////////////// TEMPLATES //////////////////////////////// -->
+	<!-- ////////////////////////////////////////////////////////////////// -->
+
+	<!-- //////////////////// LIFE SUPPORT //////////////////////////////// -->
+
+	<div id="template-lifesupport-active" style="display: none">
+		<div>
+			<div class="row">
+				<div class="col-sm-12">
+					<div class="title">
+						<div class="icon success"><i class="fa fa-fw fa-5x fa-life-saver"></i></div>
+						<h1>Life Support Active</h1>
+						<p>Oxygen supply nominal.</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div id="template-lifesupport-failure" style="display: none">
+		<div>
+			<div class="row">
+				<div class="col-sm-12">
+					<div class="alert alert-danger">
+						<div class="pull-left">
+							<i class="fa fa-fw fa-lg fa-wifi"></i>
+							<strong>Life Support Failure</strong>
+						</div>
+						Enter primary oxygen conduit number and bypass conduit number.
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-sm-12">
+					<canvas class="canvas" width="400" height="400"></canvas>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div id="template-lifesupport-success" style="display: none">
+		<div>
+			<div class="row">
+				<div class="col-sm-12">
+					<div class="title">
+						<div class="icon success"><i class="fa fa-fw fa-5x fa-life-saver"></i></div>
+						<h1>Life Support Bypass</h1>
+						<p>Oxygen supply operating on bypass.</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- /////////////////// COMMUNICATIONS /////////////////////////////// -->
+
+	<div id="template-communications-unreachable" style="display: none">
+		<div>
+			<div class="row">
+				<div class="col-sm-12">
+					<div class="alert alert-danger">
+						<div class="pull-left">
+							<i class="fa fa-fw fa-lg fa-wifi"></i>
+							<strong>Network Unreachable</strong>
+						</div>
+						Reconnect external antenna to re-establish communication link.
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div id="template-communications-linking" style="display: none">
+		<div>
+			<div class="row">
+				<div class="col-sm-12">
+					<div class="title">
+						<div class="icon success"><i class="fa fa-fw fa-5x fa-circle-o-notch fa-spin"></i></div>
+						<h1>Establishing Connection...</h1>
+						<p>Connecting to Earth.</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div id="template-communications-transmission" style="display: none">
+		<div>
+			<div class="row">
+				<div class="col-sm-12 text-center">
+					VIDEO
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- ////////////////////// SHIELDS /////////////////////////////////// -->
+
+	<div id="template-shields-enabled" style="display: none">
+		<div>
+			<div class="row">
+				<div class="col-sm-12">
+					<div class="title">
+						<div class="icon success"><i class="fa fa-fw fa-5x fa-shield"></i></div>
+						<h1>Shields Enabled</h1>
+						<p>Shields are operational.</p>
+						<div></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div id="template-shields-manual" style="display: none">
+		<div>
+			<div class="row">
+				<div class="col-sm-12">
+					<div class="alert alert-danger">
+						<div class="pull-left">
+							<i class="fa fa-fw fa-lg fa-wifi"></i>
+							<strong>Shields Disabled</strong>
+						</div>
+						Manually enable radiation deflector shields by holding the override control.
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-sm-4">
+					<div class="diagram">
+						<div class="person">
+							<i class="fa fa-male"></i>
+						</div>
+						<div class="control-panel">
+							<i class="fa fa-hand-spock-o"></i>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div id="template-shields-override" style="display: none">
+		<div>
+			<div class="row">
+				<div class="col-sm-12">
+					<div class="title">
+						<div class="icon success"><i class="fa fa-fw fa-5x fa-shield"></i></div>
+						<h1>Shields Enabled</h1>
+						<p>Shields are operational.</p>
+						<div></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- ///////////////////// SCHEMATICS ///////////////////////////////// -->
+
+	<div id="template-schematics-rendering" style="display: none">
+		<div>
+			<div class="row">
+				<div class="col-sm-12">
+					<div class="title">
+						<div class="icon success"><i class="fa fa-fw fa-5x fa-circle-o-notch fa-spin"></i></div>
+						<h1>Loading...</h1>
+						<p>Rendering station schematics.</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div id="template-schematics-success" style="display: none">
+		<div>
+			<div class="row">
+				<div class="col-sm-12">
+					<canvas class="canvas"></canvas>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- ////////////////////////////////////////////////////////////////// -->
+	<!-- ////////////////////////////////////////////////////////////////// -->
+	<!-- ////////////////////////////////////////////////////////////////// -->
+
+	<script src="js/vendor/jquery-3.1.0.min.js"></script>
+	<script src="js/vendor/bootstrap.min.js"></script>
+	<script src="js/vendor/Chart.min.js"></script>
+	<script src="js/vendor/ba-debug.min.js"></script>
+	<script src="js/vendor/pubsub-1.4.2.min.js"></script>
+
+	<script src="js/StatsChart.js"></script>
+	<script src="js/Notifications.js"></script>
+	<script src="js/GamePad.js"></script>
+	<script src="js/Sections.js"></script>
+	<script src="js/States.js"></script>
+
+	<script src="js/script.js"></script>
+</body>
+</html>

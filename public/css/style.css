@@ -1,0 +1,416 @@
+@import url(https://fonts.googleapis.com/css?family=Audiowide|Share+Tech+Mono);
+html, body
+{
+	overflow: hidden;
+	font-family: "Helvetica Neue",Helvetica,Arial,sans-serif !important;
+	background-color: #222;
+	color: #fff;
+	font-size: 16px;
+}
+.noselect
+{
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}
+
+/********************************* COLORS ************************************/
+
+/* Colors
+http://www.w3schools.com/colors/colors_picker.asp
+https://coolors.co/004d80-47a8bd-f5e663-ffad69-9c3848
+
+Original:
+Blue:	 25%	#004D80	rgba(0, 77, 128, 1)
+Teal:	 51%	#47A8BD	rgba(71, 168, 189, 1)
+Yellow:	 67%	#F5E663	rgba(245, 230, 99, 1)
+Orange:	 71%	#FFAD69	rgba(255, 173, 105, 1)
+Red:	 42%	#9C3848	rgba(156, 56, 72, 1)
+
+#004D80
+25%:	#004d80;
+30%:	#005c99;
+50%:	#0099ff;
+65%:	#4db8ff;
+80%:	#99d6ff;
+90%:	#ccebff
+95%:	#e6f5ff;
+
+#9C3848
+25%:	#5c232c;
+30%:	#702935;
+50%:	#bb4458;
+65%:	#ce7e8a;
+80%:	#e3b5bb;
+90%:	#f1dadd;
+95%:	#f8edee;
+
+#47A8BD
+25%:	#23535c;
+30%:	#296370;
+50%:	#44a5bb;
+65%:	#7dc0cf;
+80%:	#b5dbe3;
+90%:	#daeef1;
+
+#F5E663
+25%:	#786d08;
+30%:	#908209;
+50%:	#f0d90f;
+65%:	#f4e557;
+80%:	#f9f09f;
+90%:	#fcf7cf;
+
+#FFAD69
+25%:	#803900;
+30%:	#994500;
+50%:	#ff7300;
+65%:	#ff9d4d;
+80%:	#ffc799;
+90%:	#ffe3cc;
+
+*/
+
+
+/********************************* FOOTER ************************************/
+
+.footer
+{
+	position: absolute;
+	bottom: 0;
+	width: 100%;
+	height: 80px;
+	background-color: #222;
+	z-index: 10;
+}
+
+.navbar-header img
+{
+	width: 200px;
+	margin-top: 15px;
+	margin-right: 15px;
+}
+
+.footer .nav
+{
+	font-family: Audiowide, monospace;
+	font-size: 24px;
+	margin-top: 10px;
+}
+
+.footer .nav li a,
+.footer .nav li.active a,
+.footer .nav li.active a:hover,
+.footer .nav li.active a:active,
+.footer .nav li.active a:focus
+{
+	-webkit-transform: skew(-30deg);
+	-moz-transform: skew(-30deg);
+	-o-transform: skew(-30deg);
+	background: #004d80;
+	border: 3px solid #0099ff;
+	box-shadow: 0 0px 8px 0 #0099ff;
+	border-radius: 6px;
+	margin-right: 8px;
+	margin-left: 8px;
+	color: #fff;
+}
+.footer .nav li a span
+{
+	display: block;
+	-webkit-transform: skew(30deg);
+	-moz-transform: skew(30deg);
+	-o-transform: skew(30deg);
+}
+.footer .nav li.active a
+{
+	background: #99d6ff;
+	color: #002e4d;
+	box-shadow: 0 0px 8px 0 #99d6ff;
+}
+.footer .nav li a:hover,
+.footer .nav li a:active,
+.footer .nav li a:focus,
+.footer .nav li.active a:hover,
+.footer .nav li.active a:active,
+.footer .nav li.active a:focus
+{
+	background: #ccebff;
+	color: #002e4d;
+	box-shadow: 0 0px 8px 0 #ccebff;
+}
+
+/********************************* SIDEBAR ***********************************/
+
+.sidebar
+{
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 230px;
+	height: calc(100% - 78px);
+	background-color: #222;
+	z-index: 20;
+}
+.sidebar .counter
+{
+	font-family: 'Share Tech Mono', monospace;
+	font-size: 46px;
+	color: #e6f5ff;
+	height: 60px;
+	text-shadow: 0 0 5px #0099ff;
+	text-align: center;
+}
+
+.sidebar .wrapper
+{
+	height: calc(100% - 60px - 10px);
+	width: 220px;
+	border-radius: 6px;
+	margin: 4px auto;
+	border: 1px #666 solid;
+	box-shadow: 0 0 8px 0 rgba(255, 255, 255, 0.6);
+	overflow: hidden;
+}
+
+.sidebar .notifications
+{
+	height: 100px;
+	width: 200px;
+	font-size: 16px;
+	margin: 10px;
+	overflow: hidden;
+}
+.sidebar .notifications .note
+{
+	height: 25px;
+	line-height: 25px;
+}
+.sidebar .notifications .note.success i
+{
+	color: #eee;
+}
+
+.sidebar .notifications .note.error
+{
+	-webkit-animation: color_text_blink 1s infinite alternate;
+	-moz-animation: color_text_blink 1s infinite alternate;
+	-ms-animation: color_text_blink 1s infinite alternate;
+	-o-animation: color_text_blink 1s infinite alternate;
+	animation: color_text_blink 1s infinite alternate;
+}
+@-webkit-keyframes color_text_blink {
+ from { color: #fff; }
+ to { color: #666; }
+}
+@-moz-keyframes color_text_blink {
+ from { color: #fff; }
+ to { color: #666; }
+}
+@-ms-keyframes color_text_blink {
+ from { color: #fff; }
+ to { color: #666; }
+}
+@-o-keyframes color_text_blink {
+ from { color: #fff; }
+ to { color: #666; }
+}
+@keyframes color_text_blink {
+ from { color: #fff; }
+ to { color: #666; }
+}
+
+.sidebar .notifications .note.error i
+{
+	color: #bb4458;
+}
+.sidebar .notifications .note.error i
+{
+	-webkit-animation: color_text_error_blink 1s infinite alternate;
+	-moz-animation: color_text_error_blink 1s infinite alternate;
+	-ms-animation: color_text_error_blink 1s infinite alternate;
+	-o-animation: color_text_error_blink 1s infinite alternate;
+	animation: color_text_error_blink 1s infinite alternate;
+}
+@-webkit-keyframes color_text_error_blink {
+ from { color: #bb4458; }
+ to { color: #4a1c23; }
+}
+@-moz-keyframes color_text_error_blink {
+ from { color: #9C3848; }
+ to { color: #4a1c23; }
+}
+@-ms-keyframes color_text_error_blink {
+ from { color: #9C3848; }
+ to { color: #4a1c23; }
+}
+@-o-keyframes color_text_error_blink {
+ from { color: #9C3848; }
+ to { color: #4a1c23; }
+}
+@keyframes color_text_error_blink {
+ from { color: #bb4458; }
+ to { color: #4a1c23; }
+}
+
+.sidebar .stats
+{
+	height: calc(100% - 120px);
+	width: 100%;
+	padding: 10px 10px 0 0;
+}
+.sidebar .stats #statsChart
+{
+}
+
+/********************************* TOPBAR ***********************************/
+
+.topbar
+{
+	position: absolute;
+	top: 0;
+	left: 230px;
+	height: 60px;
+	width: calc(100% - 230px);
+	background-color: #222;
+
+}
+.topbar h1
+{
+	font-family: Audiowide, monospace;
+	margin-top: 10px;
+	color: #fff;
+	text-align: right;
+	text-shadow: 0 0 5px #0099ff;
+}
+
+/********************************* CONTENT ***********************************/
+
+.content
+{
+	position: absolute;
+	top: 60px;
+	right: 0;
+	margin: 4px;
+	height: calc(100vh - 140px - 8px);
+	width: calc(100vw - 230px - 8px);
+
+	overflow: hidden;
+	overflow-y: auto;
+
+	border: 1px solid #0099ff;
+	box-shadow: 0 0px 8px 0 #0099ff;
+	border-radius: 6px;
+
+}
+
+/* ************************************************* */
+
+.section .title
+{
+	text-align: center;
+}
+.section .icon.success
+{
+	color: #4db8ff;
+	text-shadow: 0 0 10px #99d6ff;
+}
+.section .title .icon.success
+{
+	margin: 40px 0 20px 0;
+	font-size: 25px;
+}
+
+.section .section-lifesupport-failure canvas
+{
+	margin-top: 15px;
+}
+
+.section .section-schematics-success canvas
+{
+	margin-top: 15px;
+	width: 100%;
+	height: 100%;
+	background-color: #fff;
+}
+
+.alert
+{
+	border-radius: 6px;
+	margin: 15px 0;
+	border: 1px #666 solid;
+	box-shadow: 0 0 8px 0 rgba(255, 255, 255, 0.6);
+	color: #222;
+}
+.alert.alert-danger
+{
+	background-color: #f8edee;
+	text-align: right;
+}
+.alert.alert-danger i,
+.alert.alert-danger strong
+{
+	color: #bb4458;
+}
+
+/* ********************* SECTION SPECIFICS **************************** */
+
+.section-shields-manual .diagram
+{
+	height: 200px;
+	width: 275px;
+}
+.section-shields-manual .diagram .person
+{
+	float: left;
+}
+.section-shields-manual .diagram .person i
+{
+	font-size: 180px;
+}
+.section-shields-manual .diagram .control-panel
+{
+	border: 1px #666 solid;
+	box-shadow: 0 0 8px 0 rgba(255, 255, 255, 0.6);
+	border-radius: 4px;
+    float: right;
+    margin-top: 60px;
+    padding: 15px 5px;
+}
+.section-shields-manual .diagram .control-panel i
+{
+	font-size: 30px;
+	color: #bb4458;
+	text-shadow: 0 0 10px #bb4458;
+}
+.sidebar .notifications .note.error i
+{
+	-webkit-animation: pulse_hand 1s infinite alternate;
+	-moz-animation: pulse_hand 1s infinite alternate;
+	-ms-animation: pulse_hand 1s infinite alternate;
+	-o-animation: pulse_hand 1s infinite alternate;
+	animation: pulse_hand 1s infinite alternate;
+}
+@-webkit-keyframes color_text_error_blink {
+ from { text-shadow: 0 0 10px #bb4458; }
+ to { text-shadow: 0 0 10px #f1dadd; }
+}
+@-moz-keyframes color_text_error_blink {
+ from { text-shadow: 0 0 10px #bb4458; }
+ to { text-shadow: 0 0 10px #f1dadd; }
+}
+@-ms-keyframes color_text_error_blink {
+ from { text-shadow: 0 0 10px #bb4458; }
+ to { text-shadow: 0 0 10px #f1dadd; }
+}
+@-o-keyframes color_text_error_blink {
+ from { text-shadow: 0 0 10px #bb4458; }
+ to { text-shadow: 0 0 10px #f1dadd; }
+}
+@keyframes color_text_error_blink {
+ from { text-shadow: 0 0 10px #bb4458; }
+ to { text-shadow: 0 0 10px #f1dadd; }
+}
