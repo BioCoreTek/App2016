@@ -5,21 +5,18 @@ function GamePad()
 {
 	this.supported = false;
 	this.enabled = false;
-	this.buttonMap = {
-		0: "lifesupport",
-		1: "communications",
-		2: "shields",
-		3: "schematics"
-	};
-	this.sectionObj;
-	this.gamePad
+	this.buttonMap = {};
+	this.gamePad;
 };
 
-GamePad.prototype.init = function(sectionObj)
+GamePad.prototype.init = function(buttonMap)
 {
 	var self = this;
 
-	this.sectionObj = sectionObj;
+	if (buttonMap)
+	{
+		this.buttonMap = buttonMap;
+	}
 
 	if (this.browserSupport())
 	{
@@ -83,8 +80,8 @@ GamePad.prototype.gameLoop = function()
 					debug.log("game loop button pressed:", i);
 					if (typeof self.buttonMap[i] !== 'undefined')
 					{
-						debug.debug("game loop section:", i);
-						self.sectionObj.goToSection(self.buttonMap[i]);
+						debug.debug("game loop button:", i);
+						PubSub.publish('gamePadButton', {index: i, name: self.buttonMap[i]});
 					}
 				}
 			}

@@ -34,8 +34,6 @@ Sections.prototype.init = function()
 		self.changeSection(data.group);
 		self.setTemplate(data.group, data.state);
 	});
-	// go to current section
-	//this.changeSection(this.currentSectionIndex, this.currentSectionStatusIndex);
 };
 
 Sections.prototype.changeSection = function(group)

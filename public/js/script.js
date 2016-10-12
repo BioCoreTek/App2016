@@ -1,3 +1,4 @@
+var config;
 var stateManager;
 var statsChart;
 var section;
@@ -11,6 +12,8 @@ function init()
 	debug.debug('Run this in Chrome: document.documentElement.webkitRequestFullscreen();');
 	debug.setLevel(4);
 
+	config = new Config();
+
 	stateManager = new StateManager();
 	stateManager.init();
 
@@ -21,7 +24,7 @@ function init()
 	section.init();
 
 	gamePad = new GamePad();
-	gamePad.init(section);
+	gamePad.init(config.get('buttonMap'));
 
 	notifications = new Notifications();
 	//notifications.init();

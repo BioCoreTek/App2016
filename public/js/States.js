@@ -59,8 +59,20 @@ StateManager.prototype.init = function()
 		debug.debug('PubSub sub section', msg, data);
 		self.goToGroup(data);
 	});
+
+	// listen button presses on joystick
+	PubSub.subscribe('gamePadButton', function(msg, data)
+	{
+		debug.debug('PubSub sub gamePadButton', msg, data);
+		self.goToGroup(data.name);
+	});
 };
 
+/**
+ * @description
+ * Go to a group of states
+ * @param {string} name The name of the state group
+ */
 StateManager.prototype.goToGroup = function(name)
 {
 	this.currentStateGroup = this.stateGroups[name];
@@ -126,7 +138,7 @@ StateGroup.prototype.jumpToNextState = function()
 
 StateGroup.prototype.run = function()
 {
-	PubSub.publish('stategroup', this.name);
+	PubSub.publish('stateGroup', this.name);
 	debug.debug('StateGroup currentState:', {group: this.currentState});
 	this.currentState.run();
 };
