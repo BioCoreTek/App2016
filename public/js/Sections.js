@@ -21,18 +21,23 @@ Sections.prototype.init = function()
 	});
 /*
 	// listen for state group changes to change sections button selection
-	PubSub.subscribe('stategroup', function(msg, data) {
+	PubSub.subscribe('stategroup', function(msg, data)
+	{
 		debug.debug('Sections PubSub sub stategroup', msg, data);
-
 		self.changeSection(data.group);
 	});
 */
 	// listen for state changes to display a template
-	PubSub.subscribe('state', function(msg, data) {
+	PubSub.subscribe('state', function(msg, data)
+	{
 		debug.debug('Sections PubSub sub state', msg, data);
-
 		self.changeSection(data.group);
 		self.setTemplate(data.group, data.state);
+		if (data.runFn)
+		{
+			debug.debug('Sections calling runFn');
+			data.runFn();
+		}
 	});
 };
 

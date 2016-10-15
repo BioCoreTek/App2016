@@ -20,11 +20,15 @@ StateManager.prototype.init = function()
 	sgLifeSupport.addState('active', 'failure', function() {
 
 	});
-	sgLifeSupport.addState('failure', 'success', function() {
+	sgLifeSupport.addState('failure', 'success', function()
+	{
 		var c = $('.content canvas')[0];
 		debug.debug(c);
 		var ctx = c.getContext('2d');
-		OxygenMain(ctx, gamePad.gamepad);
+		PubSub.subscribe('gamePadLoop', function(msg, data)
+		{
+			OxygenMain(ctx, data);
+		});
 
 	});
 	sgLifeSupport.addState('success');
@@ -56,15 +60,28 @@ StateManager.prototype.init = function()
 	// watch any section changes clicked by the user to change state
 	PubSub.subscribe('section', function(msg, data)
 	{
-		debug.debug('PubSub sub section', msg, data);
+		debug.debug('StateManager PubSub sub section', msg, data);
 		self.goToGroup(data);
 	});
 
 	// listen button presses on joystick
 	PubSub.subscribe('gamePadButton', function(msg, data)
 	{
-		debug.debug('PubSub sub gamePadButton', msg, data);
+		debug.debug('StateManager PubSub sub gamePadButton', msg, data);
 		self.goToGroup(data.name);
+	});
+
+	// listen for server events
+	PubSub.subscribe('event', function(msg, data)
+	{
+		debug.debug('StateManager PubSub sub event', msg, data);
+		// set the new state
+		self.stateGroups[data.group].setState(data.state);
+		// if it is an interrupt state, go to that section
+		if (data.interrupt);
+		{
+			self.goToGroup(data.group);
+		}
 	});
 };
 
@@ -94,9 +111,9 @@ StateGroup.prototype.init = function(name)
 	this.name = name;
 };
 
-StateGroup.prototype.addState = function(name, next)
+StateGroup.prototype.addState = function(name, next, runFn)
 {
-	this.states[name] = new State(this.name, name, next);
+	this.states[name] = new State(this.name, name, next, runFn);
 
 	// set the default state to the first one added
 	// user can set manually if desired
@@ -130,6 +147,25 @@ StateGroup.prototype.goToCurrentState = function()
 	}
 };
 
+/**
+ * @description
+ * Go to a specific state
+ */
+StateGroup.prototype.goToState = function(name)
+{
+	this.currentState = this.states[name];
+	this.run();
+};
+
+/**
+ * @description
+ * Set a specific state without going to it
+ */
+StateGroup.prototype.setState = function(name)
+{
+	this.currentState = this.states[name];
+};
+
 StateGroup.prototype.jumpToNextState = function()
 {
 	this.currentState = this.states[this.currentState.next];
@@ -147,8 +183,8 @@ StateGroup.prototype.run = function()
 
 function State(group, name, next, runFn)
 {
-	this.name = null;
 	this.group = null;
+	this.name = null;
 	this.next = null;
 	this.runFn = null;
 
@@ -160,14 +196,11 @@ State.prototype.init = function(group, name, next, runFn)
 	this.group = group;
 	this.name = name;
 	this.next = next;
+	this.runFn = runFn;
 };
 
 State.prototype.run = function()
 {
 	debug.debug("State run: ", this.name);
-	PubSub.publish('state', {state: this.name, group: this.group});
-	if (this.runFn)
-	{
-		this.runFn();
-	}
+	PubSub.publish('state', {state: this.name, group: this.group, runFn: this.runFn});
 };

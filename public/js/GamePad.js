@@ -85,6 +85,7 @@ GamePad.prototype.gameLoop = function()
 					}
 				}
 			}
+			PubSub.publish('gamePadLoop', self.gamepad);
 		}
 	}
 
