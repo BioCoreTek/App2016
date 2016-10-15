@@ -5,18 +5,13 @@ function GamePad()
 {
 	this.supported = false;
 	this.enabled = false;
-	this.buttonMap = {};
+	this.buttonMap = config.get('buttonMap');
 	this.gamePad;
 };
 
-GamePad.prototype.init = function(buttonMap)
+GamePad.prototype.init = function()
 {
 	var self = this;
-
-	if (buttonMap)
-	{
-		this.buttonMap = buttonMap;
-	}
 
 	if (this.browserSupport())
 	{

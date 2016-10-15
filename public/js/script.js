@@ -28,7 +28,7 @@ function init()
 	section.init();
 
 	gamePad = new GamePad();
-	gamePad.init(config.get('buttonMap'));
+	gamePad.init();
 
 	stateManager = new StateManager();
 	stateManager.init();

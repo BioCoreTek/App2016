@@ -17,20 +17,8 @@ StateManager.prototype.init = function()
 	var sgLifeSupport = new StateGroup();
 	sgLifeSupport.init('lifesupport');
 	this.stateGroups['lifesupport'] = sgLifeSupport;
-	sgLifeSupport.addState('active', 'failure', function() {
-
-	});
-	sgLifeSupport.addState('failure', 'success', function()
-	{
-		var c = $('.content canvas')[0];
-		debug.debug(c);
-		var ctx = c.getContext('2d');
-		PubSub.subscribe('gamePadLoop', function(msg, data)
-		{
-			OxygenMain(ctx, data);
-		});
-
-	});
+	sgLifeSupport.addState('active', 'failure');
+	sgLifeSupport.addState('failure', 'success', 'GameLifesupport');
 	sgLifeSupport.addState('success');
 
 	// communications
@@ -111,9 +99,9 @@ StateGroup.prototype.init = function(name)
 	this.name = name;
 };
 
-StateGroup.prototype.addState = function(name, next, runFn)
+StateGroup.prototype.addState = function(name, next, gameName)
 {
-	this.states[name] = new State(this.name, name, next, runFn);
+	this.states[name] = new State(this.name, name, next, gameName);
 
 	// set the default state to the first one added
 	// user can set manually if desired
@@ -181,26 +169,27 @@ StateGroup.prototype.run = function()
 
 /////////////////////////////// STATE  ////////////////////////////////////////
 
-function State(group, name, next, runFn)
+function State(group, name, next, gameName)
 {
 	this.group = null;
 	this.name = null;
 	this.next = null;
-	this.runFn = null;
+	this.gameObj = null;
 
-	this.init(group, name, next, runFn);
+	this.init(group, name, next, gameName);
 };
 
-State.prototype.init = function(group, name, next, runFn)
+State.prototype.init = function(group, name, next, gameName)
 {
 	this.group = group;
 	this.name = name;
 	this.next = next;
-	this.runFn = runFn;
+	if (gameName)
+		this.gameObj = new window[gameName]();
 };
 
 State.prototype.run = function()
 {
 	debug.debug("State run: ", this.name);
-	PubSub.publish('state', {state: this.name, group: this.group, runFn: this.runFn});
+	PubSub.publish('state', {state: this.name, group: this.group, gameObj: this.gameObj});
 };

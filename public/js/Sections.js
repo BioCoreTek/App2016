@@ -33,10 +33,10 @@ Sections.prototype.init = function()
 		debug.debug('Sections PubSub sub state', msg, data);
 		self.changeSection(data.group);
 		self.setTemplate(data.group, data.state);
-		if (data.runFn)
+		if (data.gameObj)
 		{
-			debug.debug('Sections calling runFn');
-			data.runFn();
+			debug.debug('Sections calling gameObj init');
+			data.gameObj.init();
 		}
 	});
 };
