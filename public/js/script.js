@@ -6,6 +6,7 @@ var statsChart;
 var section;
 var gamePad;
 var notifications;
+var modal;
 
 ///////////////////////////////////////////////////////////////////////////////
 
@@ -29,6 +30,9 @@ function init()
 
 	gamePad = new GamePad();
 	gamePad.init();
+
+	modal = new Modal();
+	modal.init();
 
 	stateManager = new StateManager();
 	stateManager.init();

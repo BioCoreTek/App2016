@@ -41,9 +41,15 @@ StateManager.prototype.init = function()
 	var sgSchematics = new StateGroup();
 	sgSchematics.init('schematics');
 	this.stateGroups['schematics'] = sgSchematics;
-	sgSchematics.addState('rendering', ['success']);
-	sgSchematics.addState('success');
+	sgSchematics.addState('rendering', 'success');
+	sgSchematics.addState('success', null, 'GameSchematics');
 
+	// ai
+	var sgAi = new StateGroup();
+	sgAi.init('ai');
+	this.stateGroups['ai'] = sgAi;
+	sgAi.addState('welcome', 'success');
+	sgAi.addState('success');
 
 	// watch any section changes clicked by the user to change state
 	PubSub.subscribe('section', function(msg, data)

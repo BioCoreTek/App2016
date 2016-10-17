@@ -5,6 +5,7 @@ function Sections()
 	this.sectionEl = $("#section");
 	this.currentGroupName = null;
 	this.currentStateName = null;
+	this.supportedGroups = ["lifesupport", "communications", "shields", "schematics"];
 };
 
 Sections.prototype.init = function()
@@ -27,18 +28,37 @@ Sections.prototype.init = function()
 		self.changeSection(data.group);
 	});
 */
-	// listen for state changes to display a template
+	// listen for state changes to display a section
 	PubSub.subscribe('state', function(msg, data)
 	{
 		debug.debug('Sections PubSub sub state', msg, data);
-		self.changeSection(data.group);
-		self.setTemplate(data.group, data.state);
-		if (data.gameObj)
+		if (self.isSupportedGroup(data.group))
 		{
-			debug.debug('Sections calling gameObj init');
-			data.gameObj.init();
+			self.changeSection(data.group);
+			self.setTemplate(data.group, data.state);
+			if (data.gameObj)
+			{
+				debug.debug('Sections calling gameObj init');
+				data.gameObj.init();
+			}
+		}
+		else
+		{
+			debug.debug('Sections PubSub sub state ignoring unsupported state', msg, data);
 		}
 	});
+};
+
+Sections.prototype.isSupportedGroup = function(group)
+{
+	for (var i = 0, len = this.supportedGroups.length; i < len; i++)
+	{
+		if (group == this.supportedGroups[i])
+		{
+			return true;
+		}
+	}
+	return false;
 };
 
 Sections.prototype.changeSection = function(group)

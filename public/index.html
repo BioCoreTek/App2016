@@ -28,6 +28,7 @@
 		<button class="btn btn-primary interrupt" id="admin-shields-manual">Shields Manual</button>
 
 		<button class="btn btn-primary interrupt" id="admin-schematics-success">Schematics Success</button>
+		<button class="btn btn-primary interrupt" id="admin-ai-welcome">AI Welcome</button>
 	</div>
 
 	<!-- ////////////////////////////////////////////////////////////////// -->
@@ -94,6 +95,9 @@
 					</div>
 				</div>
 				<div id="note-ai" class="note-group">
+					<div id="note-ai-welcome" class="note success" style="display: none">
+						<i class="fa fa-fw fa-lg fa-universal-access"></i> AI Online
+					</div>
 					<div id="note-ai-offline" class="note error" style="display: none">
 						<i class="fa fa-fw fa-lg fa-universal-access"></i> AI Offline
 					</div>
@@ -126,9 +130,33 @@
 		</div>
 	</div>
 
+	<div class="modal" tabindex="-1" role="dialog">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-body">
+				</div>
+			</div>
+		</div>
+	</div>
+
 	<!-- ////////////////////////////////////////////////////////////////// -->
 	<!-- /////////////////////// TEMPLATES //////////////////////////////// -->
 	<!-- ////////////////////////////////////////////////////////////////// -->
+
+	<!-- ///////////////////////// AI ///////////////////////////////////// -->
+
+	<div id="template-ai-welcome" style="display: none">
+		<div>
+			<div class="modal-header">
+				<h4 class="modal-title">Title Here</h4>
+			</div>
+			<div class="row">
+				<div class="col-sm-12">
+				</div>
+			</div>
+		</div>
+	</div>
+
 
 	<!-- //////////////////// LIFE SUPPORT //////////////////////////////// -->
 
@@ -324,7 +352,9 @@
 		<div>
 			<div class="row">
 				<div class="col-sm-12">
-					<canvas class="canvas"></canvas>
+					<div class="text-center">
+						<canvas class="canvas" width="700" height="400"></canvas>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -345,7 +375,9 @@
 	<script src="js/Notifications.js"></script>
 	<script src="js/GamePad.js"></script>
 	<script src="js/Sections.js"></script>
+	<script src="js/Modal.js"></script>
 	<script src="js/GameLifesupport.js"></script>
+	<script src="js/GameSchematics.js"></script>
 	<script src="js/States.js"></script>
 
 	<script src="js/script.js"></script>
