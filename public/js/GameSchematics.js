@@ -53,8 +53,7 @@ GameSchematics.prototype.drawSchematics = function()
 	// communication
 	this.context.beginPath();
 	this.context.moveTo(550, 50);
-	this.context.lineTo(550, 100);
-	this.context.lineTo(600, 150);
+	this.context.lineTo(550, 150);
 	this.context.lineTo(650, 150);
 	this.context.stroke();
 	this.context.fillText("External", 565, 80);
