@@ -531,31 +531,25 @@ Red:	 42%	#9C3848	rgba(156, 56, 72, 1)
 
 .section-shields-manual .diagram
 {
-	height: 200px;
-	width: 275px;
-}
-.section-shields-manual .diagram .person
-{
-	float: left;
-}
-.section-shields-manual .diagram .person i
-{
-	font-size: 180px;
 }
 .section-shields-manual .diagram .control-panel
 {
-	border: 1px #666 solid;
+	border: 3px #666 solid;
 	box-shadow: 0 0 8px 0 rgba(255, 255, 255, 0.6);
+	background-color: #333;
 	border-radius: 4px;
-    float: right;
-    margin-top: 60px;
+    margin: 30px;
     padding: 15px 5px;
+	height: 215px;
+	width: 170px;
+	text-align: center;
 }
 .section-shields-manual .diagram .control-panel i
 {
-	font-size: 30px;
-	color: #bb4458;
-	text-shadow: 0 0 10px #bb4458;
+	font-size: 120px;
+	line-height: 180px;
+	color: #ff9d4d;
+	text-shadow: 0 0 10px #ff9d4d;
 	-webkit-animation: pulse_hand 1s infinite alternate;
 	-moz-animation: pulse_hand 1s infinite alternate;
 	-ms-animation: pulse_hand 1s infinite alternate;
@@ -563,24 +557,52 @@ Red:	 42%	#9C3848	rgba(156, 56, 72, 1)
 	animation: pulse_hand 1s infinite alternate;
 }
 @-webkit-keyframes pulse_hand {
- from { text-shadow: 0 0 10px #bb4458; }
- to { text-shadow: 0 0 10px #f1dadd; }
+ from { text-shadow: 0 0 10px #ff9d4d; }
+ to { text-shadow: 0 0 10px #ffe3cc; }
 }
 @-moz-keyframes pulse_hand {
- from { text-shadow: 0 0 10px #bb4458; }
- to { text-shadow: 0 0 10px #f1dadd; }
+ from { text-shadow: 0 0 10px #ff9d4d; }
+ to { text-shadow: 0 0 10px #ffe3cc; }
 }
 @-ms-keyframes pulse_hand {
- from { text-shadow: 0 0 10px #bb4458; }
- to { text-shadow: 0 0 10px #f1dadd; }
+ from { text-shadow: 0 0 10px #ff9d4d; }
+ to { text-shadow: 0 0 10px #ffe3cc; }
 }
 @-o-keyframes pulse_hand {
- from { text-shadow: 0 0 10px #bb4458; }
- to { text-shadow: 0 0 10px #f1dadd; }
+ from { text-shadow: 0 0 10px #ff9d4d; }
+ to { text-shadow: 0 0 10px #ffe3cc; }
 }
 @keyframes pulse_hand {
- from { text-shadow: 0 0 10px #bb4458; }
- to { text-shadow: 0 0 10px #f1dadd; }
+ from { text-shadow: 0 0 10px #ff9d4d; }
+ to { text-shadow: 0 0 10px #ffe3cc; }
+}
+
+.section-shields-manual h2
+{
+	font-family: Audiowide, monospace;
+	color: #ff9d4d;
+	margin-top: 50px;
+}
+.section-shields-manual div.radiation-level-container
+{
+	border: 1px solid #ffe3cc;
+	background-color: #803900;
+	box-shadow: 0 0px 8px 0 #ffe3cc;
+	width: 100%;
+}
+.section-shields-manual div.radiation-level
+{
+	background-color: #ff9d4d;
+	width: 50%;
+	height: 40px;
+}
+.section-shields-manual p.radiation-percent
+{
+	font-family: Audiowide, monospace;
+	color: #ff9d4d;
+	font-size: 50px;
+	text-align: center;
+	margin-top: 15px;
 }
 
 /* ************************* SCHEMATICS ******************************* */
