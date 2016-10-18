@@ -24,11 +24,16 @@
 	<!-- use class 'interrupt' for buttons for that type -->
 	<div class="admin-event-bar">
 		Test Events:
-		<button class="btn btn-primary interrupt" id="admin-lifesupport-failure">Life Support Failure</button>
-		<button class="btn btn-primary interrupt" id="admin-shields-manual">Shields Manual</button>
+		<button class="btn btn-primary btn-sm interrupt state" id="admin-lifesupport-failure">Life Support Failure</button>
+		<button class="btn btn-primary btn-sm interrupt state" id="admin-shields-manual">Shields Manual</button>
 
-		<button class="btn btn-primary interrupt" id="admin-schematics-success">Schematics Success</button>
-		<button class="btn btn-primary interrupt" id="admin-ai-welcome">AI Welcome</button>
+		<button class="btn btn-primary btn-sm interrupt state" id="admin-schematics-success">Schematics Success</button>
+		<button class="btn btn-primary btn-sm interrupt state" id="admin-ai-welcome">AI Welcome</button>
+
+		<button class="btn btn-primary btn-sm timer" id="admin-start">Timer <i class="fa fa-fw fa-play"></i></button>
+		<button class="btn btn-primary btn-sm timer" id="admin-stop">Timer <i class="fa fa-fw fa-stop"></i></button>
+		<button class="btn btn-primary btn-sm timer" id="admin-pause">Timer <i class="fa fa-fw fa-pause"></i><i class="fa fa-fw fa-play"></i></button>
+		<button class="btn btn-primary btn-sm timer" id="admin-unpause">Timer <i class="fa fa-fw fa-pause"></i><i class="fa fa-fw fa-stop"></i></button>
 	</div>
 
 	<!-- ////////////////////////////////////////////////////////////////// -->
@@ -376,6 +381,7 @@
 	<script src="js/GamePad.js"></script>
 	<script src="js/Sections.js"></script>
 	<script src="js/Modal.js"></script>
+	<script src="js/Timer.js"></script>
 	<script src="js/GameLifesupport.js"></script>
 	<script src="js/GameSchematics.js"></script>
 	<script src="js/States.js"></script>

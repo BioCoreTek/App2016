@@ -7,6 +7,7 @@ var section;
 var gamePad;
 var notifications;
 var modal;
+var timer;
 
 ///////////////////////////////////////////////////////////////////////////////
 
@@ -34,6 +35,9 @@ function init()
 	modal = new Modal();
 	modal.init();
 
+	timer = new Timer();
+	timer.init();
+
 	stateManager = new StateManager();
 	stateManager.init();
 
@@ -52,17 +56,30 @@ function setupDev()
 		// take off the prefix: admin-
 		var a = id.substring(6);
 		var parts = a.split("-");
-		var interrupt = false;
-		if ($(this).hasClass('interrupt'))
+
+		if ($(this).hasClass('state'))
 		{
-			interrupt = true;
+			var interrupt = false;
+			if ($(this).hasClass('interrupt'))
+			{
+				interrupt = true;
+			}
+			// fake a server publish event
+			PubSub.publish('event', {
+				group: parts[0],
+				state: parts[1],
+				interrupt: interrupt
+			});
 		}
-		// fake a server publish event
-		PubSub.publish('event', {
-			group: parts[0],
-			state: parts[1],
-			interrupt: interrupt
-		});
+
+		if ($(this).hasClass('timer'))
+		{
+			// fake a server publish timer
+			PubSub.publish('timer', {
+				event: parts[0]
+			});
+
+		}
 	});
 	$('.admin-event-bar').show();
 
