@@ -3,6 +3,7 @@
 function Timer()
 {
 	this.counterEl = $(".counter");
+	this.timeupEl = $(".timeup");
 	// total time a game last in milliseconds - 30 minutes
 	this.totalTime = 30*60*1000;
 	// time the game started in milliseconds
@@ -63,6 +64,16 @@ Timer.prototype.drawTime = function()
 {
 	debug.log('Timer drawTime');
 	var elapsed = this.curTime - this.startTime - this.pauseTotalTime;
+
+	if (elapsed >= this.totalTime)
+	{
+		debug.log('Timer out of time!');
+		this.stopTimer();
+		elapsed = this.totalTime;
+		this.counterEl.hide();
+		this.timeupEl.show();
+	}
+
 	var timeLeft = this.totalTime - elapsed;
 	var minutes = Math.floor(timeLeft/(1000*60));
 	var r = timeLeft - (minutes*1000*60);

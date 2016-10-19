@@ -187,14 +187,48 @@ Red:	 42%	#9C3848	rgba(156, 56, 72, 1)
 	height: calc(100% - 78px);
 	z-index: 20;
 }
-.sidebar .counter
+.sidebar .counter-container
 {
 	font-family: 'Share Tech Mono', monospace;
 	font-size: 46px;
 	color: #e6f5ff;
 	height: 60px;
-	text-shadow: 0 0 5px #0099ff;
 	text-align: center;
+}
+.sidebar .counter-container .counter
+{
+	color: #e6f5ff;
+	text-shadow: 0 0 5px #0099ff;
+}
+.sidebar .counter-container .timeup
+{
+	color: #bb4458;
+	text-shadow: 0 0 5px #ce7e8a;
+	-webkit-animation: color_text_timer_blink 0.8s infinite alternate;
+	-moz-animation: color_text_timer_blink 0.8s infinite alternate;
+	-ms-animation: color_text_timer_blink 0.8s infinite alternate;
+	-o-animation: color_text_timer_blink 0.8s infinite alternate;
+	animation: color_text_timer_blink 0.8s infinite alternate;
+}
+@-webkit-keyframes color_text_timer_blink {
+ from { color: #bb4458; }
+ to { color: #e3b5bb; }
+}
+@-moz-keyframes color_text_timer_blink {
+ from { color: #9C3848; }
+ to { color: #e3b5bb; }
+}
+@-ms-keyframes color_text_timer_blink {
+ from { color: #9C3848; }
+ to { color: #e3b5bb; }
+}
+@-o-keyframes color_text_timer_blink {
+ from { color: #9C3848; }
+ to { color: #e3b5bb; }
+}
+@keyframes color_text_timer_blink {
+ from { color: #bb4458; }
+ to { color: #e3b5bb; }
 }
 
 .sidebar .wrapper
@@ -357,7 +391,7 @@ Red:	 42%	#9C3848	rgba(156, 56, 72, 1)
 .section .title .icon.success
 {
 	margin: 40px 0 20px 0;
-	font-size: 25px;
+	font-size: 26px;
 }
 
 .alert
@@ -541,12 +575,12 @@ Red:	 42%	#9C3848	rgba(156, 56, 72, 1)
     margin: 30px;
     padding: 15px 5px;
 	height: 215px;
-	width: 170px;
+	width: 180px;
 	text-align: center;
 }
 .section-shields-manual .diagram .control-panel i
 {
-	font-size: 120px;
+	font-size: 135px;
 	line-height: 180px;
 	color: #ff9d4d;
 	text-shadow: 0 0 10px #ff9d4d;
@@ -585,9 +619,7 @@ Red:	 42%	#9C3848	rgba(156, 56, 72, 1)
 }
 .section-shields-manual div.radiation-level-container
 {
-	border: 1px solid #ffe3cc;
 	background-color: #803900;
-	box-shadow: 0 0px 8px 0 #ffe3cc;
 	width: 100%;
 }
 .section-shields-manual div.radiation-level

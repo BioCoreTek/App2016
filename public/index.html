@@ -64,8 +64,9 @@
 	</footer>
 
 	<div class="sidebar">
-		<div class="counter">
-			00:00
+		<div class="counter-container">
+			<div class="counter">00:00</div>
+			<div class="timeup" style="display: none">Time Up</div>
 		</div>
 		<div class="wrapper">
 			<div class="notifications">
@@ -188,7 +189,7 @@
 							<i class="fa fa-fw fa-lg fa-wifi"></i>
 							<strong>Life Support Failure</strong>
 						</div>
-						Enter primary oxygen conduit number and bypass conduit number.
+						Enter primary oxygen conduit number and bypass oxygen conduit number.
 					</div>
 				</div>
 			</div>
@@ -199,11 +200,11 @@
 				<div class="col-sm-7">
 					<div class="selection-result">
 						<div class="row">
-							<div class="col-sm-6 text-right selection-result-title">
-								<p>Primary Conduit:</p>
-								<p>Bypass Conduit:</p>
+							<div class="col-sm-7 text-right selection-result-title">
+								<p>Primary Conduit #:</p>
+								<p>Bypass Conduit #:</p>
 							</div>
-							<div class="col-sm-6 selection-result-values">
+							<div class="col-sm-5 selection-result-values">
 								<p><span class="selection-result-0">&nbsp;&nbsp;</span> - <span class="selection-result-1">&nbsp;&nbsp;</span></p>
 								<p><span class="selection-result-2">&nbsp;&nbsp;</span> - <span class="selection-result-3">&nbsp;&nbsp;</span></p>
 							</div>
@@ -212,7 +213,7 @@
 							<div class="col-sm-12">
 								<p class="attempt" style="display: none">Attempting Bypass...</p>
 								<p class="error" style="display: none">Invalid Bypass Route</p>
-								<p class="success" style="display: none">Bypass Succesfull</p>
+								<p class="success" style="display: none">Bypass Successful</p>
 							</div>
 						</div>
 					</div>
