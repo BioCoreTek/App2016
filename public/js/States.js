@@ -37,6 +37,14 @@ StateManager.prototype.init = function()
 	sgShields.addState('manual', 'override');
 	sgShields.addState('override');
 
+	// iPad shields
+	var ipShields = new StateGroup();
+	ipShields.init('ipadShields');
+	this.stateGroups['ipadShields'] = ipShields;
+	ipShields.addState('enabled', 'manual');
+	ipShields.addState('manual', 'override');
+	ipShields.addState('override');
+
 	// schematics
 	var sgSchematics = new StateGroup();
 	sgSchematics.init('schematics');

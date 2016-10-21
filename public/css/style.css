@@ -364,6 +364,15 @@ Red:	 42%	#9C3848	rgba(156, 56, 72, 1)
 	width: calc(100vw - 310px - 8px);
 }
 
+.ipad .content
+{
+    position:absolute;
+    top:40px;
+    left:40px;
+    width: calc(100vw - 80px);
+    height: calc(100vh - 80px);
+}
+
 .content-box
 {
 	height: 100%;
@@ -636,6 +645,46 @@ Red:	 42%	#9C3848	rgba(156, 56, 72, 1)
 	text-align: center;
 	margin-top: 15px;
 }
+
+/* Shield iPad Controls */
+.section-ipadShields-enabled .title h1, .section-ipadShields-override .title h1
+{
+    font-size: 80px;
+}
+
+.section-ipadShields-enabled .title i, .section-ipadShields-override .title i
+{
+    font-size: 535px;
+    margin-top:80px;
+    margin-bottom: 100px;
+}
+
+.section-ipadShields-enabled .title p, .section-ipadShields-override .title p
+{
+    font-size: 30px;
+}
+
+.section-ipadShields-manual .diagram
+{
+    position:absolute;
+    top:120px;
+    left:40px;
+}
+
+.section-ipadShields-manual .diagram .control-panel i
+{
+    font-size: 535px;
+    line-height: 535px;
+    text-align: center;
+    color: #ff9d4d;
+    text-shadow: 0 0 10px #ff9d4d;
+    -webkit-animation: pulse_hand 1s infinite alternate;
+    -moz-animation: pulse_hand 1s infinite alternate;
+    -ms-animation: pulse_hand 1s infinite alternate;
+    -o-animation: pulse_hand 1s infinite alternate;
+    animation: pulse_hand 1s infinite alternate;
+}
+
 
 /* ************************* SCHEMATICS ******************************* */
 

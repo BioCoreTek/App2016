@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="A new frontier in biology and technology">
+    <meta name="author" content="BioCoreTek">
+
+    <link rel="icon" type="image/png" href="img/favicon.png">
+
+    <title>BioCoreTek Shields GUI</title>
+
+    <link rel="stylesheet" href="css/bootstrap.min.css" />
+    <link rel="stylesheet" href="css/font-awesome.min.css" />
+    <link rel="stylesheet" href="css/style.css" />
+
+</head>
+<body class="ipad">
+
+<!-- ////////////////////////////////////////////////////////////////// -->
+
+<!-- for dev only -->
+<!-- use class 'interrupt' for buttons for that type -->
+<div class="admin-event-bar">
+    Test Events:
+
+    <button class="btn btn-primary btn-sm interrupt state" id="admin-ipadShields-manual">Shields Manual</button>
+    <button class="btn btn-primary btn-sm interrupt state" id="admin-ipadShields-override">Shields Override</button>
+
+</div>
+
+<!-- ////////////////////////////////////////////////////////////////// -->
+
+<div class="content">
+    <div class="content-box">
+        <div class="container-fluid">
+            <div class="section" id="section">
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ////////////////////////////////////////////////////////////////// -->
+<!-- /////////////////////// TEMPLATES //////////////////////////////// -->
+<!-- ////////////////////////////////////////////////////////////////// -->
+
+
+<!-- ////////////////////// SHIELDS /////////////////////////////////// -->
+
+<div id="template-ipadShields-enabled" style="display: none">
+    <div>
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="title">
+                    <h1>Shields Enabled</h1>
+                    <div class="icon success"><i class="fa fa-fw fa-5x fa-shield"></i></div>
+                    <p>Shields are operational.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="template-ipadShields-manual" style="display: none">
+    <div>
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="alert alert-danger">
+                    <div class="pull-left">
+                        <i class="fa fa-fw fa-lg fa-shield"></i>
+                        <strong>Shields Disabled</strong>
+                    </div>
+                    Hold the Manual Override Control.
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="diagram">
+                    <div class="control-panel moc">
+
+
+                        <i class="fa fa-hand-spock-o"></i>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="template-ipadShields-override" style="display: none">
+    <div>
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="title">
+                    <h1>Shields Enabled</h1>
+                    <div class="icon success"><i class="fa fa-fw fa-5x fa-shield"></i></div>
+                    <p>Shields have been re-activated.</p>
+                    <div></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- ////////////////////////////////////////////////////////////////// -->
+<!-- ////////////////////////////////////////////////////////////////// -->
+<!-- ////////////////////////////////////////////////////////////////// -->
+
+<script src="js/vendor/jquery-3.1.0.min.js"></script>
+<script src="js/vendor/bootstrap.min.js"></script>
+<script src="js/vendor/Chart.min.js"></script>
+<script src="js/vendor/ba-debug.min.js"></script>
+<script src="js/vendor/pubsub-1.4.2.min.js"></script>
+
+<script src="js/Config.js"></script>
+<script src="js/Notifications.js"></script>
+<script src="js/Sections.js"></script>
+<script src="js/Modal.js"></script>
+<script src="js/Timer.js"></script>
+<script src="js/GameLifesupport.js"></script>
+<script src="js/GameSchematics.js"></script>
+<script src="js/States.js"></script>
+
+<script src="js/ipadShieldsScript.js"></script>
+
+</body>
+</html>
