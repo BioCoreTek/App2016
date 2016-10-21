@@ -5,7 +5,7 @@ function Modal()
 	this.modalEl = $(".modal");
 	this.currentGroupName = null;
 	this.currentStateName = null;
-	this.supportedGroups = ["ai"];
+	this.supportedGroups = ["aigood", "aibad"];
 };
 
 Modal.prototype.init = function()
@@ -21,7 +21,8 @@ Modal.prototype.init = function()
 	PubSub.subscribe('state', function(msg, data)
 	{
 		debug.debug('Modal PubSub sub state', msg, data);
-		if (self.isSupportedGroup(data.group))
+		//if (self.isSupportedGroup(data.group))
+		if (data.mode == 'modal')
 		{
 			self.setSate(data.group, data.state);
 			self.modalEl.modal('show');
@@ -37,7 +38,7 @@ Modal.prototype.init = function()
 		}
 	});
 };
-
+/*
 Modal.prototype.isSupportedGroup = function(group)
 {
 	for (var i = 0, len = this.supportedGroups.length; i < len; i++)
@@ -49,7 +50,7 @@ Modal.prototype.isSupportedGroup = function(group)
 	}
 	return false;
 };
-
+*/
 Modal.prototype.setSate = function(group, state)
 {
 	debug.debug('Modal setSate called for:', group);

@@ -28,12 +28,12 @@
 		<button class="btn btn-primary btn-sm interrupt state" id="admin-shields-manual">Shields Manual</button>
 
 		<button class="btn btn-primary btn-sm interrupt state" id="admin-schematics-success">Schematics Success</button>
-		<button class="btn btn-primary btn-sm interrupt state" id="admin-ai-welcome">AI Welcome</button>
+		<button class="btn btn-primary btn-sm interrupt state" id="admin-aigood-welcome">AIG Welcome</button>
 
 		<button class="btn btn-primary btn-sm timer" id="admin-start">Timer <i class="fa fa-fw fa-play"></i></button>
 		<button class="btn btn-primary btn-sm timer" id="admin-stop">Timer <i class="fa fa-fw fa-stop"></i></button>
 		<button class="btn btn-primary btn-sm timer" id="admin-pause">Timer <i class="fa fa-fw fa-pause"></i><i class="fa fa-fw fa-play"></i></button>
-		<button class="btn btn-primary btn-sm timer" id="admin-unpause">Timer <i class="fa fa-fw fa-pause"></i><i class="fa fa-fw fa-stop"></i></button>
+		<button class="btn btn-primary btn-sm timer" id="admin-resume">Timer <i class="fa fa-fw fa-pause"></i><i class="fa fa-fw fa-stop"></i></button>
 	</div>
 
 	<!-- ////////////////////////////////////////////////////////////////// -->
@@ -151,13 +151,15 @@
 
 	<!-- ///////////////////////// AI ///////////////////////////////////// -->
 
-	<div id="template-ai-welcome" style="display: none">
+	<div id="template-aigood-welcome" style="display: none">
 		<div>
 			<div class="modal-header">
 				<h4 class="modal-title">Title Here</h4>
 			</div>
 			<div class="row">
-				<div class="col-sm-12">
+				<div class="col-sm-5">
+				</div>
+				<div class="col-sm-7">
 				</div>
 			</div>
 		</div>
@@ -303,7 +305,7 @@
 							<i class="fa fa-fw fa-lg fa-shield"></i>
 							<strong>Shields Disabled</strong>
 						</div>
-						Manually enable radiation deflector shields by holding the override control.
+						Enable radiation deflector shields by holding the Manual Override Control.
 					</div>
 				</div>
 			</div>
@@ -378,8 +380,10 @@
 	<script src="js/vendor/Chart.min.js"></script>
 	<script src="js/vendor/ba-debug.min.js"></script>
 	<script src="js/vendor/pubsub-1.4.2.min.js"></script>
+	<script src="js/vendor/socket.io.js"></script>
 
 	<script src="js/Config.js"></script>
+	<script src="js/SpaceServer.js"></script>
 	<script src="js/StatsChart.js"></script>
 	<script src="js/Notifications.js"></script>
 	<script src="js/GamePad.js"></script>
@@ -389,6 +393,8 @@
 	<script src="js/GameLifesupport.js"></script>
 	<script src="js/GameSchematics.js"></script>
 	<script src="js/States.js"></script>
+
+	<script src="js/Dev.js"></script>
 
 	<script src="js/script.js"></script>
 </body>

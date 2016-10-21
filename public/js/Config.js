@@ -2,6 +2,8 @@
 
 function Config()
 {
+	// url to backend server
+	this.server = 'http://localhost:3000';
 	// which joystick buttons index mapped to which section
 	this.buttonMap = {
 		0: "lifesupport",

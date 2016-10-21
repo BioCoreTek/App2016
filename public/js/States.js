@@ -17,47 +17,62 @@ StateManager.prototype.init = function()
 	var sgLifeSupport = new StateGroup();
 	sgLifeSupport.init('lifesupport');
 	this.stateGroups['lifesupport'] = sgLifeSupport;
-	sgLifeSupport.addState('active', 'failure');
-	sgLifeSupport.addState('failure', 'success', 'GameLifesupport');
-	sgLifeSupport.addState('success');
+	sgLifeSupport.addState('active', 'failure', 'section');
+	sgLifeSupport.addState('failure', 'success', 'section', 'GameLifesupport');
+	sgLifeSupport.addState('success', null, 'section');
 
 	// communications
 	var sgCommunications = new StateGroup();
 	sgCommunications.init('communications');
 	this.stateGroups['communications'] = sgCommunications;
-	sgCommunications.addState('unreachable', 'linking');
-	sgCommunications.addState('linking', 'transmission');
-	sgCommunications.addState('transmission');
+	sgCommunications.addState('unreachable', 'linking', 'section');
+	sgCommunications.addState('linking', 'transmission', 'section');
+	sgCommunications.addState('transmission', null, 'section');
 
 	// shields
 	var sgShields = new StateGroup();
 	sgShields.init('shields');
 	this.stateGroups['shields'] = sgShields;
-	sgShields.addState('enabled', 'manual');
-	sgShields.addState('manual', 'override');
-	sgShields.addState('override');
+	sgShields.addState('enabled', 'manual', 'section');
+	sgShields.addState('manual', 'override', 'section');
+	sgShields.addState('override', null, 'section');
 
-	// iPad shields
-	var ipShields = new StateGroup();
-	ipShields.init('ipadShields');
-	this.stateGroups['ipadShields'] = ipShields;
-	ipShields.addState('enabled', 'manual');
-	ipShields.addState('manual', 'override');
-	ipShields.addState('override');
+	// ipadshields
+	var sgIpadshields = new StateGroup();
+	sgIpadshields.init('ipadShields');
+	this.stateGroups['ipadShields'] = sgIpadshields;
+	sgIpadshields.addState('enabled', 'manual', 'section');
+	sgIpadshields.addState('manual', 'override', 'section');
+	sgIpadshields.addState('override', null, 'section');
 
 	// schematics
 	var sgSchematics = new StateGroup();
 	sgSchematics.init('schematics');
 	this.stateGroups['schematics'] = sgSchematics;
-	sgSchematics.addState('rendering', 'success');
-	sgSchematics.addState('success', null, 'GameSchematics');
+	sgSchematics.addState('rendering', 'success', 'section');
+	sgSchematics.addState('success', null, 'section', 'GameSchematics');
 
-	// ai
-	var sgAi = new StateGroup();
-	sgAi.init('ai');
-	this.stateGroups['ai'] = sgAi;
-	sgAi.addState('welcome', 'success');
-	sgAi.addState('success');
+	// aigood
+	var sgAigood = new StateGroup();
+	sgAigood.init('aigood');
+	this.stateGroups['aigood'] = sgAigood;
+	sgAigood.addState('welcome', 'donttakeme', 'modal');
+	sgAigood.addState('donttakeme', 'incinerator', 'modal');
+	sgAigood.addState('incinerator', null, 'modal');
+
+	// aibad
+	var sgAibad = new StateGroup();
+	sgAibad.init('aibad');
+	this.stateGroups['aibad'] = sgAibad;
+	sgAibad.addState('puzzle', 'shieldresult', 'modal');
+	sgAibad.addState('shieldresult', 'boxopen', 'modal');
+	sgAibad.addState('boxopen', null, 'modal');
+
+	// selfdestruct
+	var sgSelfdestruct = new StateGroup();
+	sgSelfdestruct.init('selfdestruct');
+	this.stateGroups['selfdestruct'] = sgSelfdestruct;
+	sgAibad.addState('countdown', null, 'modal');
 
 	// watch any section changes clicked by the user to change state
 	PubSub.subscribe('section', function(msg, data)
@@ -74,16 +89,16 @@ StateManager.prototype.init = function()
 	});
 
 	// listen for server events
-	PubSub.subscribe('event', function(msg, data)
+	PubSub.subscribe('stateSet', function(msg, data)
 	{
-		debug.debug('StateManager PubSub sub event', msg, data);
+		debug.debug('StateManager PubSub sub stateSet', msg, data);
 		// set the new state
 		self.stateGroups[data.group].setState(data.state);
-		// if it is an interrupt state, go to that section
-		if (data.interrupt);
-		{
-			self.goToGroup(data.group);
-		}
+	});
+	PubSub.subscribe('stateInterrupt', function(msg, data)
+	{
+		debug.debug('StateManager PubSub sub stateInterrupt', msg, data);
+		self.goToGroup(data.group);
 	});
 };
 
@@ -113,9 +128,9 @@ StateGroup.prototype.init = function(name)
 	this.name = name;
 };
 
-StateGroup.prototype.addState = function(name, next, gameName)
+StateGroup.prototype.addState = function(name, next, mode, gameName)
 {
-	this.states[name] = new State(this.name, name, next, gameName);
+	this.states[name] = new State(this.name, name, next, mode, gameName);
 
 	// set the default state to the first one added
 	// user can set manually if desired
@@ -183,21 +198,23 @@ StateGroup.prototype.run = function()
 
 /////////////////////////////// STATE  ////////////////////////////////////////
 
-function State(group, name, next, gameName)
+function State(group, name, next, mode, gameName)
 {
 	this.group = null;
 	this.name = null;
 	this.next = null;
+	this.mode = null;
 	this.gameObj = null;
 
-	this.init(group, name, next, gameName);
+	this.init(group, name, next, mode, gameName);
 };
 
-State.prototype.init = function(group, name, next, gameName)
+State.prototype.init = function(group, name, next, mode, gameName)
 {
 	this.group = group;
 	this.name = name;
 	this.next = next;
+	this.mode = mode;
 	if (gameName)
 		this.gameObj = new window[gameName]();
 };
@@ -205,5 +222,5 @@ State.prototype.init = function(group, name, next, gameName)
 State.prototype.run = function()
 {
 	debug.debug("State run: ", this.name);
-	PubSub.publish('state', {state: this.name, group: this.group, gameObj: this.gameObj});
+	PubSub.publish('state', {state: this.name, group: this.group, mode: this.mode, gameObj: this.gameObj});
 };

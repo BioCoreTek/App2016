@@ -50,8 +50,8 @@ Timer.prototype.processTimerEvent = function(data)
 		case 'pause':
 			this.pauseTimer();
 			break;
-		case 'unpause':
-			this.unpauseTimer();
+		case 'resume':
+			this.resumeTimer();
 			break;
 		case 'stop':
 			this.stopTimer();
@@ -117,9 +117,9 @@ Timer.prototype.pauseTimer = function()
 	this.currentPause = this.pauses[this.pauses.length-1];
 };
 
-Timer.prototype.unpauseTimer = function()
+Timer.prototype.resumeTimer = function()
 {
-	debug.debug('Timer unpauseTimer');
+	debug.debug('Timer resumeTimer');
 	this.currentPause.stopTime = new Date().getTime();
 	var t = this.currentPause.stopTime - this.currentPause.startTime;
 	this.pauseTotalTime += t;

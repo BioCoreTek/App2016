@@ -32,7 +32,7 @@ Sections.prototype.init = function()
 	PubSub.subscribe('state', function(msg, data)
 	{
 		debug.debug('Sections PubSub sub state', msg, data);
-		if (self.isSupportedGroup(data.group))
+		if (data.mode == 'section' && self.isSupportedGroup(data.group))
 		{
 			self.changeSection(data.group);
 			self.setTemplate(data.group, data.state);

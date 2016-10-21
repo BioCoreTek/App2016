@@ -11,7 +11,7 @@ html, body
 }
 body
 {
-	margin: 40px;
+	margin: 50px;
 }
 .noselect
 {
@@ -46,13 +46,14 @@ body
 http://www.w3schools.com/colors/colors_picker.asp
 https://coolors.co/004d80-47a8bd-f5e663-ffad69-9c3848
 
-Original:
+Original Palette - Do not use directly:
 Blue:	 25%	#004D80	rgba(0, 77, 128, 1)
 Teal:	 51%	#47A8BD	rgba(71, 168, 189, 1)
 Yellow:	 67%	#F5E663	rgba(245, 230, 99, 1)
 Orange:	 71%	#FFAD69	rgba(255, 173, 105, 1)
 Red:	 42%	#9C3848	rgba(156, 56, 72, 1)
 
+Blue
 #004D80
 25%:	#004d80;
 30%:	#005c99;
@@ -62,6 +63,7 @@ Red:	 42%	#9C3848	rgba(156, 56, 72, 1)
 90%:	#ccebff
 95%:	#e6f5ff;
 
+Red
 #9C3848
 25%:	#5c232c;
 30%:	#702935;
@@ -71,6 +73,7 @@ Red:	 42%	#9C3848	rgba(156, 56, 72, 1)
 90%:	#f1dadd;
 95%:	#f8edee;
 
+Teal
 #47A8BD
 25%:	#23535c;
 30%:	#296370;
@@ -79,6 +82,7 @@ Red:	 42%	#9C3848	rgba(156, 56, 72, 1)
 80%:	#b5dbe3;
 90%:	#daeef1;
 
+Yellow
 #F5E663
 25%:	#786d08;
 30%:	#908209;
@@ -87,6 +91,7 @@ Red:	 42%	#9C3848	rgba(156, 56, 72, 1)
 80%:	#f9f09f;
 90%:	#fcf7cf;
 
+Orange
 #FFAD69
 25%:	#803900;
 30%:	#994500;
@@ -103,9 +108,9 @@ Red:	 42%	#9C3848	rgba(156, 56, 72, 1)
 .footer
 {
 	position: absolute;
-	bottom: 0;
-	left: 40px;
-	right: 40px;
+	bottom: 30px;
+	left: 50px;
+	right: 50px;
 	width: auto;
 	height: 80px;
 	z-index: 10;
@@ -181,10 +186,10 @@ Red:	 42%	#9C3848	rgba(156, 56, 72, 1)
 .sidebar
 {
 	position: absolute;
-	top: 0;
-	left: 40px;
+	top: 30px;
+	left: 50px;
 	width: 230px;
-	height: calc(100% - 78px);
+	height: calc(100% - 78px - 60px);
 	z-index: 20;
 }
 .sidebar .counter-container
@@ -337,10 +342,10 @@ Red:	 42%	#9C3848	rgba(156, 56, 72, 1)
 .topbar
 {
 	position: absolute;
-	top: 0;
-	right: 40px;
+	top: 30px;
+	right: 50px;
 	height: 60px;
-	width: calc(100% - 310px);
+	width: calc(100% - 330px);
 
 }
 .topbar h1
@@ -354,14 +359,16 @@ Red:	 42%	#9C3848	rgba(156, 56, 72, 1)
 
 /********************************* CONTENT ***********************************/
 
+/* tv height max: 870px */
+/* tv width max: 1580px */
 .content
 {
 	position: absolute;
-	top: 60px;
-	right: 40px;
+	top: 90px;
+	right: 50px;
 	margin: 4px;
-	height: calc(100vh - 140px - 8px);
-	width: calc(100vw - 310px - 8px);
+	height: calc(100vh - 140px - 8px - 60px);
+	width: calc(100vw - 330px - 8px);
 }
 
 .ipad .content
@@ -618,6 +625,11 @@ Red:	 42%	#9C3848	rgba(156, 56, 72, 1)
 @keyframes pulse_hand {
  from { text-shadow: 0 0 10px #ff9d4d; }
  to { text-shadow: 0 0 10px #ffe3cc; }
+}
+
+.section-shields-manual .diagram .control-panel i.pressed
+{
+	color: #bb4458;
 }
 
 .section-shields-manual h2
