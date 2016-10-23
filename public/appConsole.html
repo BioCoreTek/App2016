@@ -71,11 +71,14 @@
 		<div class="wrapper">
 			<div class="notifications">
 				<div id="note-lifesupport" class="note-group">
+					<div id="note-lifesupport-active" class="note success" style="display: none">
+						<i class="fa fa-fw fa-lg fa-life-saver"></i> Life Support Active
+					</div>
 					<div id="note-lifesupport-failure" class="note error" style="display: none">
 						<i class="fa fa-fw fa-lg fa-life-saver"></i> Life Support Failure
 					</div>
-					<div id="note-lifesupport-active" class="note success" style="display: none">
-						<i class="fa fa-fw fa-lg fa-life-saver"></i> Life Support Active
+					<div id="note-lifesupport-bypass" class="note success" style="display: none">
+						<i class="fa fa-fw fa-lg fa-life-saver"></i> Life Support Bypass
 					</div>
 				</div>
 				<div id="note-network" class="note-group">
@@ -224,7 +227,7 @@
 		</div>
 	</div>
 
-	<div id="template-lifesupport-success" style="display: none">
+	<div id="template-lifesupport-bypass" style="display: none">
 		<div>
 			<div class="row">
 				<div class="col-sm-12">
@@ -391,8 +394,10 @@
 	<script src="js/Modal.js"></script>
 	<script src="js/Timer.js"></script>
 	<script src="js/TaskLifesupport.js"></script>
+	<script src="js/TaskSchematicsRendering.js"></script>
 	<script src="js/TaskSchematics.js"></script>
 	<script src="js/States.js"></script>
+	<script src="js/AudioManager.js"></script>
 
 	<script src="js/Dev.js"></script>
 

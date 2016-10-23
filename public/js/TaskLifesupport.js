@@ -20,6 +20,10 @@ TaskLifesupport.prototype.init = function()
 
 	debug.debug('TaskLifesupport init');
 
+	this.startTask();
+
+	PubSub.publish('audio', {name: 'alarm', action: 'play', loop: true});
+
 	var c = $('.content canvas')[0];
 	this.context = c.getContext('2d');
 
@@ -35,6 +39,40 @@ TaskLifesupport.prototype.init = function()
 		debug.debug('TaskLifesupport PubSub sub task', msg, data)
 		if (data && data.taskname == self.taskName)
 			self.processResults(data.result);
+	});
+};
+
+// to be called when game exists
+TaskLifesupport.prototype.exit = function()
+{
+	PubSub.publish('audio', {name: 'alarm', action: 'stop'});
+};
+
+TaskLifesupport.prototype.startTask = function()
+{
+	debug.log('TaskSchematicsRendering startTask');
+
+	// start task
+	PubSub.publish('server', {
+		event: 'task',
+		command: 'start',
+		data: {
+			taskname: this.taskName
+		}
+	});
+};
+
+TaskLifesupport.prototype.stopTask = function()
+{
+	debug.log('TaskSchematicsRendering stopTask');
+
+	// stop task
+	PubSub.publish('server', {
+		event: 'task',
+		command: 'stop',
+		data: {
+			taskname: this.taskName
+		}
 	});
 };
 
@@ -185,6 +223,7 @@ TaskLifesupport.prototype.processResults = function(result)
 		$(".selection-result-status p").hide();
 		$(".selection-result-status .success").show();
 		setTimeout(function(){
+			self.stopTask();
 			PubSub.publish('stateNext', {group: 'lifesupport'});
 		}, 2500);
 	}

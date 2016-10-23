@@ -9,6 +9,7 @@ var gamePad;
 var notifications;
 var modal;
 var timer;
+var audioManager;
 
 ///////////////////////////////////////////////////////////////////////////////
 
@@ -41,6 +42,9 @@ function init()
 
 	timer = new Timer();
 	timer.init();
+
+	audioManager = new AudioManager();
+	audioManager.init();
 
 	stateManager = new StateManager();
 	stateManager.init(stateConfig);

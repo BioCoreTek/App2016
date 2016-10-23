@@ -1,3 +1,4 @@
+// do not duplicate state names, even across groups
 var stateConfig = {
 	groups: [
 		{

@@ -73,6 +73,7 @@ Sections.prototype.setTemplate = function(group, state)
 {
 	debug.debug('Sections setTemplate called for:', group, state);
 
+	// @todo this does not allow same state name across groups
 	if (this.currentGroupName == group && this.currentStateName == state)
 	{
 		debug.debug('Sections setTemplate already in group and state:', group, state);

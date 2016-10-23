@@ -161,7 +161,7 @@ StateGroup.prototype.setDefaultState = function(name)
 StateGroup.prototype.goToDefaultState = function()
 {
 	this.currentState = this.defaultState;
-	this.run();
+	this.runState();
 };
 StateGroup.prototype.goToCurrentState = function()
 {
@@ -171,7 +171,7 @@ StateGroup.prototype.goToCurrentState = function()
 	}
 	else
 	{
-		this.run();
+		this.runState();
 	}
 };
 
@@ -182,16 +182,18 @@ StateGroup.prototype.goToCurrentState = function()
 StateGroup.prototype.setState = function(name)
 {
 	debug.debug('StateGroup setState');
+	// exit the current state first
+	this.exitState();
 	this.currentState = this.states[name];
 };
 /**
  * @description
  * Set a the next state without going to it
  */
-StateGroup.prototype.setNextState = function(name)
+StateGroup.prototype.setNextState = function()
 {
 	debug.debug('StateGroup setNextState');
-	this.currentState = this.states[this.currentState.next];
+	this.setState(this.currentState.next);
 };
 
 /**
@@ -201,8 +203,8 @@ StateGroup.prototype.setNextState = function(name)
 StateGroup.prototype.goToState = function(name)
 {
 	debug.debug('StateGroup goToState');
-	this.currentState = this.states[name];
-	this.run();
+	this.setState(name);
+	this.runState();
 };
 
 /**
@@ -212,15 +214,22 @@ StateGroup.prototype.goToState = function(name)
 StateGroup.prototype.goToNextState = function()
 {
 	debug.debug('StateGroup goToNextState');
-	this.currentState = this.states[this.currentState.next];
-	this.run();
+	this.setNextState();
+	this.runState();
 };
 
-StateGroup.prototype.run = function()
+StateGroup.prototype.runState = function()
 {
 	PubSub.publish('stateGroup', this.name);
 	debug.debug('StateGroup currentState:', {group: this.currentState});
 	this.currentState.run();
+};
+
+StateGroup.prototype.exitState = function()
+{
+	debug.debug('StateGroup exitState:', {group: this.currentState});
+	if (this.currentState)
+		this.currentState.exit();
 };
 
 /////////////////////////////// STATE  ////////////////////////////////////////
@@ -260,4 +269,13 @@ State.prototype.run = function()
 		mode: this.mode,
 		taskObj: this.taskObj
 	});
+};
+
+State.prototype.exit = function()
+{
+	debug.debug("State exit: ", this.name);
+	if (this.taskObj && this.taskObj.exit)
+	{
+		this.taskObj.exit();
+	}
 };

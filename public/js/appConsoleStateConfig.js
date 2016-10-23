@@ -1,3 +1,4 @@
+// do not duplicate state names, even across groups
 var stateConfig = {
 	groups: [
 		{
@@ -11,11 +12,11 @@ var stateConfig = {
 				{
 					name: 'failure',
 					mode: 'section',
-					next: 'success',
+					next: 'bypass',
 					task: 'TaskLifesupport'
 				},
 				{
-					name: 'success',
+					name: 'bypass',
 					mode: 'section',
 				}
 			]
@@ -65,7 +66,7 @@ var stateConfig = {
 					name: 'rendering',
 					mode: 'section',
 					next: 'success',
-					//task: 'TaskSchematicsRendering'
+					task: 'TaskSchematicsRendering'
 				},
 				{
 					name: 'success',
