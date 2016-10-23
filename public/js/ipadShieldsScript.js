@@ -21,17 +21,8 @@ function init()
 
 	config = new Config();
 
-	notifications = new Notifications();
-	notifications.init();
-
 	section = new Sections();
 	section.init();
-
-	modal = new Modal();
-	modal.init();
-
-	timer = new Timer();
-	timer.init();
 
 	stateManager = new StateManager();
 	stateManager.init(stateConfig);
