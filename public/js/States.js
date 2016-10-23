@@ -7,72 +7,12 @@ function StateManager()
 	this.currentStateGroup = null;
 };
 
-StateManager.prototype.init = function()
+StateManager.prototype.init = function(stateconfig)
 {
 	var self = this;
 
 	// create all the states
-
-	// life support
-	var sgLifeSupport = new StateGroup();
-	sgLifeSupport.init('lifesupport');
-	this.stateGroups['lifesupport'] = sgLifeSupport;
-	sgLifeSupport.addState('active', 'failure', 'section');
-	sgLifeSupport.addState('failure', 'success', 'section', 'GameLifesupport');
-	sgLifeSupport.addState('success', null, 'section');
-
-	// communications
-	var sgCommunications = new StateGroup();
-	sgCommunications.init('communications');
-	this.stateGroups['communications'] = sgCommunications;
-	sgCommunications.addState('unreachable', 'linking', 'section');
-	sgCommunications.addState('linking', 'transmission', 'section');
-	sgCommunications.addState('transmission', null, 'section');
-
-	// shields
-	var sgShields = new StateGroup();
-	sgShields.init('shields');
-	this.stateGroups['shields'] = sgShields;
-	sgShields.addState('enabled', 'manual', 'section');
-	sgShields.addState('manual', 'override', 'section');
-	sgShields.addState('override', null, 'section');
-
-	// ipadshields
-	var sgIpadshields = new StateGroup();
-	sgIpadshields.init('ipadShields');
-	this.stateGroups['ipadShields'] = sgIpadshields;
-	sgIpadshields.addState('enabled', 'manual', 'section');
-	sgIpadshields.addState('manual', 'override', 'section');
-	sgIpadshields.addState('override', null, 'section');
-
-	// schematics
-	var sgSchematics = new StateGroup();
-	sgSchematics.init('schematics');
-	this.stateGroups['schematics'] = sgSchematics;
-	sgSchematics.addState('rendering', 'success', 'section');
-	sgSchematics.addState('success', null, 'section', 'GameSchematics');
-
-	// aigood
-	var sgAigood = new StateGroup();
-	sgAigood.init('aigood');
-	this.stateGroups['aigood'] = sgAigood;
-	sgAigood.addState('welcome', 'donttakeme', 'modal');
-	sgAigood.addState('donttakeme', 'incinerator', 'modal');
-	sgAigood.addState('incinerator', null, 'modal');
-
-	// aibad
-	var sgAibad = new StateGroup();
-	sgAibad.init('aibad');
-	this.stateGroups['aibad'] = sgAibad;
-	sgAibad.addState('puzzle', 'shieldresult', 'modal');
-	sgAibad.addState('shieldresult', 'boxopen', 'modal');
-	sgAibad.addState('boxopen', null, 'modal');
-
-	// selfdestruct
-	var sgSelfdestruct = new StateGroup();
-	sgSelfdestruct.init('selfdestruct');
-	this.stateGroups['selfdestruct'] = sgSelfdestruct;
-	sgAibad.addState('countdown', null, 'modal');
+	this.parseStateConfig(stateconfig);
 
 	// watch any section changes clicked by the user to change state
 	PubSub.subscribe('section', function(msg, data)
@@ -104,6 +44,60 @@ StateManager.prototype.init = function()
 
 /**
  * @description
+ * Parse state config.  Create and add group and state objects.
+ * @param {string} stateconfig The state config object
+ * @example State config:
+ * 	{
+ *	groups: [
+ *		{
+ *			name: 'groupname',
+ *			states: [
+ *				{
+ *					name: 'stateonename', // required
+ *					mode: 'section',	// optional, default
+ *					next: 'statetwoname'	// optional
+ *				},
+ *				{
+ *					name: 'statetwoname',
+ *					mode: 'modal',
+ *					game: 'gameOneName'	// optional
+ *				}
+ *			]
+ *		}
+ *	]
+ *	}
+ */
+StateManager.prototype.parseStateConfig = function(stateconfig)
+{
+	if (stateconfig.groups)
+	{
+		for (var g = 0, glen = stateconfig.groups.length; g < glen; g++)
+		{
+			var group = stateconfig.groups[g];
+			debug.debug('Adding state group:', group.name);
+
+			var sg = new StateGroup();
+			sg.init(group.name);
+			this.stateGroups[group.name] = sg;
+
+			if (group.states)
+			{
+				for (var s = 0, slen = group.states.length; s < slen; s++)
+				{
+					var name = group.states[s].name;
+					debug.debug('Adding state :', name);
+					var mode = group.states[s].mode ? group.states[s].mode : 'section';
+					var next = group.states[s].next ? group.states[s].next : null;
+					var game = group.states[s].game ? group.states[s].game : null;
+					sg.addState(name, mode, next, game);
+				}
+			}
+		}
+	}
+};
+
+/**
+ * @description
  * Go to a group of states
  * @param {string} name The name of the state group
  */
@@ -128,9 +122,9 @@ StateGroup.prototype.init = function(name)
 	this.name = name;
 };
 
-StateGroup.prototype.addState = function(name, next, mode, gameName)
+StateGroup.prototype.addState = function(name, mode, next, gameName)
 {
-	this.states[name] = new State(this.name, name, next, mode, gameName);
+	this.states[name] = new State(this.name, name, mode, next, gameName);
 
 	// set the default state to the first one added
 	// user can set manually if desired
@@ -198,23 +192,23 @@ StateGroup.prototype.run = function()
 
 /////////////////////////////// STATE  ////////////////////////////////////////
 
-function State(group, name, next, mode, gameName)
+function State(group, name, mode, next, gameName)
 {
 	this.group = null;
 	this.name = null;
-	this.next = null;
 	this.mode = null;
+	this.next = null;
 	this.gameObj = null;
 
-	this.init(group, name, next, mode, gameName);
+	this.init(group, name, mode, next, gameName);
 };
 
-State.prototype.init = function(group, name, next, mode, gameName)
+State.prototype.init = function(group, name, mode, next, gameName)
 {
 	this.group = group;
 	this.name = name;
-	this.next = next;
 	this.mode = mode;
+	this.next = next;
 	if (gameName)
 		this.gameObj = new window[gameName]();
 };

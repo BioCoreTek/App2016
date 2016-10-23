@@ -34,7 +34,7 @@ function init()
 	timer.init();
 
 	stateManager = new StateManager();
-	stateManager.init();
+	stateManager.init(stateConfig);
 
 	//enable the touch button!
 	activateManualOverride();
@@ -43,7 +43,7 @@ function init()
 		setupDev();
 
 	// run the app now
-	stateManager.goToGroup("ipadShields");
+	stateManager.goToGroup("ipadshields");
 }
 
 function activateManualOverride()

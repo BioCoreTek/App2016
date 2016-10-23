@@ -659,31 +659,31 @@ Orange
 }
 
 /* Shield iPad Controls */
-.section-ipadShields-enabled .title h1, .section-ipadShields-override .title h1
+.section-ipadshields-enabled .title h1, .section-ipadshields-override .title h1
 {
     font-size: 80px;
 }
 
-.section-ipadShields-enabled .title i, .section-ipadShields-override .title i
+.section-ipadshields-enabled .title i, .section-ipadshields-override .title i
 {
     font-size: 535px;
     margin-top:80px;
     margin-bottom: 100px;
 }
 
-.section-ipadShields-enabled .title p, .section-ipadShields-override .title p
+.section-ipadshields-enabled .title p, .section-ipadshields-override .title p
 {
     font-size: 30px;
 }
 
-.section-ipadShields-manual .diagram
+.section-ipadshields-manual .diagram
 {
     position:absolute;
     top:120px;
     left:40px;
 }
 
-.section-ipadShields-manual .diagram .control-panel i
+.section-ipadshields-manual .diagram .control-panel i
 {
     font-size: 535px;
     line-height: 535px;

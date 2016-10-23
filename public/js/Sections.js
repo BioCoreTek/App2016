@@ -5,7 +5,7 @@ function Sections()
 	this.sectionEl = $("#section");
 	this.currentGroupName = null;
 	this.currentStateName = null;
-	this.supportedGroups = ["lifesupport", "communications", "shields", "schematics", "ipadShields"];
+	this.supportedGroups = ["lifesupport", "communications", "shields", "schematics", "ipadshields"];
 };
 
 Sections.prototype.init = function()

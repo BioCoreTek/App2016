@@ -43,7 +43,7 @@ function init()
 	timer.init();
 
 	stateManager = new StateManager();
-	stateManager.init();
+	stateManager.init(stateConfig);
 
 	if (DEV)
 		setupDev();
