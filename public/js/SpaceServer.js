@@ -4,23 +4,31 @@
 function SpaceServer()
 {
 	this.socket = false;
-	this.username = 'main';
+	this.username = null;
 };
 
-SpaceServer.prototype.init = function()
+SpaceServer.prototype.init = function(username)
 {
 	var self = this;
 
 	debug.debug('SpaceServer init');
 
+	this.username = username;
+
 	this.socket = io.connect(config.get('server'));
 
 	debug.debug('SpaceServer init register user');
 
-	this.send('user', 'register', {username: this.username});
+	this.socket.emit('user register', {username: this.username});
 
 	this.socket.on('new message', function (data) {
-		this.receiveCommand(data);
+		self.receiveCommand(data);
+	});
+
+	PubSub.subscribe('server', function(msg, data)
+	{
+		debug.debug('SpaceServer PubSub sub server', msg, data);
+		self.send(data.event, data.command, data.data);
 	});
 };
 
@@ -29,7 +37,7 @@ SpaceServer.prototype.init = function()
  */
 SpaceServer.prototype.send = function(event, command, data)
 {
-	var message = this.formatMessage(command, data);
+	var message = this.formatMessage(event, command, data);
 
 	debug.debug('emit new message:', message);
 
@@ -49,22 +57,35 @@ SpaceServer.prototype.formatMessage = function(event, command, data)
 
 SpaceServer.prototype.receiveCommand = function(data)
 {
-	switch (data.event)
+	debug.debug('receiveCommand', data);
+	var msg = data.message;
+	switch (msg.event)
 	{
 		case 'timer':
-			PubSub.publish(data.event, data.command);
+			debug.debug('receiveCommand timer', msg);
+			PubSub.publish(msg.event, msg.command);
 			break;
 		case 'state':
-			switch (data.command)
+			debug.debug('receiveCommand state', msg);
+			switch (msg.command)
 			{
 				case 'set':
-					PubSub.publish('stateSet', data.data);
+					PubSub.publish('stateSet', msg.data);
 					break;
 				case 'interrupt':
-					PubSub.publish('stateInterrupt', data.data);
+					PubSub.publish('stateInterrupt', msg.data);
+					break;
+			}
+			break;
+		case 'task':
+			debug.debug('receiveCommand task', msg);
+			switch (msg.command)
+			{
+				case 'result':
+					debug.debug('receiveCommand task result', msg);
+					PubSub.publish(msg.event, msg.data);
 					break;
 			}
 			break;
 	}
-	PubSub.publish(data.event)
 };

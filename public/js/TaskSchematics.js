@@ -1,15 +1,16 @@
 
-function GameSchematics()
+function TaskSchematics()
 {
+	this.taskName = 'TaskSchematics';
 	// static
 	this.context;
 };
 
-GameSchematics.prototype.init = function()
+TaskSchematics.prototype.init = function()
 {
 	var self = this;
 
-	debug.debug('GameSchematics init');
+	debug.debug('TaskSchematics init');
 
 	var c = $('.content canvas')[0];
 	this.context = c.getContext('2d');
@@ -17,9 +18,9 @@ GameSchematics.prototype.init = function()
 	this.drawSchematics();
 };
 
-GameSchematics.prototype.drawSchematics = function()
+TaskSchematics.prototype.drawSchematics = function()
 {
-	debug.log('GameSchematics drawSchematics');
+	debug.log('TaskSchematics drawSchematics');
 
 	// clear
 	this.context.fillStyle = "#eee";

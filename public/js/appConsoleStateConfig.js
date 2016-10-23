@@ -12,7 +12,7 @@ var stateConfig = {
 					name: 'failure',
 					mode: 'section',
 					next: 'success',
-					game: 'GameLifesupport'
+					task: 'TaskLifesupport'
 				},
 				{
 					name: 'success',
@@ -64,12 +64,13 @@ var stateConfig = {
 				{
 					name: 'rendering',
 					mode: 'section',
-					next: 'success'
+					next: 'success',
+					//task: 'TaskSchematicsRendering'
 				},
 				{
 					name: 'success',
 					mode: 'section',
-					game: 'GameSchematics'
+					task: 'TaskSchematics'
 				}
 			]
 		},

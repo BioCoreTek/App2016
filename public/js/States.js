@@ -28,6 +28,23 @@ StateManager.prototype.init = function(stateconfig)
 		self.goToGroup(data.name);
 	});
 
+	// listen for app events about states
+	PubSub.subscribe('stateNext', function(msg, data)
+	{
+		debug.debug('StateManager PubSub sub stateNext', msg, data);
+		// set the next state, if current state, go to it
+		if (self.currentStateGroup.name == data.group)
+		{
+			debug.debug('StateManager PubSub sub stateNext goToNextState');
+			self.stateGroups[data.group].goToNextState();
+		}
+		else
+		{
+			debug.debug('StateManager PubSub sub stateNext setNextState');
+			self.stateGroups[data.group].setNextState();
+		}
+	});
+
 	// listen for server events
 	PubSub.subscribe('stateSet', function(msg, data)
 	{
@@ -60,7 +77,7 @@ StateManager.prototype.init = function(stateconfig)
  *				{
  *					name: 'statetwoname',
  *					mode: 'modal',
- *					game: 'gameOneName'	// optional
+ *					task: 'taskOneName'	// optional
  *				}
  *			]
  *		}
@@ -88,8 +105,8 @@ StateManager.prototype.parseStateConfig = function(stateconfig)
 					debug.debug('Adding state :', name);
 					var mode = group.states[s].mode ? group.states[s].mode : 'section';
 					var next = group.states[s].next ? group.states[s].next : null;
-					var game = group.states[s].game ? group.states[s].game : null;
-					sg.addState(name, mode, next, game);
+					var task = group.states[s].task ? group.states[s].task : null;
+					sg.addState(name, mode, next, task);
 				}
 			}
 		}
@@ -122,9 +139,9 @@ StateGroup.prototype.init = function(name)
 	this.name = name;
 };
 
-StateGroup.prototype.addState = function(name, mode, next, gameName)
+StateGroup.prototype.addState = function(name, mode, next, task)
 {
-	this.states[name] = new State(this.name, name, mode, next, gameName);
+	this.states[name] = new State(this.name, name, mode, next, task);
 
 	// set the default state to the first one added
 	// user can set manually if desired
@@ -160,25 +177,41 @@ StateGroup.prototype.goToCurrentState = function()
 
 /**
  * @description
- * Go to a specific state
+ * Set a specific state without going to it
+ */
+StateGroup.prototype.setState = function(name)
+{
+	debug.debug('StateGroup setState');
+	this.currentState = this.states[name];
+};
+/**
+ * @description
+ * Set a the next state without going to it
+ */
+StateGroup.prototype.setNextState = function(name)
+{
+	debug.debug('StateGroup setNextState');
+	this.currentState = this.states[this.currentState.next];
+};
+
+/**
+ * @description
+ * Go to a specific state and run it
  */
 StateGroup.prototype.goToState = function(name)
 {
+	debug.debug('StateGroup goToState');
 	this.currentState = this.states[name];
 	this.run();
 };
 
 /**
  * @description
- * Set a specific state without going to it
+ * Go to a the next state and run it
  */
-StateGroup.prototype.setState = function(name)
+StateGroup.prototype.goToNextState = function()
 {
-	this.currentState = this.states[name];
-};
-
-StateGroup.prototype.jumpToNextState = function()
-{
+	debug.debug('StateGroup goToNextState');
 	this.currentState = this.states[this.currentState.next];
 	this.run();
 };
@@ -192,29 +225,39 @@ StateGroup.prototype.run = function()
 
 /////////////////////////////// STATE  ////////////////////////////////////////
 
-function State(group, name, mode, next, gameName)
+function State(group, name, mode, next, task)
 {
 	this.group = null;
 	this.name = null;
 	this.mode = null;
 	this.next = null;
-	this.gameObj = null;
+	this.task = null;
+	this.taskObj = null;
 
-	this.init(group, name, mode, next, gameName);
+	this.init(group, name, mode, next, task);
 };
 
-State.prototype.init = function(group, name, mode, next, gameName)
+State.prototype.init = function(group, name, mode, next, task)
 {
 	this.group = group;
 	this.name = name;
 	this.mode = mode;
 	this.next = next;
-	if (gameName)
-		this.gameObj = new window[gameName]();
+	if (task)
+	{
+		debug.debug('State init setting task:', task);
+		this.task = task;
+		this.taskObj = new window[task]();
+	}
 };
 
 State.prototype.run = function()
 {
 	debug.debug("State run: ", this.name);
-	PubSub.publish('state', {state: this.name, group: this.group, mode: this.mode, gameObj: this.gameObj});
+	PubSub.publish('state', {
+		state: this.name,
+		group: this.group,
+		mode: this.mode,
+		taskObj: this.taskObj
+	});
 };

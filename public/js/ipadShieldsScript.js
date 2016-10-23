@@ -21,6 +21,9 @@ function init()
 
 	config = new Config();
 
+	spaceServer = new SpaceServer();
+	spaceServer.init('ipadShields');
+
 	section = new Sections();
 	section.init();
 

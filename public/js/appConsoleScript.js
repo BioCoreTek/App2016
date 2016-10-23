@@ -22,7 +22,7 @@ function init()
 	config = new Config();
 
 	spaceServer = new SpaceServer();
-	spaceServer.init();
+	spaceServer.init('appConsole');
 
 	notifications = new Notifications();
 	notifications.init();

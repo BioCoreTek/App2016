@@ -1,6 +1,7 @@
 
-function GameLifesupport()
+function TaskLifesupport()
 {
+	this.taskName = 'TaskLifesupport';
 	// static
 	this.context;
 	this.dotsTotal = 4;
@@ -8,30 +9,38 @@ function GameLifesupport()
 
 	this.dots = [];
 	this.lastState = 1;
+
+	// none, checking, error, success
+	this.resultStatus = 'none';
 };
 
-GameLifesupport.prototype.init = function()
+TaskLifesupport.prototype.init = function()
 {
 	var self = this;
 
-	debug.debug('GameLifesupport init');
+	debug.debug('TaskLifesupport init');
 
 	var c = $('.content canvas')[0];
 	this.context = c.getContext('2d');
 
-	this.dots = [];
-	this.lastState = 1;
-	this.resetInterface();
+	this.restartTask();
 
 	PubSub.subscribe('gamePadLoop', function(msg, data)
 	{
 		self.runFrame(data);
 	});
+
+	PubSub.subscribe('task', function(msg, data)
+	{
+		debug.debug('TaskLifesupport PubSub sub task', msg, data)
+		if (data && data.taskname == self.taskName)
+			self.processResults(data.result);
+	});
 };
 
-GameLifesupport.prototype.runFrame = function(joystick)
+TaskLifesupport.prototype.runFrame = function(joystick)
 {
-	debug.log('GameLifesupport runFrame');
+	debug.log('TaskLifesupport runFrame');
 
 	// draw joystick lines
 	var joyX = (joystick.axes[0] + 1.0) * 200;
@@ -49,10 +58,9 @@ GameLifesupport.prototype.runFrame = function(joystick)
 	// handle dropping a dot - button release
 	if (joystick.buttons[this.buttonIndex].pressed && joystick.buttons[this.buttonIndex].pressed != this.lastState)
 	{
-		// start over game
+		// button click after last button click, wait until verification is done
 		if (this.dots.length == this.dotsTotal)
 		{
-			this.dots = [];
 			return;
 		}
 
@@ -96,8 +104,7 @@ GameLifesupport.prototype.runFrame = function(joystick)
 	// we are at the last item, verify result
 	if (this.dots.length == this.dotsTotal)
 	{
-		$(".selection-result-status").show();
-		$(".selection-result-status .attempt").show();
+		this.checkResults();
 		return;
 	}
 
@@ -128,12 +135,67 @@ GameLifesupport.prototype.runFrame = function(joystick)
 	$(".selection-result-" + (this.dots.length)).addClass('active');
 };
 
+TaskLifesupport.prototype.restartTask = function()
+{
+	this.dots = [];
+	this.lastState = 1;
+	this.resetInterface();
+};
 
-GameLifesupport.prototype.resetInterface = function()
+TaskLifesupport.prototype.resetInterface = function()
 {
 	for (var i = 0; i < this.dotsTotal; i++)
 		$(".selection-result-" + i).html("&nbsp;&nbsp;");
 	$(".selection-result-values span").removeClass('active');
 	$(".selection-result-status").hide();
 	$(".selection-result-status p").hide();
+};
+
+TaskLifesupport.prototype.checkResults = function()
+{
+	if (this.resultStatus == 'none')
+	{
+		debug.debug('checkResults');
+		$(".selection-result-status").show();
+		$(".selection-result-status .attempt").show();
+		PubSub.publish('server', {
+			event: 'task',
+			command: 'check',
+			data: {
+				taskname: this.taskName,
+				result: [
+					Math.floor(this.dots[0][0] / 40) + "" + Math.floor(this.dots[0][1] / 40),
+					Math.floor(this.dots[1][0] / 40) + "" + Math.floor(this.dots[1][1] / 40),
+					Math.floor(this.dots[2][0] / 40) + "" + Math.floor(this.dots[2][1] / 40),
+					Math.floor(this.dots[3][0] / 40) + "" + Math.floor(this.dots[3][1] / 40)
+				]
+			}
+		});
+		this.resultStatus = 'checking';
+	}
+};
+TaskLifesupport.prototype.processResults = function(result)
+{
+	var self = this;
+
+	debug.debug('processResults:', result);
+	if (result)
+	{
+		this.resultStatus = 'success';
+		$(".selection-result-status p").hide();
+		$(".selection-result-status .success").show();
+		setTimeout(function(){
+			PubSub.publish('stateNext', {group: 'lifesupport'});
+		}, 2500);
+	}
+	else
+	{
+		this.resultStatus = 'error';
+		$(".selection-result-status p").hide();
+		$(".selection-result-status .error").show();
+		setTimeout(function(){
+			self.resultStatus = 'none';
+			self.restartTask();
+		}, 2500);
+	}
 };

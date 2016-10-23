@@ -5,7 +5,6 @@ function Modal()
 	this.modalEl = $(".modal");
 	this.currentGroupName = null;
 	this.currentStateName = null;
-	this.supportedGroups = ["aigood", "aibad"];
 };
 
 Modal.prototype.init = function()
@@ -26,10 +25,10 @@ Modal.prototype.init = function()
 		{
 			self.setSate(data.group, data.state);
 			self.modalEl.modal('show');
-			if (data.gameObj)
+			if (data.taskObj)
 			{
 				debug.debug('Modal calling gameObj init');
-				data.gameObj.init();
+				data.taskObj.init();
 			}
 		}
 		else
@@ -38,19 +37,7 @@ Modal.prototype.init = function()
 		}
 	});
 };
-/*
-Modal.prototype.isSupportedGroup = function(group)
-{
-	for (var i = 0, len = this.supportedGroups.length; i < len; i++)
-	{
-		if (group == this.supportedGroups[i])
-		{
-			return true;
-		}
-	}
-	return false;
-};
-*/
+
 Modal.prototype.setSate = function(group, state)
 {
 	debug.debug('Modal setSate called for:', group);
