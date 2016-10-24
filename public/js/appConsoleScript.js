@@ -52,8 +52,56 @@ function init()
 	if (DEV)
 		setupDev();
 
-	// run the app now
-	stateManager.goToGroup("lifesupport");
+	runReboot();
+}
+
+function runReboot()
+{
+	var buttonIndex = config.get('triggerButtonIndex');
+
+	// trigger button click
+	var ps = PubSub.subscribe('gamePadLoop', function(msg, joystick)
+	{
+		if (joystick.buttons[buttonIndex].pressed)
+		{
+			// clear the pubsub
+			PubSub.unsubscribe(ps);
+			rebootClicked();
+		}
+	});
+	// mouse button click
+	$(".reboot-button").click(function(e) {
+		// clear the pubsub
+		PubSub.unsubscribe(ps);
+		rebootClicked();
+	});
+}
+
+function rebootClicked()
+{
+	$(".reboot-button").hide();
+	$(".reboot-loading").show();
+
+	setTimeout(function() {
+		$(".reboot-container").hide();
+		$(".main-container").show();
+
+		PubSub.publish('server', {
+			event: 'game',
+			command: 'start'
+		});
+
+		// run the app now
+		// run the section
+		stateManager.goToGroup("lifesupport");
+
+		// wait a pause, then show ai
+		setTimeout(function() {
+			// run the modal
+			stateManager.goToGroup("aigood");
+		}, 2000);
+
+	}, 3000);
 }
 
 

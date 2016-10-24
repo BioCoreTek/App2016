@@ -79,9 +79,10 @@ var stateConfig = {
 			name: 'aigood',
 			states: [
 				{
-					name: 'welcome',
+					name: 'diagnostic',
 					mode: 'modal',
-					next: 'donttakeme'
+					next: 'donttakeme',
+					task: 'TaskAigoodDiagnostic'
 				},
 				{
 					name: 'donttakeme',

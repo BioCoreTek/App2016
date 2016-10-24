@@ -12,6 +12,8 @@ function TaskLifesupport()
 
 	// none, checking, error, success
 	this.resultStatus = 'none';
+
+	this.pubSubs = [];
 };
 
 TaskLifesupport.prototype.init = function()
@@ -29,23 +31,33 @@ TaskLifesupport.prototype.init = function()
 
 	this.restartTask();
 
-	PubSub.subscribe('gamePadLoop', function(msg, data)
-	{
-		self.runFrame(data);
-	});
+	this.pubSubs.push(
+		PubSub.subscribe('gamePadLoop', function(msg, data)
+		{
+			self.runFrame(data);
+		})
+	);
 
-	PubSub.subscribe('task', function(msg, data)
-	{
-		debug.debug('TaskLifesupport PubSub sub task', msg, data)
-		if (data && data.taskname == self.taskName)
-			self.processResults(data.result);
-	});
+	this.pubSubs.push(
+		PubSub.subscribe('task', function(msg, data)
+		{
+			debug.debug('TaskLifesupport PubSub sub task', msg, data)
+			if (data && data.taskname == self.taskName)
+				self.processResults(data.result);
+		})
+	);
 };
 
 // to be called when game exists
 TaskLifesupport.prototype.exit = function()
 {
 	PubSub.publish('audio', {name: 'alarm', action: 'stop'});
+
+	// remove pubsubs
+	for (var i = 0, len = this.pubSubs.length; i < len; i++)
+	{
+		PubSub.unsubscribe(this.pubSubs[i]);
+	}
 };
 
 TaskLifesupport.prototype.startTask = function()

@@ -2,11 +2,14 @@
 function AudioManager()
 {
 	this.audioFiles = {
-		'alarm': 'audio/alarm.ogg'
+		'alarm': 'audio/alarm.ogg',
+		'fan': ''
 	};
-	// don't play a sound over another!
-	this.currentAudioName = null;
-	this.currentAudioObj = null;
+	// don't play the same sound over itself
+	// but allow multiple sounds at once
+	// name: { audio: Audio, playing: boolean }
+	this.audioPlaying = {
+	}
 };
 
 AudioManager.prototype.init = function()
@@ -25,36 +28,49 @@ AudioManager.prototype.init = function()
 
 AudioManager.prototype.play = function(data)
 {
+	var self = this;
+
 	debug.debug('AudioManager play');
-	if (this.currentAudioName == data.name)
+	if (this.audioPlaying[data.name] && this.audioPlaying[data.name].playing)
 	{
 		debug.debug('Already playing audio:', data.name);
 		return;
 	}
-
-	// stop any ongoing audio
-	this.stop();
-
-	this.currentAudioObj = new Audio(this.audioFiles[data.name]);
-	this.currentAudioName = data.name;
+	if (this.audioPlaying[data.name] && this.audioPlaying[data.name].audio)
+	{
+		var audio = this.audioPlaying[data.name].audio;
+		this.audioPlaying[data.name].playing = true;
+	}
+	else
+	{
+		var audio = new Audio(this.audioFiles[data.name]);
+		this.audioPlaying[data.name] = {
+			audio: audio,
+			playing: true
+		}
+	}
+	
 	if (data.loop)
-		this.currentAudioObj.loop = true;
-	this.currentAudioObj.play();
+		audio.loop = true;
+	else
+	{
+		$(audio).bind('ended', function()  {
+			debug.debug('AudioManager play done playing once:', data.name);
+			audio.currentTime = 0;
+			self.audioPlaying[data.name].playing = false;
+		});
+
+	}
+	audio.play();
 };
 
 AudioManager.prototype.stop = function(data)
 {
 	debug.debug('AudioManager stop');
-	if (this.currentAudioObj)
+	if (this.audioPlaying[data.name].playing)
 	{
-		// if a specific audio is requested to stop
-		// else, stop anything playing
-		if (data && data.name && data.name != this.currentAudioName)
-		{
-			debug.debug('AudioManager stop is not playing requested sound to stop:', data.name);
-		}
-		this.currentAudioObj.pause();
-		this.currentAudioObj = null;
-		this.currentAudioName = null;
+		this.audioPlaying[data.name].audio.pause();
+		this.audioPlaying[data.name].audio.currentTime = 0;
+		this.audioPlaying[data.name].playing = false;
 	}
 };

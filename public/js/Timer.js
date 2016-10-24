@@ -38,10 +38,10 @@ Timer.prototype.init = function()
 	});
 };
 
-Timer.prototype.processTimerEvent = function(data)
+Timer.prototype.processTimerEvent = function(command)
 {
-	debug.debug('Timer processTimerEvent', data);
-	switch(data.event)
+	debug.debug('Timer processTimerEvent', command);
+	switch(command)
 	{
 		case 'start':
 			this.startTime = new Date().getTime();

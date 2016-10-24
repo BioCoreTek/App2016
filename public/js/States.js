@@ -181,7 +181,7 @@ StateGroup.prototype.goToCurrentState = function()
  */
 StateGroup.prototype.setState = function(name)
 {
-	debug.debug('StateGroup setState');
+	debug.debug('StateGroup setState', name);
 	// exit the current state first
 	this.exitState();
 	this.currentState = this.states[name];

@@ -36,6 +36,13 @@ Modal.prototype.init = function()
 			debug.debug('Modal PubSub sub state ignoring unsupported state', msg, data);
 		}
 	});
+
+	PubSub.subscribe('modal', function(msg, data)
+	{
+		debug.debug('Modal PubSub sub modal', msg, data);
+		if (data.action == 'hide')
+			self.modalEl.modal('hide');
+	});
 };
 
 Modal.prototype.setSate = function(group, state)

@@ -28,7 +28,7 @@
 		<button class="btn btn-primary btn-sm interrupt state" id="admin-shields-manual">Shields Manual</button>
 
 		<button class="btn btn-primary btn-sm interrupt state" id="admin-schematics-success">Schematics Success</button>
-		<button class="btn btn-primary btn-sm interrupt state" id="admin-aigood-welcome">AIG Welcome</button>
+		<button class="btn btn-primary btn-sm interrupt state" id="admin-aigood-diagnostic">AIG Diagnostic</button>
 
 		<button class="btn btn-primary btn-sm timer" id="admin-start">Timer <i class="fa fa-fw fa-play"></i></button>
 		<button class="btn btn-primary btn-sm timer" id="admin-stop">Timer <i class="fa fa-fw fa-stop"></i></button>
@@ -37,6 +37,19 @@
 	</div>
 
 	<!-- ////////////////////////////////////////////////////////////////// -->
+
+	<div class="reboot-container">
+		<button class="reboot-button">
+			<span>Reboot System?</span>
+		</button>
+		<div class="reboot-loading" style="display: none">
+			<i class="fa fa-circle-o-notch fa-spin"></i>
+		</div>
+	</div>
+
+	<!-- ////////////////////////////////////////////////////////////////// -->
+
+	<div class="main-container">
 
 	<footer class="footer">
 		<div class="container-fluid">
@@ -104,14 +117,14 @@
 					</div>
 				</div>
 				<div id="note-ai" class="note-group">
-					<div id="note-ai-welcome" class="note success" style="display: none">
-						<i class="fa fa-fw fa-lg fa-universal-access"></i> AI Online
+					<div id="note-ai-diagnostic" class="note error" style="display: none">
+						<i class="fa fa-fw fa-lg fa-universal-access"></i> AI Diagnostic
 					</div>
-					<div id="note-ai-offline" class="note error" style="display: none">
-						<i class="fa fa-fw fa-lg fa-universal-access"></i> AI Offline
+					<div id="note-ai-donttakeme" class="note error" style="display: none">
+						<i class="fa fa-fw fa-lg fa-universal-access"></i> AI Error
 					</div>
-					<div id="note-ai-online" class="note success" style="display: none">
-						<i class="fa fa-fw fa-lg fa-universal-access"></i> AI Online
+					<div id="note-ai-incinerator" class="note success" style="display: none">
+						<i class="fa fa-fw fa-lg fa-universal-access"></i> AI Failure
 					</div>
 				</div>
 			</div>
@@ -148,21 +161,32 @@
 		</div>
 	</div>
 
+	</div> <!-- end -->
+
 	<!-- ////////////////////////////////////////////////////////////////// -->
 	<!-- /////////////////////// TEMPLATES //////////////////////////////// -->
 	<!-- ////////////////////////////////////////////////////////////////// -->
 
-	<!-- ///////////////////////// AI ///////////////////////////////////// -->
+	<!-- ////////////////////// AI GOOD /////////////////////////////////// -->
 
-	<div id="template-aigood-welcome" style="display: none">
+	<div id="template-aigood-diagnostic" style="display: none">
 		<div>
 			<div class="modal-header">
-				<h4 class="modal-title">Title Here</h4>
+				<h4 class="modal-title">A.I. Diagnostics</h4>
 			</div>
 			<div class="row">
 				<div class="col-sm-5">
+					<div class="ai-good-visual">
+						<i class="fa fa-universal-access"></i>
+					</div>
 				</div>
 				<div class="col-sm-7">
+					<div class="ai-good-text">
+						<p>Welcome,</p>
+						<p>I have been offline for 4 days, 6 hours and 52 minutes.</p>
+						<p>I require a system diagnostic.</p>
+						<p>Please use the manual console until my return.</p>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -396,6 +420,7 @@
 	<script src="js/TaskLifesupport.js"></script>
 	<script src="js/TaskSchematicsRendering.js"></script>
 	<script src="js/TaskSchematics.js"></script>
+	<script src="js/TaskAigoodDiagnostic.js"></script>
 	<script src="js/States.js"></script>
 	<script src="js/AudioManager.js"></script>
 

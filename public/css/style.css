@@ -102,6 +102,80 @@ Orange
 
 */
 
+/******************************* ANIMATIONS **********************************/
+
+
+/********************************** MAIN *************************************/
+
+.reboot-container
+{
+
+}
+
+.reboot-container .reboot-button
+{
+	-webkit-transform: skew(-30deg);
+	-moz-transform: skew(-30deg);
+	-o-transform: skew(-30deg);
+	background: #004d80;
+	border: 3px solid #0099ff;
+	box-shadow: 0 0px 10px 0 #ccebff;
+	border-radius: 6px;
+	margin: 60px auto;
+	padding: 40px;
+	color: #fff;
+	display: block;
+	outline: none;
+	-webkit-animation: pulse_reboot 1s infinite alternate;
+	-moz-animation: pulse_reboot 1s infinite alternate;
+	-ms-animation: pulse_reboot 1s infinite alternate;
+	-o-animation: pulse_reboot 1s infinite alternate;
+	animation: pulse_reboot 1s infinite alternate;
+}
+@-webkit-keyframes pulse_reboot {
+ from { box-shadow: 0 0 10px 0 #ccebff; }
+ to { box-shadow: 0 0 40px 0 #ccebff; }
+}
+@-moz-keyframes pulse_reboot {
+ from { box-shadow: 0 0 10px 0 #ccebff; }
+ to { box-shadow: 0 0 40px 0 #ccebff; }
+}
+@-ms-keyframes pulse_reboot {
+ from { box-shadow: 0 0 10px 0 #ccebff; }
+ to { box-shadow: 0 0 40px 0 #ccebff; }
+}
+@-o-keyframes pulse_reboot {
+ from { box-shadow: 0 0 10px 0 #ccebff; }
+ to { box-shadow: 0 0 40px 0 #ccebff; }
+}
+@keyframes pulse_reboot {
+ from { box-shadow: 0 0 10px 0 #ccebff; }
+ to { box-shadow: 0 0 40px 0 #ccebff; }
+}
+
+.reboot-container .reboot-button span
+{
+	font-family: Audiowide, monospace;
+	white-space: nowrap;
+	display: block;
+	font-size: 65px;
+	-webkit-transform: skew(30deg);
+	-moz-transform: skew(30deg);
+	-o-transform: skew(30deg);
+}
+.reboot-loading
+{
+	text-align: center;
+	color: #4db8ff;
+	text-shadow: 0 0 10px #99d6ff;
+	font-size: 160px;
+	margin: 30px auto;
+}
+
+.main-container
+{
+	display: none;
+}
 
 /********************************* FOOTER ************************************/
 
@@ -705,4 +779,23 @@ Orange
 	height: 400px;
 	background-color: #fff;
 	margin-top: 20px;
+}
+
+/* *************************** AI GOOD ******************************** */
+
+.ai-good-visual
+{
+	text-align: center;
+	color: #4db8ff;
+}
+.ai-good-visual i
+{
+	font-size: 160px;
+}
+
+.ai-good-text
+{
+	font-size: 24px;
+	font-family: Audiowide, monospace;
+	color: #e6f5ff;
 }

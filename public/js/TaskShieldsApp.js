@@ -10,14 +10,30 @@ TaskShieldsApp.prototype.init = function()
 
 	debug.debug('TaskShieldsApp init');
 
-	PubSub.subscribe('task', function(msg, data)
-	{
-		debug.debug('TaskLifesupport PubSub sub task', msg, data)
-		if (data && data.taskname == self.taskName)
-			self.processResults(data.result);
-	});
+	this.pubSubs.push(
+		PubSub.subscribe('task', function(msg, data)
+		{
+			debug.debug('TaskLifesupport PubSub sub task', msg, data)
+			if (data && data.taskname == self.taskName)
+				self.processResults(data.result);
+		})
+	);
 
 	this.startTask();
+
+	PubSub.publish('audio', {name: 'alarm', action: 'play', loop: true});
+};
+
+// to be called when game exists
+TaskShieldsApp.prototype.exit = function()
+{
+	PubSub.publish('audio', {name: 'alarm', action: 'stop'});
+
+	// remove pubsubs
+	for (var i = 0, len = this.pubSubs.length; i < len; i++)
+	{
+		PubSub.unsubscribe(this.pubSubs[i]);
+	}
 };
 
 TaskShieldsApp.prototype.startTask = function()
