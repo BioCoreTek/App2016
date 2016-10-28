@@ -39,7 +39,24 @@ function Config()
 	// set really short times for events for development
 	if (DEV)
 	{
+	this.eventTimes = {
+		// time to blink success or failure afer submitting task result
+		"GlobalTaskResult": 500,
 
+		"GlobalAppLoad": 500,
+		"GlobalLaunchAI": 500,
+
+		"TaskAigoodDiagnostic": 500,
+		"TaskSchematicsRendering": 500,
+		"TaskCommunicationsTransmissionVideo": 500,
+		"TaskCommunicationsTransmissionState1": 500,
+		"TaskCommunicationsTransmissionState2": 500,
+		"TaskCommunicationsTransmissionState3": 500,
+		"TaskCommunicationsTransmissionState4": 500,
+		"TaskAigoodDonttakeme": 500,
+		"TaskAibadHelpcore": 500,
+
+	}
 	}
 };
 
