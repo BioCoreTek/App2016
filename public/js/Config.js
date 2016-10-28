@@ -11,8 +11,10 @@ function Config()
 		2: "shields",
 		3: "schematics"
 	};
-	// the button index for the trigger in axis-based game
+	// the button index for the trigger in axis-based tasks
 	this.triggerButtonIndex = 5;
+	// the button index to reset joystick tasks
+	this.resetButtonIndex = 6;
 };
 
 Config.prototype.get = function(item)
