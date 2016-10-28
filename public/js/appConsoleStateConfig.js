@@ -27,16 +27,13 @@ var stateConfig = {
 				{
 					name: 'unreachable',
 					mode: 'section',
-					next: 'linking'
-				},
-				{
-					name: 'linking',
-					mode: 'section',
-					next: 'transmission'
+					next: 'transmission',
+					task: 'TaskCommunicationsUnreachable'
 				},
 				{
 					name: 'transmission',
 					mode: 'section',
+					task: 'TaskCommunicationsTransmission'
 				}
 			]
 		},
@@ -87,7 +84,8 @@ var stateConfig = {
 				{
 					name: 'donttakeme',
 					mode: 'modal',
-					next: 'incinerator'
+					next: 'incinerator',
+					task: 'TaskAigoodDonttakeme'
 				},
 				{
 					name: 'incinerator',
@@ -99,9 +97,16 @@ var stateConfig = {
 			name: 'aibad',
 			states: [
 				{
-					name: 'puzzle',
+					name: 'helpcore',
 					mode: 'modal',
-					next: 'shieldresult'
+					next: 'pigpen',
+					task: 'TaskAibadHelpcore'
+				},
+				{
+					name: 'pigpen',
+					mode: 'modal',
+					next: 'shieldresult',
+					task: 'TaskAibadPigpen'
 				},
 				{
 					name: 'shieldresult',

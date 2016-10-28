@@ -14,6 +14,8 @@ function TaskLifesupport()
 	this.resultStatus = 'none';
 
 	this.pubSubs = [];
+
+	this.timeLengthGlobalTaskResult = config.get('eventTimes')['GlobalTaskResult'];
 };
 
 TaskLifesupport.prototype.init = function()
@@ -62,7 +64,7 @@ TaskLifesupport.prototype.exit = function()
 
 TaskLifesupport.prototype.startTask = function()
 {
-	debug.log('TaskSchematicsRendering startTask');
+	debug.log('TaskLifesupport startTask');
 
 	// start task
 	PubSub.publish('server', {
@@ -76,7 +78,7 @@ TaskLifesupport.prototype.startTask = function()
 
 TaskLifesupport.prototype.stopTask = function()
 {
-	debug.log('TaskSchematicsRendering stopTask');
+	debug.log('TaskLifesupport stopTask');
 
 	// stop task
 	PubSub.publish('server', {
@@ -118,8 +120,8 @@ TaskLifesupport.prototype.runFrame = function(joystick)
 		{
 			this.dots.push([joyX, joyY]);
 			debug.debug('Adding dots', this.dots);
-			$(".selection-result-" + this.dots.length - 1).html(Math.floor(joyX / 40) + "" + Math.floor(joyY / 40));
-			$(".selection-result-values span").removeClass('active');
+			$(".section-lifesupport-failure .selection-result-" + this.dots.length - 1).html(Math.floor(joyX / 40) + "" + Math.floor(joyY / 40));
+			$(".section-lifesupport-failure .selection-result-values span").removeClass('active');
 		}
 	}
 	// store the state of the button press
@@ -180,9 +182,9 @@ TaskLifesupport.prototype.runFrame = function(joystick)
 	this.context.fillRect(0, joyY - 0, 400, 1);
 
 	// set the unlocked number
-	$(".selection-result-" + (this.dots.length)).html(Math.floor(joyX / 40) + "" + Math.floor(joyY / 40));
-	$(".selection-result-values span").removeClass('active');
-	$(".selection-result-" + (this.dots.length)).addClass('active');
+	$(".section-lifesupport-failure .selection-result-" + (this.dots.length)).html(Math.floor(joyX / 40) + "" + Math.floor(joyY / 40));
+	$(".section-lifesupport-failure .selection-result-values span").removeClass('active');
+	$(".section-lifesupport-failure .selection-result-" + (this.dots.length)).addClass('active');
 };
 
 TaskLifesupport.prototype.restartTask = function()
@@ -195,10 +197,10 @@ TaskLifesupport.prototype.restartTask = function()
 TaskLifesupport.prototype.resetInterface = function()
 {
 	for (var i = 0; i < this.dotsTotal; i++)
-		$(".selection-result-" + i).html("&nbsp;&nbsp;");
-	$(".selection-result-values span").removeClass('active');
-	$(".selection-result-status").hide();
-	$(".selection-result-status p").hide();
+		$(".section-lifesupport-failure  .selection-result-" + i).html("");
+	$(".section-lifesupport-failure .selection-result-values span").removeClass('active');
+	$(".section-lifesupport-failure .selection-result-status").hide();
+	$(".section-lifesupport-failure .selection-result-status p").hide();
 };
 
 TaskLifesupport.prototype.checkResults = function()
@@ -206,8 +208,8 @@ TaskLifesupport.prototype.checkResults = function()
 	if (this.resultStatus == 'none')
 	{
 		debug.debug('checkResults');
-		$(".selection-result-status").show();
-		$(".selection-result-status .attempt").show();
+		$(".section-lifesupport-failure .selection-result-status").show();
+		$(".section-lifesupport-failure .selection-result-status .attempt").show();
 		PubSub.publish('server', {
 			event: 'task',
 			command: 'check',
@@ -232,21 +234,21 @@ TaskLifesupport.prototype.processResults = function(result)
 	if (result)
 	{
 		this.resultStatus = 'success';
-		$(".selection-result-status p").hide();
-		$(".selection-result-status .success").show();
+		$(".section-lifesupport-failure .selection-result-status p").hide();
+		$(".section-lifesupport-failure .selection-result-status .success").show();
 		setTimeout(function(){
 			self.stopTask();
 			PubSub.publish('stateNext', {group: 'lifesupport'});
-		}, 2500);
+		}, this.timeLengthGlobalTaskResult);
 	}
 	else
 	{
 		this.resultStatus = 'error';
-		$(".selection-result-status p").hide();
-		$(".selection-result-status .error").show();
+		$(".section-lifesupport-failure .selection-result-status p").hide();
+		$(".section-lifesupport-failure .selection-result-status .error").show();
 		setTimeout(function(){
 			self.resultStatus = 'none';
 			self.restartTask();
-		}, 2500);
+		}, this.timeLengthGlobalTaskResult);
 	}
 };

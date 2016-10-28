@@ -2,6 +2,7 @@
 function TaskSchematicsRendering()
 {
 	this.taskName = 'TaskSchematicsRendering';
+	this.timeLengthTaskEnd = config.get('eventTimes')['TaskSchematicsRendering'];
 };
 
 TaskSchematicsRendering.prototype.init = function()
@@ -32,7 +33,7 @@ TaskSchematicsRendering.prototype.startTask = function()
 	setTimeout(function(){
 		self.stopTask();
 		PubSub.publish('stateNext', {group: 'schematics'});
-	}, 2000);
+	}, this.timeLengthTaskEnd);
 };
 
 TaskSchematicsRendering.prototype.stopTask = function()

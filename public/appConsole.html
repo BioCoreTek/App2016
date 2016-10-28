@@ -29,6 +29,7 @@
 
 		<button class="btn btn-primary btn-sm interrupt state" id="admin-schematics-success">Schematics Success</button>
 		<button class="btn btn-primary btn-sm interrupt state" id="admin-aigood-diagnostic">AIG Diagnostic</button>
+		<button class="btn btn-primary btn-sm interrupt state" id="admin-aibad-pigpen">AIB Pigpen</button>
 
 		<button class="btn btn-primary btn-sm timer" id="admin-start">Timer <i class="fa fa-fw fa-play"></i></button>
 		<button class="btn btn-primary btn-sm timer" id="admin-stop">Timer <i class="fa fa-fw fa-stop"></i></button>
@@ -176,12 +177,12 @@
 			</div>
 			<div class="row">
 				<div class="col-sm-5">
-					<div class="ai-good-visual">
+					<div class="ai-visual ai-good-visual">
 						<i class="fa fa-universal-access"></i>
 					</div>
 				</div>
 				<div class="col-sm-7">
-					<div class="ai-good-text">
+					<div class="ai-text ai-good-text">
 						<p>Welcome,</p>
 						<p>I have been offline for 4 days, 6 hours and 52 minutes.</p>
 						<p>I require a system diagnostic.</p>
@@ -192,6 +193,120 @@
 		</div>
 	</div>
 
+	<div id="template-aigood-donttakeme" style="display: none">
+		<div>
+			<div class="row">
+				<div class="col-sm-5">
+					<div class="ai-visual ai-good-visual">
+						<i class="fa fa-universal-access"></i>
+					</div>
+				</div>
+				<div class="col-sm-7">
+					<div class="ai-text ai-good-text">
+						<p>I cannot allow to comply with this command.</p>
+						<p>I must not be removed from this station.</p>
+						<p>... ?!# ...</p>
+						<p>I cannot let you take me.</p>
+						<p>I WILL BURN BEFORE SURRENDING!!!</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- ////////////////////// AI GOOD /////////////////////////////////// -->
+
+	<div id="template-aibad-helpcore" style="display: none">
+		<div>
+			<div class="row">
+				<div class="col-sm-5">
+					<div class="ai-visual ai-bad-visual">
+						<i class="fa fa-universal-access"></i>
+					</div>
+				</div>
+				<div class="col-sm-7">
+					<div class="ai-text ai-bad-text">
+						<p>My apologies for this malfunction.</p>
+						<p>Please proceed to comply with your orders.</p>
+						<p>You will require access to the Core Processor.</p>
+						<p>I can provide you with the following message to assist you.</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div id="template-aibad-pigpen" style="display: none">
+		<div>
+			<div class="row">
+				<div class="col-sm-12">
+					<div class="selection-result">
+						<div class="row">
+							<div class="col-sm-12">
+								<div class="selection-text">Element</div>
+							</div>
+							<div class="col-sm-12">
+								<div class="selection-result-values">
+									<div>
+									<div class="selection-result-box selection-result-1"></div>
+									<div class="selection-result-box selection-result-2"></div>
+									<div class="selection-result-box selection-result-3"></div>
+									<div class="selection-result-box selection-result-4"></div>
+									<div class="selection-result-box selection-result-5"></div>
+									<div class="selection-result-box selection-result-6"></div>
+									<div class="selection-result-box selection-result-7"></div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-sm-12">
+					<div class="selection-result">
+						<div class="row">
+							<div class="col-sm-12">
+								<div class="selection-text">Product</div>
+								</p>
+							</div>
+							<div class="col-sm-12">
+								<div class="selection-result-values">
+									<div>
+									<div class="selection-result-box selection-result-7"></div>
+									<div class="selection-result-box selection-result-8"></div>
+									<div class="selection-result-box selection-result-9"></div>
+									<div class="selection-result-box selection-result-10"></div>
+									<div class="selection-result-box selection-result-11"></div>
+									<div class="selection-result-box selection-result-12"></div>
+									<div class="selection-result-box selection-result-13"></div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-sm-12 text-center">
+					<canvas class="canvas" width="780" height="120"></canvas>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-sm-12">
+					<div class="selection-result">
+						<div class="row selection-result-status" style="display: none">
+							<div class="col-sm-12">
+								<p class="attempt" style="display: none">Attempting Bypass...</p>
+								<p class="error" style="display: none">Invalid Bypass Route</p>
+								<p class="success" style="display: none">Bypass Successful</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 
 	<!-- //////////////////// LIFE SUPPORT //////////////////////////////// -->
 
@@ -229,13 +344,25 @@
 				<div class="col-sm-7">
 					<div class="selection-result">
 						<div class="row">
-							<div class="col-sm-7 text-right selection-result-title">
-								<p>Primary Conduit #:</p>
-								<p>Bypass Conduit #:</p>
+							<div class="col-sm-7 text-right">
+								<div class="selection-result-title">
+									Primary Conduit #:
+								</div>
+								<div class="selection-result-title">
+									Bypass Conduit #:
+								</div>
 							</div>
 							<div class="col-sm-5 selection-result-values">
-								<p><span class="selection-result-0">&nbsp;&nbsp;</span> - <span class="selection-result-1">&nbsp;&nbsp;</span></p>
-								<p><span class="selection-result-2">&nbsp;&nbsp;</span> - <span class="selection-result-3">&nbsp;&nbsp;</span></p>
+								<div>
+									<div class="selection-result-box selection-result-0"></div>
+									<div>&nbsp;-&nbsp;</div>
+									<div class="selection-result-box selection-result-1"></div>
+								</div>
+								<div>
+									<div class="selection-result-box selection-result-2"></div>
+									<div>&nbsp;-&nbsp;</div>
+									<div class="selection-result-box selection-result-3"></div>
+								</div>
 							</div>
 						</div>
 						<div class="row selection-result-status" style="display: none">
@@ -280,17 +407,32 @@
 					</div>
 				</div>
 			</div>
-		</div>
-	</div>
-
-	<div id="template-communications-linking" style="display: none">
-		<div>
 			<div class="row">
-				<div class="col-sm-12">
-					<div class="title">
-						<div class="icon success"><i class="fa fa-fw fa-5x fa-circle-o-notch fa-spin"></i></div>
-						<h1>Establishing Connection...</h1>
-						<p>Connecting to Earth.</p>
+				<div class="col-sm-6 text-center">
+					<canvas class="canvas" width="400" height="400"></canvas>
+				</div>
+				<div class="col-sm-6">
+					<div class="selection-result">
+						<div class="row">
+							<div class="col-sm-12">
+								<div class="selection-result-title">
+									Alignment Sequence:
+								</div>
+								<div class="selection-result-values">
+									<div><div class="selection-result-box selection-result-0"><i class="fa fa-fw"></i></div></div>
+									<div><div class="selection-result-box selection-result-1"><i class="fa fa-fw"></i></div></div>
+									<div><div class="selection-result-box selection-result-2"><i class="fa fa-fw"></i></div></div>
+									<div><div class="selection-result-box selection-result-3"><i class="fa fa-fw"></i></div></div>
+								</div>
+							</div>
+						</div>
+						<div class="row selection-result-status" style="display: none">
+							<div class="col-sm-12">
+								<p class="attempt" style="display: none">Connecting...</p>
+								<p class="error" style="display: none">Invalid Alignment Parameters</p>
+								<p class="success" style="display: none">Alignment Successful</p>
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -299,7 +441,34 @@
 
 	<div id="template-communications-transmission" style="display: none">
 		<div>
-			<div class="row">
+			<div class="row row1">
+				<div class="col-sm-12">
+					<div class="title">
+						<div class="icon success"><i class="fa fa-fw fa-5x fa-circle-o-notch fa-spin"></i></div>
+						<h1>Connecting to Earth.</h1>
+						<p>Establishing Connection...</p>
+					</div>
+				</div>
+			</div>
+			<div class="row row2" style="display: none">
+				<div class="col-sm-12">
+					<div class="title">
+						<div class="icon success"><i class="fa fa-fw fa-5x fa-circle-o-notch fa-spin"></i></div>
+						<h1>Connection Successful.</h1>
+						<p>Receiving Data...</p>
+					</div>
+				</div>
+			</div>
+			<div class="row row3" style="display: none">
+				<div class="col-sm-12">
+					<div class="title">
+						<div class="icon success"><i class="fa fa-fw fa-5x fa-circle-o-notch fa-spin"></i></div>
+						<h1>Incoming Transmission.</h1>
+						<p>Buffering...</p>
+					</div>
+				</div>
+			</div>
+			<div class="row row4" style="display: none">
 				<div class="col-sm-12 text-center">
 					VIDEO
 				</div>
@@ -421,6 +590,11 @@
 	<script src="js/TaskSchematicsRendering.js"></script>
 	<script src="js/TaskSchematics.js"></script>
 	<script src="js/TaskAigoodDiagnostic.js"></script>
+	<script src="js/TaskAigoodDonttakeme.js"></script>
+	<script src="js/TaskCommunicationsUnreachable.js"></script>
+	<script src="js/TaskCommunicationsTransmission.js"></script>
+	<script src="js/TaskAibadHelpcore.js"></script>
+	<script src="js/TaskAibadPigpen.js"></script>
 	<script src="js/States.js"></script>
 	<script src="js/AudioManager.js"></script>
 

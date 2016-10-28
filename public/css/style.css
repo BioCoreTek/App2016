@@ -22,6 +22,10 @@ body
 	-ms-user-select: none;
 	user-select: none;
 }
+@font-face {
+	font-family: PigpenCipher;
+	src: url("../fonts/PigpenCipher.otf") format("opentype");
+}
 
 /* for dev only */
 .admin-event-bar
@@ -32,12 +36,12 @@ body
 	left: 0;
 	right: 0;
 	width: 70%;
-	height: 50px;
+	height: 40px;
 	margin: 0 auto;
 	background-color: #fff;
 	color: #000;
 	z-index: 100;
-	padding: 10px;
+	padding: 5px;
 }
 
 /********************************* COLORS ************************************/
@@ -551,6 +555,7 @@ Orange
 .modal-body
 {
 	height: calc(100vh - 90px);
+	overflow: auto;
 }
 .modal-header
 {
@@ -567,33 +572,40 @@ Orange
 	background-color: rgba(0, 0, 0, 0.7);
 }
 
-/* ********************* SECTION SPECIFICS **************************** */
+/* ********************** SECTION GENERIC ***************************** */
 
-/* ************************ LIFE SUPPORT ****************************** */
-
-.section .section-lifesupport-failure canvas
-{
-}
-
-.section-lifesupport-failure .selection-result p
+.selection-result .selection-result-title,
+.selection-result .selection-result-values div
 {
 	font-size: 24px;
 	color: #0099ff;
 	font-family: Audiowide, monospace;
 	line-height: 60px;
+	height: 60px;
+	margin-bottom: 10px;
 }
 
-.section-lifesupport-failure .selection-result .selection-result-values p span
+.selection-result .selection-result-values div div
+{
+	height: 60px;
+	text-align: center;
+	vertical-align: middle;
+	float: left;
+
+}
+.selection-result .selection-result-values div div.selection-result-box
 {
 	font-family: 'Share Tech Mono', monospace;
 	background-color: #e6f5ff;
 	border: 1px #0099ff solid;
 	box-shadow: 0 0px 8px 0 #0099ff;
-	font-size: 40px;
 	line-height: 56px;
+	font-size: 40px;
 	padding: 4px 8px;
+	width: 70px;
+	margin: 0 5px;
 }
-.section-lifesupport-failure .selection-result .selection-result-values p span.active
+.selection-result .selection-result-values div div.active
 {
 	background-color: #ffe3cc;
 	border: 1px #ff7300 solid;
@@ -601,8 +613,10 @@ Orange
 	color: #ff7300;
 }
 
-.section-lifesupport-failure .selection-result .selection-result-status p
+.selection-result .selection-result-status p
 {
+	font-family: Audiowide, monospace;
+	font-size: 24px;
 	background-color: #000;
 	text-align: center;
 	color: #0099ff;
@@ -614,13 +628,13 @@ Orange
 	-o-animation: pulse_opacity 1s ease-in-out infinite alternate;
 	animation: pulse_opacity 1s ease-in-out infinite alternate;
 }
-.section-lifesupport-failure .selection-result .selection-result-status p.error
+.selection-result .selection-result-status p.error
 {
 	color: #bb4458;
 	border: 1px #bb4458 solid;
 	box-shadow: 0 0px 8px 0 #bb4458;
 }
-.section-lifesupport-failure .selection-result .selection-result-status p.success
+.selection-result .selection-result-status p.success
 {
 	color: #44a5bb;
 	border: 1px #44a5bb solid;
@@ -647,8 +661,26 @@ Orange
  to { opacity: 0; }
 }
 
+/* ********************* SECTION SPECIFICS **************************** */
+
+/* ************************ LIFE SUPPORT ****************************** */
+
+.section .section-lifesupport-failure canvas
+{
+}
+
 /* *********************** COMMUNICATIONS ***************************** */
 
+.section .section-communications-unreachable .selection-result
+{
+	text-align: center;
+	line-height: 50px;
+}
+.section .section-communications-unreachable .selection-result .selection-result-values div div.selection-result-box
+{
+	float: none;
+	margin: 0 auto;
+}
 
 /* *************************** SHIELDS ******************************** */
 
@@ -783,19 +815,64 @@ Orange
 
 /* *************************** AI GOOD ******************************** */
 
-.ai-good-visual
+.ai-visual
 {
 	text-align: center;
-	color: #4db8ff;
 }
-.ai-good-visual i
+.ai-visual i
 {
 	font-size: 160px;
 }
 
-.ai-good-text
+.ai-text
 {
 	font-size: 24px;
 	font-family: Audiowide, monospace;
+}
+/* *************************** AI GOOD ******************************** */
+
+.ai-good-visual
+{
+	color: #4db8ff;
+}
+.ai-good-visual i
+{
+}
+
+.ai-good-text
+{
 	color: #e6f5ff;
+}
+
+/* *************************** AI BAD ********************************* */
+
+.ai-bad-visual
+{
+	color: #ff9d4d;
+}
+.ai-bad-visual i
+{
+}
+
+.ai-bad-text
+{
+	color: #ff9d4d;
+}
+
+.modal-aibad-pigpen .selection-result .selection-text
+{
+	font-family: PigpenCipher;
+    font-size: 96px;
+    line-height: 86px;
+	text-align: center;
+	color: #ccebff;
+	background-color: rgba(0, 0, 0, 0.7);
+}
+.modal-aibad-pigpen .selection-result .selection-result-values
+{
+	width: 560px;
+	margin: 0 auto;
+}
+.modal-aibad-pigpen .selection-result .selection-result-values div div.selection-result-box
+{
 }

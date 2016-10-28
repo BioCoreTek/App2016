@@ -72,4 +72,7 @@ Modal.prototype.setTemplate = function()
 
 	this.modalEl.find('.modal-body').html('');
 	this.modalEl.find('.modal-body').append(t);
+
+	// set a class name for the element for specific styles
+	this.modalEl.find('.modal-body >div').addClass('modal-'+ tname);
 };

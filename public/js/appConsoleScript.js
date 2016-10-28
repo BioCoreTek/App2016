@@ -92,16 +92,16 @@ function rebootClicked()
 		});
 
 		// run the app now
-		// run the section
+		// run the section in background
 		stateManager.goToGroup("lifesupport");
 
 		// wait a pause, then show ai
 		setTimeout(function() {
 			// run the modal
 			stateManager.goToGroup("aigood");
-		}, 2000);
+		}, config.get('eventTimes')['GlobalLaunchAI']);
 
-	}, 3000);
+	}, config.get('eventTimes')['GlobalAppLoad']);
 }
 
 

@@ -4,7 +4,7 @@ function TaskAigoodDiagnostic()
 	this.taskName = 'TaskAigoodDiagnostic';
 
 	// length of time to wait to close modal in milliseconds
-	this.contentLength = 4000;
+	this.timeLengthContent = config.get('eventTimes')['TaskAigoodDiagnostic'];
 };
 
 TaskAigoodDiagnostic.prototype.init = function()
@@ -14,5 +14,7 @@ TaskAigoodDiagnostic.prototype.init = function()
 	setTimeout(function() {
 		// just hide the modal when content is done
 		PubSub.publish('modal', {action: 'hide'});
-	}, this.contentLength);
+		// go to the life support screen
+		PubSub.publish('goToGroup', {group: 'lifesupport'});
+	}, this.timeLengthContent);
 };

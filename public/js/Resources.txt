@@ -1,6 +1,15 @@
 Resources
 =========
 
+Fonts
+------
+http://www.dafont.com/pigpen-cipher.font
+
+Images
+-------
+https://en.wikipedia.org/wiki/File:Pigpen_cipher_key.svg
+
+
 Sounds
 ------
 Used:

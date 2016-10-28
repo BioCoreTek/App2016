@@ -25,7 +25,21 @@ StateManager.prototype.init = function(stateconfig)
 	PubSub.subscribe('gamePadButton', function(msg, data)
 	{
 		debug.debug('StateManager PubSub sub gamePadButton', msg, data);
-		self.goToGroup(data.name);
+		// button gets triggerred multiple times
+		if (!self.currentStateGroup || self.currentStateGroup.name !== data.name)
+			self.goToGroup(data.name);
+	});
+
+	// listen for app events about states
+	PubSub.subscribe('goToGroup', function(msg, data)
+	{
+		debug.debug('StateManager PubSub sub goToGroup', msg, data);
+		// set the next state, if current state, go to it
+		if (!self.currentStateGroup || self.currentStateGroup.name !== data.group)
+		{
+			debug.debug('StateManager PubSub sub goToGroup going');
+			self.goToGroup(data.group);
+		}
 	});
 
 	// listen for app events about states
@@ -121,7 +135,7 @@ StateManager.prototype.parseStateConfig = function(stateconfig)
 StateManager.prototype.goToGroup = function(name)
 {
 	this.currentStateGroup = this.stateGroups[name];
-	this.stateGroups[name].goToCurrentState();
+	this.currentStateGroup.goToCurrentState();
 };
 
 ///////////////////////////// STATEGROUP  /////////////////////////////////////
@@ -141,6 +155,7 @@ StateGroup.prototype.init = function(name)
 
 StateGroup.prototype.addState = function(name, mode, next, task)
 {
+	debug.debug('StateGroup addState:', name);
 	this.states[name] = new State(this.name, name, mode, next, task);
 
 	// set the default state to the first one added
@@ -160,17 +175,19 @@ StateGroup.prototype.setDefaultState = function(name)
 
 StateGroup.prototype.goToDefaultState = function()
 {
-	this.currentState = this.defaultState;
+	this.setState(this.defaultState.name);
 	this.runState();
 };
 StateGroup.prototype.goToCurrentState = function()
 {
 	if (!this.currentState)
 	{
+		debug.debug('StateGroup goToCurrentState default');
 		this.goToDefaultState();
 	}
 	else
 	{
+		debug.debug('StateGroup goToCurrentState runState');
 		this.runState();
 	}
 };
@@ -178,6 +195,7 @@ StateGroup.prototype.goToCurrentState = function()
 /**
  * @description
  * Set a specific state without going to it
+ * @param {string} name The name of the state
  */
 StateGroup.prototype.setState = function(name)
 {
@@ -221,13 +239,16 @@ StateGroup.prototype.goToNextState = function()
 StateGroup.prototype.runState = function()
 {
 	PubSub.publish('stateGroup', this.name);
-	debug.debug('StateGroup currentState:', {group: this.currentState});
-	this.currentState.run();
+	debug.debug('StateGroup runState currentState:', this.currentState);
+	if (this.currentState)
+		this.currentState.run();
+	else
+		debug.error('StateGroup runState without current state.')
 };
 
 StateGroup.prototype.exitState = function()
 {
-	debug.debug('StateGroup exitState:', {group: this.currentState});
+	debug.debug('StateGroup exitState currentState:', this.currentState);
 	if (this.currentState)
 		this.currentState.exit();
 };
