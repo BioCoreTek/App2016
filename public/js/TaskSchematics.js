@@ -123,10 +123,13 @@ TaskSchematics.prototype.drawSchematics = function()
 	this.context.stroke();
 	this.context.fillText("Console", 105, 200);
 
-	// shields
+	// bulk column
 	this.context.strokeRect(330, 50, 80, 50);
-	this.context.fillText("Shields", 335, 68);
+
+	// shields
+	this.context.strokeRect(330, 320, 80, 30);
+	this.context.fillText("Shields", 335, 315);
 	this.context.font='20px FontAwesome';
-	this.context.fillText("\uf132", 362, 90);
+	this.context.fillText("\uf132", 365, 342);
 	this.context.font="16px monospace";
 };
