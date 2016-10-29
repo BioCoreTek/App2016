@@ -121,7 +121,7 @@ TaskLifesupport.prototype.runFrame = function(joystick)
 			this.dots.push([joyX, joyY]);
 			debug.debug('Adding dots', this.dots);
 			$(".section-lifesupport-failure .selection-result-" + this.dots.length - 1).html(Math.floor(joyX / 40) + "" + Math.floor(joyY / 40));
-			$(".section-lifesupport-failure .selection-result-values span").removeClass('active');
+			$(".section-lifesupport-failure .selection-result-values .selection-result-box").removeClass('active');
 		}
 	}
 	// store the state of the button press
@@ -183,7 +183,7 @@ TaskLifesupport.prototype.runFrame = function(joystick)
 
 	// set the unlocked number
 	$(".section-lifesupport-failure .selection-result-" + (this.dots.length)).html(Math.floor(joyX / 40) + "" + Math.floor(joyY / 40));
-	$(".section-lifesupport-failure .selection-result-values span").removeClass('active');
+	$(".section-lifesupport-failure .selection-result-values .selection-result-box").removeClass('active');
 	$(".section-lifesupport-failure .selection-result-" + (this.dots.length)).addClass('active');
 };
 
@@ -196,9 +196,8 @@ TaskLifesupport.prototype.restartTask = function()
 
 TaskLifesupport.prototype.resetInterface = function()
 {
-	for (var i = 0; i < this.dotsTotal; i++)
-		$(".section-lifesupport-failure  .selection-result-" + i).html("");
-	$(".section-lifesupport-failure .selection-result-values span").removeClass('active');
+	$(".section-lifesupport-failure  .selection-result-values .selection-result-box").html("");
+	$(".section-lifesupport-failure .selection-result-values .selection-result-box").removeClass('active');
 	$(".section-lifesupport-failure .selection-result-status").hide();
 	$(".section-lifesupport-failure .selection-result-status p").hide();
 };

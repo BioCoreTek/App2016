@@ -2,6 +2,7 @@
  * Created by jeffdaze on 2016-10-20.
  */
 var DEV = true;
+var CONTROLLER = 'josystick';
 
 var config;
 var stateManager;

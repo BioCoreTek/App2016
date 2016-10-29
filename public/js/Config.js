@@ -4,17 +4,35 @@ function Config()
 {
 	// url to backend server
 	this.server = 'http://localhost:3000';
-	// which joystick buttons index mapped to which section
-	this.buttonMap = {
-		0: "lifesupport",
-		1: "communications",
-		2: "shields",
-		3: "schematics"
-	};
-	// the button index for the trigger in axis-based tasks
-	this.triggerButtonIndex = 5;
-	// the button index to reset joystick tasks
-	this.resetButtonIndex = 6;
+
+	if ('ps' == CONTROLLER)
+	{
+		// which joystick buttons index mapped to which section
+		this.buttonMap = {
+			0: "lifesupport",
+			1: "communications",
+			2: "shields",
+			3: "schematics"
+		};
+		// the button index for the trigger in axis-based tasks
+		this.triggerButtonIndex = 5;
+		// the button index to reset joystick tasks
+		this.resetButtonIndex = 6;
+	}
+	else	// joystick
+	{
+		// which joystick buttons index mapped to which section
+		this.buttonMap = {
+			5: "lifesupport",
+			6: "communications",
+			7: "shields",
+			8: "schematics"
+		};
+		// the button index for the trigger in axis-based tasks
+		this.triggerButtonIndex = 0;
+		// the button index to reset joystick tasks
+		this.resetButtonIndex = 13;
+	}
 
 	// length of times of specific events in milliseconds
 	this.eventTimes = {
@@ -26,7 +44,7 @@ function Config()
 
 		"TaskAigoodDiagnostic": 5000,
 		"TaskSchematicsRendering": 2000,
-		"TaskCommunicationsTransmissionVideo": 3000,
+		"TaskCommunicationsTransmissionVideo": 35000,
 		"TaskCommunicationsTransmissionState1": 0,
 		"TaskCommunicationsTransmissionState2": 2000,
 		"TaskCommunicationsTransmissionState3": 3000,
@@ -48,7 +66,7 @@ function Config()
 
 		"TaskAigoodDiagnostic": 500,
 		"TaskSchematicsRendering": 500,
-		"TaskCommunicationsTransmissionVideo": 500,
+		"TaskCommunicationsTransmissionVideo": 35000,
 		"TaskCommunicationsTransmissionState1": 500,
 		"TaskCommunicationsTransmissionState2": 500,
 		"TaskCommunicationsTransmissionState3": 500,

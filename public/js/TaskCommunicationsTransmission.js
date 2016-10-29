@@ -42,6 +42,7 @@ TaskCommunicationsTransmission.prototype.runTimeout = function(state)
 TaskCommunicationsTransmission.prototype.runVideo = function(state)
 {
 	// play the video
+	$(".section-communications-transmission video").get(0).play();
 
 	setTimeout(function() {
 		// go to the ai modal screen

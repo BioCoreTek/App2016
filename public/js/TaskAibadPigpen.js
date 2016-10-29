@@ -4,14 +4,12 @@ function TaskAibadPigpen()
 	this.taskName = 'TaskAibadPigpen';
 	// static
 	this.context;
-	this.dotsTotal = 13;
+	this.dotsTotal = 14;
 	this.buttonIndex = config.get('triggerButtonIndex');
 	this.alphabet = ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'];
 
 	this.dots = [];
 	this.lastState = 1;
-
-	this.letters = [];
 
 	// none, checking, error, success
 	this.resultStatus = 'none';
@@ -119,8 +117,8 @@ TaskAibadPigpen.prototype.runFrame = function(joystick)
 		{
 			this.dots.push([joyX, joyY]);
 			debug.debug('Adding dots', this.dots);
-			$(".section-aibad-pigpen .selection-result-" + this.dots.length - 1).html(this.getLetterForCoords(joyX, joyY));
-			$(".section-aibad-pigpen .selection-result-values span").removeClass('active');
+			$(".modal-aibad-pigpen .selection-result-" + this.dots.length - 1).html(this.getLetterForCoords(joyX, joyY));
+			$(".modal-aibad-pigpen .selection-result-values .selection-result-box").removeClass('active');
 		}
 	}
 	// store the state of the button press
@@ -192,9 +190,9 @@ TaskAibadPigpen.prototype.runFrame = function(joystick)
 	this.context.fillRect(0, joyY - 0, 120, 1);
 
 	// set the unlocked letter
-	$(".section-aibad-pigpen .selection-result-" + (this.dots.length)).html(this.getLetterForCoords(joyX, joyY));
-	$(".section-aibad-pigpen .selection-result-values span").removeClass('active');
-	$(".section-aibad-pigpen .selection-result-" + (this.dots.length)).addClass('active');
+	$(".modal-aibad-pigpen .selection-result-" + (this.dots.length)).html(this.getLetterForCoords(joyX, joyY));
+	$(".modal-aibad-pigpen .selection-result-values .selection-result-box").removeClass('active');
+	$(".modal-aibad-pigpen .selection-result-" + (this.dots.length)).addClass('active');
 };
 
 TaskAibadPigpen.prototype.getLetterForCoords = function(x, y)
@@ -220,11 +218,10 @@ TaskAibadPigpen.prototype.restartTask = function()
 
 TaskAibadPigpen.prototype.resetInterface = function()
 {
-	for (var i = 0; i < this.dotsTotal; i++)
-		$(".section-aibad-pigpen  .selection-result-" + i).html("&nbsp;&nbsp;");
-	$(".section-aibad-pigpen .selection-result-values span").removeClass('active');
-	$(".section-aibad-pigpen .selection-result-status").hide();
-	$(".section-aibad-pigpen .selection-result-status p").hide();
+	$(".modal-aibad-pigpen .selection-result-values .selection-result-box").html("");
+	$(".modal-aibad-pigpen .selection-result-values .selection-result-box").removeClass('active');
+	$(".modal-aibad-pigpen .selection-result-status").hide();
+	$(".modal-aibad-pigpen .selection-result-status p").hide();
 };
 
 TaskAibadPigpen.prototype.checkResults = function()
@@ -232,8 +229,8 @@ TaskAibadPigpen.prototype.checkResults = function()
 	if (this.resultStatus == 'none')
 	{
 		debug.debug('checkResults');
-		$(".section-aibad-pigpen .selection-result-status").show();
-		$(".section-aibad-pigpen .selection-result-status .attempt").show();
+		$(".modal-aibad-pigpen .selection-result-status").show();
+		$(".modal-aibad-pigpen .selection-result-status .attempt").show();
 		PubSub.publish('server', {
 			event: 'task',
 			command: 'check',
@@ -259,18 +256,19 @@ TaskAibadPigpen.prototype.processResults = function(result)
 	if (result)
 	{
 		this.resultStatus = 'success';
-		$(".section-aibad-pigpen .selection-result-status p").hide();
-		$(".section-aibad-pigpen .selection-result-status .success").show();
+		$(".modal-aibad-pigpen .selection-result-status p").hide();
+		$(".modal-aibad-pigpen .selection-result-status .success").show();
 		setTimeout(function(){
 			self.stopTask();
-			PubSub.publish('stateNext', {group: 'communications'});
+			PubSub.publish('stateNext', {group: 'aigood'});
+			PubSub.publish('goToGroup', {group: 'aigood'});
 		}, this.timeLengthGlobalTaskResult);
 	}
 	else
 	{
 		this.resultStatus = 'error';
-		$(".section-aibad-pigpen .selection-result-status p").hide();
-		$(".section-aibad-pigpen .selection-result-status .error").show();
+		$(".modal-aibad-pigpen .selection-result-status p").hide();
+		$(".modal-aibad-pigpen .selection-result-status .error").show();
 		setTimeout(function(){
 			self.resultStatus = 'none';
 			self.restartTask();

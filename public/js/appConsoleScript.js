@@ -1,4 +1,5 @@
 var DEV = true;
+var CONTROLLER = 'joystick'; // ps, joystick
 
 var config;
 var spaceServer;
@@ -15,10 +16,10 @@ var audioManager;
 
 function init()
 {
+	debug.debug('Run this in Chrome: document.documentElement.webkitRequestFullscreen();');
 	debug.setLevel(0);
 	if (DEV)
 		debug.setLevel(4);
-	debug.debug('Run this in Chrome: document.documentElement.webkitRequestFullscreen();');
 
 	config = new Config();
 

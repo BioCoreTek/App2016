@@ -12,7 +12,8 @@ TaskAibadHelpcore.prototype.init = function()
 
 	setTimeout(function() {
 		// just hide the modal when content is done
-		PubSub.publish('modal', {action: 'hide'});
+		// don't hide modal since we know we are going to another modal
+		//PubSub.publish('modal', {action: 'hide'});
 		// go to the bad ai
 		PubSub.publish('stateNext', {group: 'aibad'});
 	}, this.timeLengthContent);

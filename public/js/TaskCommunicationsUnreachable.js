@@ -173,7 +173,7 @@ TaskCommunicationsUnreachable.prototype.runFrame = function(joystick)
 			this.dots.push([joyX, joyY]);
 			debug.debug('Adding dots', this.dots);
 			$(".section-communications-unreachable .selection-result-" + (this.dots.length - 1) + ' .fa').attr("class", "fa fa-fw " + this.getIconMapForCoords(joyX, joyY).iconName);
-			$(".section-communications-unreachable .selection-result-values span").removeClass('active');
+			$(".section-communications-unreachable .selection-result-values .selection-result-box").removeClass('active');
 		}
 	}
 	// store the state of the button press
@@ -246,7 +246,7 @@ TaskCommunicationsUnreachable.prototype.runFrame = function(joystick)
 
 	// set the unlocked number
 	$(".section-communications-unreachable .selection-result-" + (this.dots.length) + ' .fa').attr("class", "fa fa-fw " + this.getIconMapForCoords(joyX, joyY).iconName);
-	$(".section-communications-unreachable .selection-result-values span").removeClass('active');
+	$(".section-communications-unreachable .selection-result-values .selection-result-box").removeClass('active');
 	$(".section-communications-unreachable .selection-result-" + (this.dots.length)).addClass('active');
 };
 
@@ -275,9 +275,8 @@ TaskCommunicationsUnreachable.prototype.restartTask = function()
 
 TaskCommunicationsUnreachable.prototype.resetInterface = function()
 {
-	for (var i = 0; i < this.dotsTotal; i++)
-		$(".section-communications-unreachable .selection-result-" + i + " i").attr("class", "fa fa-fw");
-	$(".section-communications-unreachable .selection-result-values span").removeClass('active');
+	$(".section-communications-unreachable .selection-result-values .selection-result-box i").attr("class", "fa fa-fw");
+	$(".section-communications-unreachable .selection-result-values .selection-result-box").removeClass('active');
 	$(".section-communications-unreachable .selection-result-status").hide();
 	$(".section-communications-unreachable .selection-result-status p").hide();
 };

@@ -599,8 +599,8 @@ Orange
 	background-color: #e6f5ff;
 	border: 1px #0099ff solid;
 	box-shadow: 0 0px 8px 0 #0099ff;
-	line-height: 56px;
-	font-size: 40px;
+	line-height: 50px;
+	font-size: 50px;
 	padding: 4px 8px;
 	width: 70px;
 	margin: 0 5px;
@@ -671,7 +671,7 @@ Orange
 
 /* *********************** COMMUNICATIONS ***************************** */
 
-.section .section-communications-unreachable .selection-result
+.section .section-communications-unreachable .selection-result .selection-result-title
 {
 	text-align: center;
 	line-height: 50px;
@@ -680,6 +680,8 @@ Orange
 {
 	float: none;
 	margin: 0 auto;
+	line-height: 56px;
+	font-size: 40px;
 }
 
 /* *************************** SHIELDS ******************************** */
@@ -872,7 +874,4 @@ Orange
 {
 	width: 560px;
 	margin: 0 auto;
-}
-.modal-aibad-pigpen .selection-result .selection-result-values div div.selection-result-box
-{
 }
