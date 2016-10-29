@@ -18,8 +18,9 @@
         function handleStatus(data)
         {
             var status = "";
-            if (data.team) status = "Team '" + data.team+"'";
-            else status = "No Team";
+            if (data.devmode) status += "DEVMODE! ";
+            if (data.team) status += "Team '" + data.team+"'";
+            else status += "No Team";
             if (data.time) status += " " + data.time;
             if (data.status) status += " " + data.status;
             document.getElementById("status").innerHTML = status;
@@ -29,6 +30,16 @@
         {
             var name = document.getElementById("name").value;
             socket.emit("user register", { username: name });
+        }
+
+        function doDevGame()
+        {
+            socket.emit("new message", { event: "game", command: "dev" });
+        }
+
+        function doNormalGame()
+        {
+            socket.emit("new message", { event: "game", command: "normal" });
         }
 
         function doStopGame()
@@ -48,6 +59,7 @@
     Status: <span id="status">Not connected</span><br />
     Team Name: <input type="text" id="name" /><button onclick="doPrepare();">Prepare</button><br />
     <button onclick="doStopGame();">Stop Game</button><br />
+    <button onclick="doDevGame();">Dev Game</button><button onclick="doNormalGame();">Normal Game</button><br />
     <br />
     <button onclick="doMapView();">Simulate First Map View</button><br />
     <button id="">Reset Oxygen</button><br />
