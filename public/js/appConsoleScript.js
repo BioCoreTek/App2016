@@ -1,5 +1,5 @@
 var DEV = true;
-var CONTROLLER = 'ps'; // ps, joystick
+var CONTROLLER = 'joystick'; // ps, joystick
 
 var config;
 var spaceServer;

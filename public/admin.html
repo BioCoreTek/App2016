@@ -15,10 +15,12 @@
             socket.on('status', handleStatus);
         }
 
+        var dev = false;
         function handleStatus(data)
         {
             var status = "";
-            if (data.devmode) status += "DEVMODE! ";
+            dev = false;
+            if (data.devmode) { dev = true; status += "DEVMODE! "; }
             if (data.team) status += "Team '" + data.team+"'";
             else status += "No Team";
             if (data.time) status += " " + data.time;
@@ -28,8 +30,8 @@
 
         function doPrepare()
         {
-            var name = document.getElementById("name").value;
-            socket.emit("user register", { username: name });
+          var name = document.getElementById("name").value;
+          if (name) socket.emit("user register", { username: name });
         }
 
         function doDevGame()
@@ -51,6 +53,13 @@
         {
             socket.emit("new message", { event: "task", command: "stop", data: {taskname: "TaskSchematicsRendering"}});
         }
+
+        function doForceOxygen()
+        {
+          var res = ['12', '76', '27', '53'];
+          if (dev) res = ['43', '43', '43', '43'];
+          socket.emit("new message", { event: "task", command: "check", data: {taskname: "TaskLifesupport", result: res}});
+        }
     </script>
 </head>
 <body onload="main();">
@@ -63,7 +72,7 @@
     <br />
     <button onclick="doMapView();">Simulate First Map View</button><br />
     <button id="">Reset Oxygen</button><br />
-    <button id="">Force Oxygen Complete</button><br />
+    <button onclick="doForceOxygen()">Force Oxygen Complete</button><br />
     <button id="">Reset Antenna</button><br />
     <button id="">Force Antenna Complete</button><br />
     <button id="">Reset Cypher</button><br />
