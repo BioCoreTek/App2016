@@ -17,9 +17,9 @@ SpaceServer.prototype.init = function(username)
 
 	this.socket = io.connect(config.get('server'));
 
-	debug.debug('SpaceServer init register user');
+//	debug.debug('SpaceServer init register user');
 
-	this.socket.emit('user register', {username: this.username});
+//	this.socket.emit('user register', {username: this.username});
 
 	this.socket.on('new message', function (data) {
 		self.receiveCommand(data);

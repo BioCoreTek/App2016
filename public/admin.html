@@ -1,0 +1,70 @@
+<html>
+<head>
+    <script src="js/vendor/socket.io.js"></script>
+    <script>
+        var socket = null;
+        function main()
+        {
+          socket = io.connect('http://localhost:3000', { reconnect: true });
+          socket.on('connect', handleConnect);
+        }
+
+        function handleConnect() 
+        {
+            console.log('Connected!');
+            socket.on('status', handleStatus);
+        }
+
+        function handleStatus(data)
+        {
+            var status = "";
+            if (data.team) status = "Team '" + data.team+"'";
+            else status = "No Team";
+            if (data.time) status += " " + data.time;
+            if (data.status) status += " " + data.status;
+            document.getElementById("status").innerHTML = status;
+        }
+
+        function doPrepare()
+        {
+            var name = document.getElementById("name").value;
+            socket.emit("user register", { username: name });
+        }
+
+        function doStopGame()
+        {
+           socket.emit("new message", { event: "game", command: "stop" });
+        }
+
+        function doMapView()
+        {
+            socket.emit("new message", { event: "task", command: "stop", data: {taskname: "TaskSchematicsRendering"}});
+        }
+    </script>
+</head>
+<body onload="main();">
+    <b>BioCoreTek AURA Station Admin Panel</b><br />
+
+    Status: <span id="status">Not connected</span><br />
+    Team Name: <input type="text" id="name" /><button onclick="doPrepare();">Prepare</button><br />
+    <button onclick="doStopGame();">Stop Game</button><br />
+    <br />
+    <button onclick="doMapView();">Simulate First Map View</button><br />
+    <button id="">Reset Oxygen</button><br />
+    <button id="">Force Oxygen Complete</button><br />
+    <button id="">Reset Antenna</button><br />
+    <button id="">Force Antenna Complete</button><br />
+    <button id="">Reset Cypher</button><br />
+    <button id="">Force Cypher Complete</button><br />
+    <button id="">Reset Solar Flare</button><br />
+    <button id="">Simulate Hand Pressing</button><br />
+    <button id="">Force Solar Flare Complete</button><br />
+    <button id="">Force Self Destruct</button><br />
+    <br />
+    <button id="">Replay Admiral</button><br />
+    <button id="">Replay Counter Mission</button><br />
+    <br />
+    <button id="">Pause/Unpause</button><br />
+    <button id="">Reset Clock</button><br />
+</body>
+</html>
