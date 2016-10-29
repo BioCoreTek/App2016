@@ -35,7 +35,7 @@ body
 	top: 0;
 	left: 0;
 	right: 0;
-	width: 70%;
+	width: 72%;
 	height: 40px;
 	margin: 0 auto;
 	background-color: #fff;
@@ -125,7 +125,7 @@ Orange
 	border: 3px solid #0099ff;
 	box-shadow: 0 0px 10px 0 #ccebff;
 	border-radius: 6px;
-	margin: 60px auto;
+	margin: 100px auto;
 	padding: 40px;
 	color: #fff;
 	display: block;
@@ -173,7 +173,7 @@ Orange
 	color: #4db8ff;
 	text-shadow: 0 0 10px #99d6ff;
 	font-size: 160px;
-	margin: 30px auto;
+	margin: 60px auto;
 }
 
 .main-container
@@ -540,8 +540,8 @@ Orange
 }
 .modal-dialog
 {
-	width: calc(100vw - 60px);
-	margin: 60px auto 30px auto;
+	width: calc(100vw - 120px);
+	margin: 60px;
 }
 
 .modal-content
@@ -554,7 +554,7 @@ Orange
 
 .modal-body
 {
-	height: calc(100vh - 90px);
+	height: calc(100vh - 120px);
 	overflow: auto;
 }
 .modal-header
@@ -874,4 +874,49 @@ Orange
 {
 	width: 560px;
 	margin: 0 auto;
+}
+/* *************************** SELF DESTRUCT ********************************* */
+
+.modal-selfdestruct-countdown .countdown-text
+{
+	font-family: Audiowide, monospace;
+	text-align: center;
+	font-size: 50px;
+	color: #5c232c;
+	background-color: rgba(0, 0, 0, 0.7);
+	margin: 40px 0;
+}
+.modal-selfdestruct-countdown .countdown-clock
+{
+	font-family: 'Share Tech Mono', monospace;
+	text-align: center;
+	font-size: 90px;
+	color: #f8edee;
+	background-color: #5c232c;
+	border: 1px #bb4458 solid;
+	-webkit-animation: pulse_countdown 1s infinite alternate;
+	-moz-animation: pulse_countdown 1s infinite alternate;
+	-ms-animation: pulse_countdown 1s infinite alternate;
+	-o-animation: pulse_countdown 1s infinite alternate;
+	animation: pulse_countdown 1s infinite alternate;
+}
+@-webkit-keyframes pulse_countdown {
+ from { box-shadow: 0 0 10px 0 #bb4458; }
+ to { box-shadow: 0 0 40px 0 #bb4458; }
+}
+@-moz-keyframes pulse_countdown {
+ from { box-shadow: 0 0 10px 0 #bb4458; }
+ to { box-shadow: 0 0 40px 0 #bb4458; }
+}
+@-ms-keyframes pulse_countdown {
+ from { box-shadow: 0 0 10px 0 #bb4458; }
+ to { box-shadow: 0 0 40px 0 #bb4458; }
+}
+@-o-keyframes pulse_countdown {
+ from { box-shadow: 0 0 10px 0 #bb4458; }
+ to { box-shadow: 0 0 40px 0 #bb4458; }
+}
+@keyframes pulse_countdown {
+ from { box-shadow: 0 0 10px 0 #bb4458; }
+ to { box-shadow: 0 0 40px 0 #bb4458; }
 }

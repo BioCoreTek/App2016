@@ -78,11 +78,18 @@ Timer.prototype.drawTime = function()
 	var minutes = Math.floor(timeLeft/(1000*60));
 	var r = timeLeft - (minutes*1000*60);
 	var seconds = Math.floor(r/1000);
+
+	// zeropad times
 	if (minutes < 10)
-		minutes = '0'+minutes;
+		minutes = '0' + minutes;
 	if (seconds < 10)
-		seconds = '0'+seconds;
+		seconds = '0' + seconds;
+
+	// draw timer
 	this.counterEl.html(minutes+':'+seconds);
+
+	// publish the current time
+	PubSub.publish('time', {action: 'current', minutes: minutes, seconds: seconds});
 };
 
 Timer.prototype.startTimer = function()

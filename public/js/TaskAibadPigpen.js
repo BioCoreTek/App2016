@@ -231,17 +231,15 @@ TaskAibadPigpen.prototype.checkResults = function()
 		debug.debug('checkResults');
 		$(".modal-aibad-pigpen .selection-result-status").show();
 		$(".modal-aibad-pigpen .selection-result-status .attempt").show();
+		var res = [];
+		for (var i = 0; i < this.dotsTotal; i++)
+			res.push(this.getLetterForCoords(this.dots[i][0], this.dots[i][1]));
 		PubSub.publish('server', {
 			event: 'task',
 			command: 'check',
 			data: {
 				taskname: this.taskName,
-				result: [
-					this.getLetterForCoords(this.dots[0][0], this.dots[0][1]).iconName,
-					this.getLetterForCoords(this.dots[1][0], this.dots[1][1]).iconName,
-					this.getLetterForCoords(this.dots[2][0], this.dots[2][1]).iconName,
-					this.getLetterForCoords(this.dots[3][0], this.dots[3][1]).iconName
-				]
+				result: res
 			}
 		});
 		this.resultStatus = 'checking';

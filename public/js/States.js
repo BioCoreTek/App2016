@@ -211,6 +211,11 @@ StateGroup.prototype.setState = function(name)
 StateGroup.prototype.setNextState = function()
 {
 	debug.debug('StateGroup setNextState');
+	if (!this.currentState || !this.currentState.next)
+	{
+		debug.error('StateGroup setNextState no next state.', this.currentState);
+		return false;
+	}
 	this.setState(this.currentState.next);
 };
 
@@ -243,7 +248,7 @@ StateGroup.prototype.runState = function()
 	if (this.currentState)
 		this.currentState.run();
 	else
-		debug.error('StateGroup runState without current state.')
+		debug.error('StateGroup runState without current state.');
 };
 
 StateGroup.prototype.exitState = function()

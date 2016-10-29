@@ -22,6 +22,14 @@ TaskCommunicationsTransmission.prototype.init = function()
 	this.runTimeout(this.timeoutState);
 };
 
+// to be called when game exists
+TaskCommunicationsTransmission.prototype.exit = function()
+{
+	// stop the video
+	$(".section-communications-transmission video").get(0).pause();
+	$(".section-communications-transmission video").get(0).currentTime = 0;
+};
+
 TaskCommunicationsTransmission.prototype.runTimeout = function(state)
 {
 	var self = this;
@@ -45,6 +53,8 @@ TaskCommunicationsTransmission.prototype.runVideo = function(state)
 	$(".section-communications-transmission video").get(0).play();
 
 	setTimeout(function() {
+		// show end transmission for communication state
+		PubSub.publish('stateNext', {group: 'communications'});
 		// go to the ai modal screen
 		PubSub.publish('stateNext', {group: 'aigood'});
 		PubSub.publish('goToGroup', {group: 'aigood'});

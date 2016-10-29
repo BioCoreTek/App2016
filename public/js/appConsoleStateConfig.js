@@ -33,7 +33,12 @@ var stateConfig = {
 				{
 					name: 'transmission',
 					mode: 'section',
+					next: 'endtransmission',
 					task: 'TaskCommunicationsTransmission'
+				},
+				{
+					name: 'endtransmission',
+					mode: 'section'
 				}
 			]
 		},
@@ -48,7 +53,8 @@ var stateConfig = {
 				{
 					name: 'manual',
 					mode: 'section',
-					next: 'override'
+					next: 'override',
+					task: 'TaskShieldsManual'
 				},
 				{
 					name: 'override',
@@ -89,7 +95,8 @@ var stateConfig = {
 				},
 				{
 					name: 'incinerator',
-					mode: 'modal'
+					mode: 'modal',
+					task: 'TaskAigoodIncinerator'
 				}
 			]
 		},
@@ -124,7 +131,8 @@ var stateConfig = {
 			states: [
 				{
 					name: 'countdown',
-					mode: 'modal'
+					mode: 'modal',
+					task: 'TaskSelfdestructCountdown'
 				}
 			]
 		}

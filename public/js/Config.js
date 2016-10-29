@@ -50,6 +50,7 @@ function Config()
 		"TaskCommunicationsTransmissionState3": 3000,
 		"TaskCommunicationsTransmissionState4": 1000,
 		"TaskAigoodDonttakeme": 3000,
+		"TaskAigoodIncinerator": 3000,
 		"TaskAibadHelpcore": 3000,
 
 	}
@@ -66,12 +67,13 @@ function Config()
 
 		"TaskAigoodDiagnostic": 500,
 		"TaskSchematicsRendering": 500,
-		"TaskCommunicationsTransmissionVideo": 35000,
+		"TaskCommunicationsTransmissionVideo": 500,
 		"TaskCommunicationsTransmissionState1": 500,
 		"TaskCommunicationsTransmissionState2": 500,
 		"TaskCommunicationsTransmissionState3": 500,
 		"TaskCommunicationsTransmissionState4": 500,
 		"TaskAigoodDonttakeme": 500,
+		"TaskAigoodIncinerator": 500,
 		"TaskAibadHelpcore": 500,
 
 	}
