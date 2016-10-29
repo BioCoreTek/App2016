@@ -25,6 +25,10 @@ SpaceServer.prototype.init = function(username)
 		self.receiveCommand(data);
 	});
 
+	this.socket.on('status', function (data) {
+		self.receiveCommandStatus(data);
+	});
+
 	PubSub.subscribe('server', function(msg, data)
 	{
 		debug.debug('SpaceServer PubSub sub server', msg, data);
@@ -61,6 +65,13 @@ SpaceServer.prototype.receiveCommand = function(data)
 	var msg = data.message;
 	switch (msg.event)
 	{
+		case 'status':
+			debug.debug('receiveCommand status', msg);
+			PubSub.publish('status', {
+				status: msg.status,
+				mode: msg.devmode
+			});
+			break;
 		case 'timer':
 			debug.debug('receiveCommand timer', msg);
 			PubSub.publish(msg.event, msg.command);
@@ -88,4 +99,14 @@ SpaceServer.prototype.receiveCommand = function(data)
 			}
 			break;
 	}
+};
+SpaceServer.prototype.receiveCommandStatus = function(data)
+{
+	debug.debug('receiveCommandStatus', data);
+
+	PubSub.publish('status', {
+		status: data.status,
+		mode: data.devmode,
+		team: data.team
+	});
 };

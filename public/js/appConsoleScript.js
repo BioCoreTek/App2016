@@ -1,6 +1,8 @@
 var DEV = true;
 var CONTROLLER = 'ps'; // ps, joystick
 
+// tv size: 1800x1000px
+
 var config;
 var spaceServer;
 var stateManager;
@@ -53,7 +55,21 @@ function init()
 	if (DEV)
 		setupDev();
 
-	runReboot();
+	waitGame();
+}
+
+function waitGame()
+{
+	var ps = PubSub.subscribe('status', function(msg, data)
+	{
+		debug.debug('waitGame', msg, data);
+		if ("Ready to play" == data.status)
+		{
+			// clear the pubsub
+			PubSub.unsubscribe(ps);
+			runReboot();
+		}
+	});
 }
 
 function runReboot()
@@ -70,6 +86,8 @@ function runReboot()
 			rebootClicked();
 		}
 	});
+	$(".wait-game").hide();
+	$(".reboot-button").show();
 	// mouse button click
 	$(".reboot-button").click(function(e) {
 		// clear the pubsub
@@ -86,7 +104,13 @@ function rebootClicked()
 	setTimeout(function() {
 		$(".reboot-container").hide();
 		$(".main-container").show();
-
+/*
+		// set game mode
+		PubSub.publish('server', {
+			event: 'game',
+			command: (DEV) ? 'dev' : 'normal'
+		});
+*/
 		PubSub.publish('server', {
 			event: 'game',
 			command: 'start'
