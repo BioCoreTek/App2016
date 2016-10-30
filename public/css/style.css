@@ -825,6 +825,13 @@ Orange
 }
 
 /* Shield iPad Controls */
+
+.ipad .content-box
+{
+    height:800px;
+    margin-top: 100px;
+}
+
 .section-ipadshields-enabled .title h1,
 .section-ipadshields-override .title h1
 {
@@ -834,9 +841,7 @@ Orange
 .section-ipadshields-enabled .title i,
 .section-ipadshields-override .title i
 {
-    font-size: 535px;
-    margin-top:80px;
-    margin-bottom: 100px;
+    font-size: 500px;
 }
 
 .section-ipadshields-enabled .title p,
@@ -848,7 +853,7 @@ Orange
 .section-ipadshields-manual .diagram
 {
     position:absolute;
-    top:120px;
+    top:90px;
     left:40px;
 }
 
