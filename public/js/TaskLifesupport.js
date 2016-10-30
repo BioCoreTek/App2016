@@ -43,7 +43,7 @@ TaskLifesupport.prototype.init = function()
 	this.pubSubs.push(
 		PubSub.subscribe('task', function(msg, data)
 		{
-			debug.debug('TaskLifesupport PubSub sub task', msg, data)
+			debug.debug('TaskLifesupport PubSub sub task', msg, data);
 			if (data && data.taskname == self.taskName)
 				self.processResults(data.result);
 		})

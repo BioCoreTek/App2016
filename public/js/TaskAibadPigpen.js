@@ -42,7 +42,7 @@ TaskAibadPigpen.prototype.init = function()
 	this.pubSubs.push(
 		PubSub.subscribe('task', function(msg, data)
 		{
-			debug.debug('TaskAibadPigpen PubSub sub task', msg, data)
+			debug.debug('TaskAibadPigpen PubSub sub task', msg, data);
 			if (data && data.taskname == self.taskName)
 				self.processResults(data.result);
 		})
