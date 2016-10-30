@@ -116,7 +116,7 @@ StateManager.prototype.parseStateConfig = function(stateconfig)
 				for (var s = 0, slen = group.states.length; s < slen; s++)
 				{
 					var name = group.states[s].name;
-					debug.debug('Adding state :', name);
+					debug.debug('Adding state for group:', group.name, name);
 					var mode = group.states[s].mode ? group.states[s].mode : 'section';
 					var next = group.states[s].next ? group.states[s].next : null;
 					var task = group.states[s].task ? group.states[s].task : null;
@@ -163,6 +163,8 @@ StateGroup.prototype.addState = function(name, mode, next, task)
 	if (!this.defaultState)
 	{
 		this.setDefaultState(name);
+		// also set default state as current state
+		this.setState(this.defaultState.name);
 	}
 
 	return this.states[name];
