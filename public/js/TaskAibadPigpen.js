@@ -200,10 +200,10 @@ TaskAibadPigpen.prototype.getLetterForCoords = function(x, y)
 	x = Math.floor(x/60);
 	y = Math.floor(y/60);
 	// account for being at the exact edge
-	if (x == 14)
-		x = 13;
-	if (y == 3)
-		y = 2;
+	if (x == 13)
+		x = 12;
+	if (y == 2)
+		y = 1;
 	var calc = x + y * 13;
 	var res = this.alphabet[calc];
 	return res;

@@ -120,7 +120,7 @@ TaskLifesupport.prototype.runFrame = function(joystick)
 		{
 			this.dots.push([joyX, joyY]);
 			debug.debug('Adding dots', this.dots);
-			$(".section-lifesupport-failure .selection-result-" + this.dots.length - 1).html(Math.floor(joyX / 40) + "" + Math.floor(joyY / 40));
+			$(".section-lifesupport-failure .selection-result-" + this.dots.length - 1).html(this.getNumberForCoords(joyX, joyY));
 			$(".section-lifesupport-failure .selection-result-values .selection-result-box").removeClass('active');
 		}
 	}
@@ -182,9 +182,22 @@ TaskLifesupport.prototype.runFrame = function(joystick)
 	this.context.fillRect(0, joyY - 0, 400, 1);
 
 	// set the unlocked number
-	$(".section-lifesupport-failure .selection-result-" + (this.dots.length)).html(Math.floor(joyX / 40) + "" + Math.floor(joyY / 40));
+	$(".section-lifesupport-failure .selection-result-" + (this.dots.length)).html(this.getNumberForCoords(joyX, joyY));
 	$(".section-lifesupport-failure .selection-result-values .selection-result-box").removeClass('active');
 	$(".section-lifesupport-failure .selection-result-" + (this.dots.length)).addClass('active');
+};
+
+TaskLifesupport.prototype.getNumberForCoords = function(x, y)
+{
+	x = Math.floor(x/40);
+	y = Math.floor(y/40);
+	// account for being at the exact edge
+	if (x == 10)
+		x = 9;
+	if (y == 10)
+		y = 9;
+	// make it a string
+	return x + "" + y;
 };
 
 TaskLifesupport.prototype.restartTask = function()

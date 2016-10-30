@@ -69,6 +69,12 @@ function waitGame()
 			PubSub.unsubscribe(ps);
 			runReboot();
 		}
+		if ("Playing" == data.status)
+		{
+			// clear the pubsub
+			PubSub.unsubscribe(ps);
+			rebootClicked();
+		}
 	});
 }
 
@@ -98,6 +104,7 @@ function runReboot()
 
 function rebootClicked()
 {
+	$(".wait-game").hide();
 	$(".reboot-button").hide();
 	$(".reboot-loading").show();
 

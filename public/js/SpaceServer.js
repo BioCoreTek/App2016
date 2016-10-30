@@ -102,7 +102,7 @@ SpaceServer.prototype.receiveCommand = function(data)
 };
 SpaceServer.prototype.receiveCommandStatus = function(data)
 {
-	debug.debug('receiveCommandStatus', data);
+	debug.log('receiveCommandStatus', data);
 
 	PubSub.publish('status', {
 		status: data.status,
