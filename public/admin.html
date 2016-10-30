@@ -51,7 +51,12 @@
 
         function doMapView()
         {
-            socket.emit("new message", { event: "task", command: "stop", data: {taskname: "TaskSchematicsRendering"}});
+          socket.emit("new message", { event: "task", command: "stop", data: { taskname: "TaskSchematicsRendering" } });
+        }
+
+        function doResetShield()
+        {
+          socket.emit("new message", { event: "task", command: "start", data: { taskname: "TaskShield" } });
         }
 
         function doForceOxygen()
@@ -74,6 +79,17 @@
           if (dev) res = ['G', 'G', 'G', 'G', 'G', 'G', 'G', 'G', 'G', 'G', 'G', 'G', 'G', 'G'];
           socket.emit("new message", { event: "task", command: "check", data: { taskname: "TaskAibadPigpen", result: res } });
         }
+
+        function doShieldPress()
+        {
+          socket.emit("new message", { event: "task", command: "start", data: { taskname: "TaskShieldPress" } });
+        }
+
+        function doShieldUp()
+        {
+          socket.emit("new message", { event: "task", command: "stop", data: { taskname: "TaskShieldPress" } });
+        }
+
     </script>
 </head>
 <body onload="main();">
@@ -88,8 +104,8 @@
     <button onclick="doForceOxygen();">Force Oxygen Complete</button><br />
     <button onclick="doForceAntenna();">Force Antenna Complete</button><br />
     <button onclick="doForceCypher();">Force Cypher Complete</button><br />
-    <button id="">Reset Solar Flare</button><br />
-    <button id="">Simulate Hand Pressing</button><br />
+    <button onclick="doResetShield();">Reset Solar Flare</button><br />
+    <button onmousedown="doShieldPress();" onmouseup="doShieldUp();">Simulate Hand Pressing</button><br />
     <button id="">Force Solar Flare Complete</button><br />
     <button id="">Force Self Destruct</button><br />
     <br />
