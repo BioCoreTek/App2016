@@ -84,7 +84,7 @@ StatsChart.prototype.init = function()
 
 	PubSub.subscribe('stats', function(msg, data)
 	{
-		debug.debug('statsChart PubSub sub state', msg, data);
+		debug.log('statsChart PubSub sub state', msg, data);
 		if (data.event == 'fluxtuations')
 		{
 			if (data.command == 'start')

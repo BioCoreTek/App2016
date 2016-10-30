@@ -64,6 +64,11 @@ StateManager.prototype.init = function(stateconfig)
 	{
 		debug.debug('StateManager PubSub sub stateSet', msg, data);
 		// set the new state
+		if (!self.stateGroups[data.group])
+		{
+			debug.debug('StateManager PubSub sub stateSet group not found', data.group);
+			return;
+		}
 		self.stateGroups[data.group].setState(data.state);
 	});
 	PubSub.subscribe('stateInterrupt', function(msg, data)
@@ -134,6 +139,11 @@ StateManager.prototype.parseStateConfig = function(stateconfig)
  */
 StateManager.prototype.goToGroup = function(name)
 {
+	if (!this.stateGroups[name])
+	{
+		debug.debug('StateManager goToGroup group not found',name);
+		return;
+	}
 	this.currentStateGroup = this.stateGroups[name];
 	this.currentStateGroup.goToCurrentState();
 };

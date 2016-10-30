@@ -739,7 +739,32 @@ Orange
 
 .section-shields-manual .diagram .control-panel i.pressed
 {
-	color: #bb4458;
+	color: #44a5bb;
+	-webkit-animation: pulse_hand_pressed 1s infinite alternate;
+	-moz-animation: pulse_hand_pressed 1s infinite alternate;
+	-ms-animation: pulse_hand_pressed 1s infinite alternate;
+	-o-animation: pulse_hand_pressed 1s infinite alternate;
+	animation: pulse_hand_pressed 1s infinite alternate;
+}
+@-webkit-keyframes pulse_hand_pressed {
+ from { text-shadow: 0 0 10px #44a5bb; }
+ to { text-shadow: 0 0 10px #daeef1; }
+}
+@-moz-keyframes pulse_hand_pressed {
+ from { text-shadow: 0 0 10px #44a5bb; }
+ to { text-shadow: 0 0 10px #daeef1; }
+}
+@-ms-keyframes pulse_hand_pressed {
+ from { text-shadow: 0 0 10px #44a5bb; }
+ to { text-shadow: 0 0 10px #daeef1; }
+}
+@-o-keyframes pulse_hand_pressed {
+ from { text-shadow: 0 0 10px #44a5bb; }
+ to { text-shadow: 0 0 10px #daeef1; }
+}
+@keyframes pulse_hand_pressed {
+ from { text-shadow: 0 0 10px #44a5bb; }
+ to { text-shadow: 0 0 10px #daeef1; }
 }
 
 .section-shields-manual h2
@@ -769,19 +794,22 @@ Orange
 }
 
 /* Shield iPad Controls */
-.section-ipadshields-enabled .title h1, .section-ipadshields-override .title h1
+.section-ipadshields-enabled .title h1,
+.section-ipadshields-override .title h1
 {
     font-size: 80px;
 }
 
-.section-ipadshields-enabled .title i, .section-ipadshields-override .title i
+.section-ipadshields-enabled .title i,
+.section-ipadshields-override .title i
 {
     font-size: 535px;
     margin-top:80px;
     margin-bottom: 100px;
 }
 
-.section-ipadshields-enabled .title p, .section-ipadshields-override .title p
+.section-ipadshields-enabled .title p,
+.section-ipadshields-override .title p
 {
     font-size: 30px;
 }
@@ -805,6 +833,17 @@ Orange
     -ms-animation: pulse_hand 1s infinite alternate;
     -o-animation: pulse_hand 1s infinite alternate;
     animation: pulse_hand 1s infinite alternate;
+}
+
+.section-ipadshields-manual .diagram .control-panel i.pressed
+{
+	color: #44a5bb;
+    text-shadow: 0 0 10px #44a5bb;
+    -webkit-animation: pulse_hand_pressed 1s infinite alternate;
+    -moz-animation: pulse_hand_pressed 1s infinite alternate;
+    -ms-animation: pulse_hand_pressed 1s infinite alternate;
+    -o-animation: pulse_hand_pressed 1s infinite alternate;
+    animation: pulse_hand_pressed 1s infinite alternate;
 }
 
 

@@ -2,7 +2,7 @@
 function TaskShieldsManual()
 {
 	this.taskName = 'TaskShieldsManual';
-	this.ipadTaskName = 'TaskIpadShieldsManual';
+	this.ipadTaskName = 'TaskIpadshieldsManual';
 
 	// the state of the button press from ipad
 	// release or press
@@ -42,6 +42,7 @@ TaskShieldsManual.prototype.init = function()
 				if (data.command == 'result')
 					self.processResults(data.result);
 			}
+			debug.debug('TaskShieldsManual PubSub sub task', data.command, data.taskname, self.ipadTaskName);
 			if (data && data.taskname == self.ipadTaskName)
 			{
 				if (data.command == 'check')
@@ -94,14 +95,11 @@ TaskShieldsManual.prototype.stopTask = function()
 
 TaskShieldsManual.prototype.processCheck = function(result)
 {
-	var self = this;
-
 	debug.debug('TaskShieldsManual processCheck:', result);
 	if ("press" == result)
 	{
 		this.resultCheck = 'press';
 		$(".section-shields-manual .control-panel i").addClass('pressed');
-		this.runMeter();
 	}
 	else // release
 	{
@@ -130,11 +128,11 @@ TaskShieldsManual.prototype.runMeter = function()
 	var self = this;
 
 	this.meterInt = setInterval(function() {
-		if (self.resultCheck == 'press' && self.meterValue > self.meterMax)
-			self.meterValue = self.meterValue - 1;
+		if (self.resultCheck == 'press' && self.meterValue > self.meterMin)
+			self.meterValue--;
 		if (self.resultCheck == 'release' && self.meterValue < self.meterMax)
-			self.meterValue = self.meterValue + 1;
-		debug.debug('TaskShieldsManual runMeter meterValue', self.meterValue, self.domMeterBar);
+			self.meterValue++;
+		debug.log('TaskShieldsManual runMeter meterValue', self.meterValue, self.domMeterBar);
 		self.domMeterBar.width(self.meterValue+'%');
 		self.domMeterVal.html(self.meterValue+'%');
 		PubSub.publish('stats', {event: 'fluxtuations', command: 'set', name: 'Radiation', value: self.meterValue});

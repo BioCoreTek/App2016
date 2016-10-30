@@ -95,7 +95,11 @@ SpaceServer.prototype.receiveCommand = function(data)
 				case 'check':
 				case 'result':
 					debug.debug('receiveCommand task', msg);
-					PubSub.publish(msg.event, msg.data);
+					PubSub.publish(msg.event, {
+						command: msg.command,
+						taskname: msg.data.taskname,
+						result: msg.data.result
+					});
 					break;
 			}
 			break;

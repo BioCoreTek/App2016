@@ -15,19 +15,18 @@ TaskIpadshieldsManual.prototype.init = function()
 	//add touchstart and touchend states for the button...
 	$("body").on({"touchstart":function(e){
 		self.doPress();
-		$(".moc i").css("color", "#47A8BD");
 	}});
 
 	$("body").on({"touchend":function(e){
 		self.doRelease();
-		$(".moc i").css("color", "#ff9d4d");
 	}});
 
 	this.pubSubs.push(
 		PubSub.subscribe('task', function(msg, data)
 		{
 			debug.debug('TaskIpadshieldsManual PubSub sub task', msg, data);
-			if (data && data.taskname == self.taskName)
+			if (data && data.taskname == self.taskName
+			&& data.command == 'result')
 				self.processResults(data.result);
 		})
 	);
@@ -79,6 +78,8 @@ TaskIpadshieldsManual.prototype.doPress = function()
 {
 	debug.log('TaskIpadshieldsManual doPress');
 
+	$(".control-panel i").addClass("pressed");
+
 	// stop task
 	PubSub.publish('server', {
 		event: 'task',
@@ -94,6 +95,8 @@ TaskIpadshieldsManual.prototype.doRelease = function()
 {
 	debug.log('TaskIpadshieldsManual doRelease');
 
+	$(".control-panel i").removeClass("pressed");
+
 	// stop task
 	PubSub.publish('server', {
 		event: 'task',
@@ -103,4 +106,18 @@ TaskIpadshieldsManual.prototype.doRelease = function()
 			result: 'release'
 		}
 	});
+};
+TaskIpadshieldsManual.prototype.processResults = function(result)
+{
+	var self = this;
+
+	debug.debug('TaskIpadshieldsManual processResults:', result);
+	if (result)
+	{
+		setTimeout(function(){
+			self.stopTask();
+			PubSub.publish('stateNext', {group: 'ipadshields'});
+			PubSub.publish('goToGroup', {group: 'ipadshields'});
+		}, this.timeLengthGlobalTaskResult);
+	}
 };
