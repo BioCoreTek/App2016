@@ -31,9 +31,6 @@ function init()
 	stateManager = new StateManager();
 	stateManager.init(stateConfig);
 
-	//enable the touch button!
-	activateManualOverride();
-
 	if (DEV)
 		setupDev();
 
@@ -41,21 +38,6 @@ function init()
 	stateManager.goToGroup("ipadshields");
 }
 
-function activateManualOverride()
-{
-	//add touchstart and touchend states for the button...
-	$("body").on({"touchstart":function(e){
-	 	console.log("TOUCHED THE BUTTON!!!");
-		$(".moc i").css("color", "#47A8BD");
-	}});
-
-	$("body").on({"touchend":function(e){
-	 	console.log("RELEASED THE BUTTON!!!");
-		$(".moc i").css("color", "#ff9d4d");
-	}});
-
-
-}
 ///////////////////////////////////////////////////////////////////////////////
 
 // run on startup

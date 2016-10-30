@@ -7,8 +7,11 @@ function StatsChart()
 	this.dataItemLabels = ["Oxygen", "Radiation", "Power", "Gravity"];
 	this.dataItemLabelsLen = this.dataItemLabels.length;
 	this.dataInitital = [92, 3, 67, 80];
+	this.fluxValues = [];
+
 	// keyed by index
 	this.fluxEnabled = [true, true, true, true];
+
 	// ranges for random fluxtuations
 	this.fluxDataRanges = [];
 	this.fluxDataRanges[0] = [86, 100];
@@ -78,19 +81,33 @@ StatsChart.prototype.init = function()
 		self.resizeChart();
 	});
 	this.fakeFluxtuations();
-}
+
+	PubSub.subscribe('stats', function(msg, data)
+	{
+		debug.debug('statsChart PubSub sub state', msg, data);
+		if (data.event == 'fluxtuations')
+		{
+			if (data.command == 'start')
+				self.setFluxStatus(data.name, true);
+			else if (data.command == 'stop')
+				self.setFluxStatus(data.name, false);
+			else if (data.command = 'set')
+				self.setFluxValue(data.name, data.value);
+		}
+	});
+};
 
 StatsChart.prototype.resizeChart = function()
 {
 	this.chartObj.resize();
-}
+};
 
 StatsChart.prototype.setChartData = function(itemIndex, value, noUpdate)
 {
 	this.chartObj.data.datasets[0].data[itemIndex] = value;
 	if (!noUpdate)
 		this.chartObj.update();
-}
+};
 
 StatsChart.prototype.getChartItemIndexByLabel = function(itemLabel)
 {
@@ -100,7 +117,7 @@ StatsChart.prototype.getChartItemIndexByLabel = function(itemLabel)
 			return i;
 	}
 	return null;
-}
+};
 /*
 // run all fluxtuations at once
 StatsChart.prototype.fakeFluxtuations = function()
@@ -119,7 +136,7 @@ StatsChart.prototype.fakeFluxtuations = function()
 		self.chartObj.update();
 		self.fakeFluxtuations();
 	}, t);
-}
+};
 */
 // run each fluxtuation individually
 StatsChart.prototype.fakeFluxtuations = function()
@@ -128,7 +145,8 @@ StatsChart.prototype.fakeFluxtuations = function()
 	{
 		this.fakeFluxItem(i);
 	}
-}
+};
+
 StatsChart.prototype.fakeFluxItem = function(itemIndex)
 {
 	var self = this;
@@ -137,12 +155,13 @@ StatsChart.prototype.fakeFluxItem = function(itemIndex)
 		if (self.fluxEnabled[itemIndex])
 		{
 			var newVal = self.getFakeFluxValue(itemIndex);
+			self.fluxValues[itemIndex] = newVal;
 			self.setChartData(itemIndex, newVal, true);
 		}
 		self.chartObj.update();
 		self.fakeFluxItem(itemIndex);
 	}, t);
-}
+};
 
 StatsChart.prototype.getFakeFluxValue = function(itemIndex)
 {
@@ -160,4 +179,28 @@ StatsChart.prototype.getFakeFluxValue = function(itemIndex)
 		|| this.chartObj.data.datasets[0].data[itemIndex] + dif > this.fluxDataRanges[itemIndex][1])
 		dif = 0;
 	return this.chartObj.data.datasets[0].data[itemIndex] + dif;
-}
+};
+
+StatsChart.prototype.setFluxStatus = function(name, enable)
+{
+	for (var i = 0, len = this.dataItemLabels.length; i < len; i++)
+	{
+		if (name == this.dataItemLabels[i])
+		{
+			this.fluxEnabled[i] = enable;
+		}
+	}
+};
+
+StatsChart.prototype.setFluxValue = function(name, value)
+{
+	for (var i = 0, len = this.dataItemLabels.length; i < len; i++)
+	{
+		if (name == this.dataItemLabels[i])
+		{
+			this.fluxValues[i] = value;
+			this.setChartData(i, value, true);
+			this.chartObj.update();
+		}
+	}
+};

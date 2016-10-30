@@ -12,7 +12,8 @@ var stateConfig = {
 				{
 					name: 'manual',
 					mode: 'section',
-					next: 'override'
+					next: 'override',
+					task: 'TaskIpadshieldsManual'
 				},
 				{
 					name: 'override',

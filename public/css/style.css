@@ -756,12 +756,12 @@ Orange
 .section-shields-manual div.radiation-level
 {
 	background-color: #ff9d4d;
-	width: 50%;
+	width: 6%;
 	height: 40px;
 }
 .section-shields-manual p.radiation-percent
 {
-	font-family: Audiowide, monospace;
+	font-family: 'Share Tech Mono', monospace;
 	color: #ff9d4d;
 	font-size: 50px;
 	text-align: center;
