@@ -18,12 +18,12 @@ TaskSelfdestructCountdown.prototype.init = function()
 		{
 			debug.debug('TaskSelfdestructCountdown PubSub sub time', msg, data);
 			self.processTimeEvent(data);
-		});
+		})
 	);
 };
 
 // to be called when game exists
-TaskLifesupport.prototype.exit = function()
+TaskSelfdestructCountdown.prototype.exit = function()
 {
 	PubSub.publish('audio', {name: 'alarm', action: 'stop'});
 
