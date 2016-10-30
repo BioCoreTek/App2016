@@ -52,6 +52,12 @@ function Config()
 		"TaskAigoodDonttakeme": 3000,
 		"TaskAigoodIncinerator": 3000,
 		"TaskAibadHelpcore": 3000,
+		// total 2 minutes 120000
+		"TaskShieldsManualElement0": 0,
+		"TaskShieldsManualElement1": 24000,
+		"TaskShieldsManualElement2": 48000,
+		"TaskShieldsManualElement3": 80000,
+		"TaskShieldsManualElement4": 120000
 
 	}
 
@@ -75,6 +81,12 @@ function Config()
 		"TaskAigoodDonttakeme": 500,
 		"TaskAigoodIncinerator": 500,
 		"TaskAibadHelpcore": 500,
+		// total 15000
+		"TaskShieldsManualElement0": 0,
+		"TaskShieldsManualElement1": 3000,
+		"TaskShieldsManualElement2": 6000,
+		"TaskShieldsManualElement3": 10000,
+		"TaskShieldsManualElement4": 15000
 
 	}
 	}

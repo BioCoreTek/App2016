@@ -19,6 +19,137 @@ function TaskShieldsManual()
 
 	this.meterInt;
 
+	this.analysisDone = false;
+	this.analysisStartTime;
+
+	this.elemSolution = ['H', 'C', 'K', 'Fe'];
+
+	this.domElement1;
+	this.domElement2;
+	this.domElement3;
+	this.domElement4;
+
+	this.elemList = [
+		"H",
+		"He",
+		"Li",
+		"Be",
+		"B",
+		"C",
+		"N",
+		"O",
+		"F",
+		"Ne",
+		"Na",
+		"Mg",
+		"Al",
+		"Si",
+		"P",
+		"S",
+		"Cl",
+		"Ar",
+		"K",
+		"Ca",
+		"Sc",
+		"Ti",
+		"V",
+		"Cr",
+		"Mn",
+		"Fe",
+		"Co",
+		"Ni",
+		"Cu",
+		"Zn",
+		"Ga",
+		"Ge",
+		"As",
+		"Se",
+		"Br",
+		"Kr",
+		"Rb",
+		"Sr",
+		"Y",
+		"Zr",
+		"Nb",
+		"Mo",
+		"Tc",
+		"Ru",
+		"Rh",
+		"Pd",
+		"Ag",
+		"Cd",
+		"In",
+		"Sn",
+		"Sb",
+		"Te",
+		"I",
+		"Xe",
+		"Cs",
+		"Ba",
+		"La",
+		"Ce",
+		"Pr",
+		"Nd",
+		"Pm",
+		"Sm",
+		"Eu",
+		"Gd",
+		"Tb",
+		"Dy",
+		"Ho",
+		"Er",
+		"Tm",
+		"Yb",
+		"Lu",
+		"Hf",
+		"Ta",
+		"W",
+		"Re",
+		"Os",
+		"Ir",
+		"Pt",
+		"Au",
+		"Hg",
+		"Tl",
+		"Pb",
+		"Bi",
+		"Po",
+		"At",
+		"Rn",
+		"Fr",
+		"Ra",
+		"Ac",
+		"Th",
+		"Pa",
+		"U",
+		"Np",
+		"Pu",
+		"Am",
+		"Cm",
+		"Bk",
+		"Cf",
+		"Es",
+		"Fm",
+		"Md",
+		"No",
+		"Lr",
+		"Rf",
+		"Db",
+		"Sg",
+		"Bh",
+		"Hs",
+		"Mt",
+		"Ds",
+		"Rg",
+		"Cn",
+		"Uut",
+		"Fl",
+		"Uup",
+		"Lv",
+		"Uus",
+		"Uuo"
+	];
+
 	this.pubSubs = [];
 };
 
@@ -30,6 +161,11 @@ TaskShieldsManual.prototype.init = function()
 
 	this.domMeterBar = $(".section-shields-manual .radiation-level");
 	this.domMeterVal = $(".section-shields-manual .radiation-percent");
+
+	this.domElement1 = $(".radiation-composition-element1");
+	this.domElement2 = $(".radiation-composition-element2");
+	this.domElement3 = $(".radiation-composition-element3");
+	this.domElement4 = $(".radiation-composition-element4");
 
 	PubSub.publish('audio', {name: 'alarm', action: 'play', loop: true});
 
@@ -60,6 +196,7 @@ TaskShieldsManual.prototype.init = function()
 // to be called when game exists
 TaskShieldsManual.prototype.exit = function()
 {
+	this.resetAnalysis();
 	clearInterval(this.meterInt);
 	PubSub.publish('audio', {name: 'alarm', action: 'stop'});
 	PubSub.publish('stats', {event: 'fluxtuations', command: 'start', name: 'Radiation'});
@@ -100,11 +237,13 @@ TaskShieldsManual.prototype.processCheck = function(result)
 	{
 		this.resultCheck = 'press';
 		$(".section-shields-manual .control-panel i").addClass('pressed');
+		this.runAnalysis();
 	}
 	else // release
 	{
 		this.resultCheck = 'release';
 		$(".section-shields-manual .control-panel i").removeClass('pressed');
+		this.resetAnalysis();
 	}
 };
 
@@ -137,4 +276,128 @@ TaskShieldsManual.prototype.runMeter = function()
 		self.domMeterVal.html(self.meterValue+'%');
 		PubSub.publish('stats', {event: 'fluxtuations', command: 'set', name: 'Radiation', value: self.meterValue});
 	}, 500);
+};
+
+TaskShieldsManual.prototype.runAnalysis = function()
+{
+	debug.debug('TaskShieldsManual runAnalysis');
+	this.stepAnalysis();
+};
+
+TaskShieldsManual.prototype.resetAnalysis = function()
+{
+	$(".section-shields-manual .radiation-composition-element").html('');
+	$(".section-shields-manual .radiation-composition-element").css('visibility', 'hidden');
+	this.analysisStartTime = 0;
+	this.analysisDone = false;
+};
+
+TaskShieldsManual.prototype.stepAnalysis = function(timestamp)
+{
+	var self = this;
+
+	debug.debug('TaskShieldsManual stepAnalysis', timestamp);
+	if(timestamp)
+	{
+		if (!this.analysisStartTime)
+			this.analysisStartTime = timestamp;
+		var progress = timestamp - this.analysisStartTime;
+		debug.debug('TaskShieldsManual stepAnalysis progress', progress);
+
+		for (var i = 0; i < 4; i++)
+		{
+			// draw a fake value spinning
+			if (progress > config.get('eventTimes')['TaskShieldsManualElement' + i]
+			&& progress < config.get('eventTimes')['TaskShieldsManualElement' + (i + 1)])
+			{
+				$(".section-shields-manual .radiation-composition-element" + (i + 1)).css('visibility', 'visible');
+
+				//process the cells...
+				//tricky modulo for only odd progress times... (slows down the rendering...
+				if (i > 1 || (i == 0 && progress & 5) || (i == 1 && progress & 1))
+				{
+					//random value in the cell...
+					$(".section-shields-manual .radiation-composition-element" + (i + 1)).html(self.elemList[Math.floor(Math.random()*self.elemList.length)]);
+				}
+			}
+			// draw the real value
+			if (progress > config.get('eventTimes')['TaskShieldsManualElement' + (i + 1)])
+			{
+				$(".section-shields-manual .radiation-composition-element" + (i + 1)).html(this.elemSolution[i]);
+				// we are done, stop animation
+				if (i == 3)
+					self.analysisDone = true;
+			}
+		}
+	}
+	if (this.resultCheck == 'press' && !this.analysisDone)
+	{
+		window.requestAnimationFrame(function(timestamp) {
+			self.stepAnalysis(timestamp)
+		});
+	}
+	/*
+	//times are set in milliseconds; adjust these values for the duration you want...
+	if (progress > 0 && progress < 2000) {
+		//set the first cell to visible...
+		elem0.style.visibility = "visible";
+
+		//process the cells...
+		//tricky modulo for only odd progress times... (slows down the rendering...
+		if(progress & 5){
+			//random value in the cell...
+			elem0.innerText = elemList[Math.floor(Math.random()*elemList.length)];
+		}
+
+	}
+
+	if(progress > 2000 && progress < 4000) {
+		//lock in the prior cell value!
+		elem0.innerText = "H";
+
+		//set the second cell to visible...
+		elem1.style.visibility = "visible";
+
+		//process the cells...
+		//tricky modulo for only odd progress times... (slows down the rendering...
+		if(progress & 1){
+			//random value in the cell...
+			elem1.innerText = elemList[Math.floor(Math.random()*elemList.length)];
+		}
+	}
+
+	if(progress > 4000 && progress < 6000) {
+		//lock in the prior cell value!
+		elem1.innerText = "C";
+
+		//set the second cell to visible...
+		elem2.style.visibility = "visible";
+
+		//process the cells...
+		//random value in the cell...
+		//no modulo -- seems faster!!
+		elem2.innerText = elemList[Math.floor(Math.random()*elemList.length)];
+	}
+
+	if(progress > 6000 && progress < 8000) {
+		//lock in the value!
+		elem2.innerText = "P";
+
+		//set the second cell to visible...
+		elem3.style.visibility = "visible";
+
+		//process the cells...
+		//random value in the cell...
+		elem3.innerText = elemList[Math.floor(Math.random()*elemList.length)];
+	}
+
+	//all done the analysis...
+	if(progress > 8000) {
+		//lock in the prior cell value!
+		elem3.innerText = "I";
+
+		analysisDone = true;
+	}
+*/
+
 };
