@@ -6,6 +6,8 @@ function TaskAibadPigpen()
 	this.context;
 	this.dotsTotal = 14;
 	this.buttonIndex = config.get('triggerButtonIndex');
+	this.resetButtonIndex = config.get('resetButtonIndex');
+
 	this.alphabet = ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'];
 
 	this.dots = [];
@@ -103,6 +105,12 @@ TaskAibadPigpen.prototype.runFrame = function(joystick)
 
 	if (yl*10+xl == yr*10+xr)
 		ok = true;
+
+	// handle button reset
+	if (joystick.buttons[this.resetButtonIndex].pressed && joystick.buttons[this.resetButtonIndex].pressed != this.lastState)
+	{
+		this.restartTask();
+	}
 
 	// handle dropping a dot - button release
 	if (joystick.buttons[this.buttonIndex].pressed && joystick.buttons[this.buttonIndex].pressed != this.lastState)
