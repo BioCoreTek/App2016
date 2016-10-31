@@ -106,6 +106,26 @@
             });
         }
 
+        function doSelfDestruct()
+        {
+          //socket.emit("new message", { event: "task", command: "stop", data: { taskname: "TaskIpadshieldsManual" } });
+            socket.emit("new message", {
+                event: 'state',
+                command: 'set',
+                data: {
+                    group: 'selfdestruct',
+                    state: 'countdown'
+                }
+            });
+            socket.emit("new message", {
+                event: 'state',
+                command: 'interrupt',
+                data: {
+                    group: 'selfdestruct'
+                }
+            });
+        }
+
     </script>
 </head>
 <body onload="main();">
@@ -123,7 +143,7 @@
     <button onclick="doResetShield();">Reset Solar Flare</button><br />
     <button onmousedown="doShieldPress();" onmouseup="doShieldUp();">Simulate Hand Pressing</button><br />
     <button id="">Force Solar Flare Complete</button><br />
-    <button id="">Force Self Destruct</button><br />
+    <button onmousedown="doSelfDestruct();" id="">Force Self Destruct</button><br />
     <br />
     <button id="">Replay Admiral</button><br />
     <button id="">Replay Counter Mission</button><br />
