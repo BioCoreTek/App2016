@@ -3,7 +3,7 @@
 function Config()
 {
 	// url to backend server
-	this.server = 'http://localhost:3000';
+	this.server = 'http://10.25.6.94:3000';
 
 	// each person will need to set this based on computer
 	this.voiceIndex = 25;
@@ -57,12 +57,12 @@ function Config()
 		"TaskAigoodDonttakeme": 10000,
 		"TaskAigoodIncinerator": 11000,
 		"TaskAibadHelpcore": 11000,
-		// total 2 minutes 120000
+		// total 1 minute 60000
 		"TaskShieldsManualElement0": 0,
-		"TaskShieldsManualElement1": 24000,
-		"TaskShieldsManualElement2": 48000,
-		"TaskShieldsManualElement3": 80000,
-		"TaskShieldsManualElement4": 120000
+		"TaskShieldsManualElement1": 12000,
+		"TaskShieldsManualElement2": 24000,
+		"TaskShieldsManualElement3": 40000,
+		"TaskShieldsManualElement4": 60000
 
 	}
 
