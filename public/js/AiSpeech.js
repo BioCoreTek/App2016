@@ -24,7 +24,7 @@ function say(text, callback)
 
 	var voices = speechSynthesis.getVoices();
 
-	msg.voice = voices[25];
+	msg.voice = voices[config.get('voiceIndex')];
 	//msg.rate = $('#rate').val() / 10;
 	//msg.pitch = $('#pitch').val();
 	msg.text = text;

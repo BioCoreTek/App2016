@@ -5,6 +5,9 @@ function Config()
 	// url to backend server
 	this.server = 'http://localhost:3000';
 
+	// each person will need to set this based on computer
+	this.voiceIndex = 25;
+
 	if ('ps' == CONTROLLER)
 	{
 		// which joystick buttons index mapped to which section
@@ -32,6 +35,8 @@ function Config()
 		this.triggerButtonIndex = 0;
 		// the button index to reset joystick tasks
 		this.resetButtonIndex = 13;
+
+		this.voiceIndex = 65;
 	}
 
 	// length of times of specific events in milliseconds
