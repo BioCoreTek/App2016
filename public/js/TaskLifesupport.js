@@ -42,6 +42,7 @@ TaskLifesupport.prototype.init = function()
 	this.domMeterVal = $(".section-lifesupport-failure .oxygen-percent");
 
 	PubSub.publish('audio', {name: 'alarm', action: 'play', loop: true});
+	PubSub.publish('audio', {name: 'o2', action: 'play', loop: true});
 
 	var c = $('.content canvas')[0];
 	this.context = c.getContext('2d');
@@ -75,6 +76,7 @@ TaskLifesupport.prototype.exit = function()
 {
 	clearInterval(this.meterInt);
 	PubSub.publish('audio', {name: 'alarm', action: 'stop'});
+	PubSub.publish('audio', {name: 'o2', action: 'stop'});
 
 	// remove pubsubs
 	for (var i = 0, len = this.pubSubs.length; i < len; i++)

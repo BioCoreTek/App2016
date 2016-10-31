@@ -3,7 +3,7 @@ function AudioManager()
 {
 	this.audioFiles = {
 		'alarm': 'audio/alarm.ogg',
-		'fan': ''
+		'o2': 'audio/background_ambience.mp3'
 	};
 	// don't play the same sound over itself
 	// but allow multiple sounds at once

@@ -12,19 +12,21 @@ https://en.wikipedia.org/wiki/File:Pigpen_cipher_key.svg
 
 Sounds
 ------
-Used:
 
 http://opengameart.org/content/short-alarm
 
-
-
-
-Not Used:
-
-https://freesound.org/people/Kastenfrosch/packs/10069/
-
-https://freesound.org/people/danielnieto7/sounds/135613/
+http://opengameart.org/content/background-rumble-noise
 
 http://opengameart.org/content/space-1
 
 http://opengameart.org/content/creepy-sci-fi-synth-loop
+
+
+Print
+-----
+
+http://sciencenotes.org/wp-content/uploads/2015/01/PeriodicTableBW.png
+
+https://images-na.ssl-images-amazon.com/images/I/61l5TRtNrlL._SL1500_.jpg
+
+https://upload.wikimedia.org/wikipedia/commons/thumb/3/36/Pigpen_cipher_key.svg/1024px-Pigpen_cipher_key.svg.png
