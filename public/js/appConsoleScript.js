@@ -1,4 +1,4 @@
-var DEV = true;
+var DEV = false;
 var CONTROLLER = 'ps'; // ps, joystick
 
 // tv size: 1800x1000px

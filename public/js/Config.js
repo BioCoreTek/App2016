@@ -21,6 +21,8 @@ function Config()
 		this.triggerButtonIndex = 5;
 		// the button index to reset joystick tasks
 		this.resetButtonIndex = 4;
+
+		this.voiceIndex = 65;
 	}
 	else	// joystick
 	{
@@ -35,8 +37,6 @@ function Config()
 		this.triggerButtonIndex = 0;
 		// the button index to reset joystick tasks
 		this.resetButtonIndex = 13;
-
-		this.voiceIndex = 65;
 	}
 
 	// length of times of specific events in milliseconds
