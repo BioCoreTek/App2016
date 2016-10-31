@@ -25,24 +25,15 @@ TaskAigoodDiagnostic.prototype.init = function()
 
 	//make the AI speak (AiSpeech.js)
 	say(AItext, function(){
-
-		//clear the timeout if this successfully runs...
-		//clearTimeout(AItimeout);
-
-		// just hide the modal when content is done
-		PubSub.publish('modal', {action: 'hide'});
-		// go to the life support screen
-		PubSub.publish('goToGroup', {group: 'lifesupport'});
+		console.log("speech API complete...");
 	});
 
-	//set a timeout just in case the callback fails for some reason...
-	/*
-	var AItimeout = setTimeout(function() {
+	setTimeout(function() {
 		// just hide the modal when content is done
 		PubSub.publish('modal', {action: 'hide'});
 		// go to the life support screen
 		PubSub.publish('goToGroup', {group: 'lifesupport'});
 	}, this.timeLengthContent);
-	*/
+
 
 };

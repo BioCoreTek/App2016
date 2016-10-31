@@ -82,7 +82,7 @@ function AIinit(element) {
 	document.addEventListener( 'touchmove', onDocumentTouchMove, false );
 
 
-	window.addEventListener( 'resize', onWindowResize, false );
+	//window.addEventListener( 'resize', onWindowResize, false );
 
 	//test geometry swapability...
 
