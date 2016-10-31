@@ -1,8 +1,8 @@
 /**
  * Created by jeffdaze on 2016-10-20.
  */
-var DEV = true;
-var CONTROLLER = 'josystick';
+var DEV = false;
+var CONTROLLER = 'joystick';
 
 var config;
 var stateManager;
