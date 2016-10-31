@@ -17,7 +17,7 @@ function Config()
 		// the button index for the trigger in axis-based tasks
 		this.triggerButtonIndex = 5;
 		// the button index to reset joystick tasks
-		this.resetButtonIndex = 6;
+		this.resetButtonIndex = 4;
 	}
 	else	// joystick
 	{

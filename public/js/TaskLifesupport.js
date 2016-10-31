@@ -6,6 +6,7 @@ function TaskLifesupport()
 	this.context;
 	this.dotsTotal = 4;
 	this.buttonIndex = config.get('triggerButtonIndex');
+	this.resetButtonIndex = config.get('resetButtonIndex');
 
 	this.dots = [];
 	this.lastState = 1;
@@ -144,6 +145,12 @@ TaskLifesupport.prototype.runFrame = function(joystick)
 
 	if (yl*10+xl == yr*10+xr)
 		ok = true;
+
+	// handle button reset
+	if (joystick.buttons[this.resetButtonIndex].pressed && joystick.buttons[this.resetButtonIndex].pressed != this.lastState)
+	{
+		this.restartTask();
+	}
 
 	// handle dropping a dot - button release
 	if (joystick.buttons[this.buttonIndex].pressed && joystick.buttons[this.buttonIndex].pressed != this.lastState)
