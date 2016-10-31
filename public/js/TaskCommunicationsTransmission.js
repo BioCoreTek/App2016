@@ -52,6 +52,7 @@ TaskCommunicationsTransmission.prototype.runVideo = function(state)
 	// play the video
 	$(".section-communications-transmission video").get(0).play();
 
+
 	setTimeout(function() {
 		// show end transmission for communication state
 		PubSub.publish('stateNext', {group: 'communications'});
