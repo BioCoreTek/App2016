@@ -11,8 +11,8 @@ function TaskShieldsManual()
 	this.domMeterBar;
 	this.domMeterVal;
 
-	// 0-100
-	this.meterValue = 6;
+	// meterMin - meterMax
+	this.meterValue;
 
 	this.meterMin = 6;
 	this.meterMax = 97;
@@ -151,6 +151,8 @@ function TaskShieldsManual()
 	];
 
 	this.pubSubs = [];
+
+	this.timeLengthGlobalTaskResult = config.get('eventTimes')['GlobalTaskResult'];
 };
 
 TaskShieldsManual.prototype.init = function()

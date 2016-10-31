@@ -13,6 +13,17 @@ function TaskLifesupport()
 	// none, checking, error, success
 	this.resultStatus = 'none';
 
+	this.domMeterBar;
+	this.domMeterVal;
+
+	// meterMin - meterMax
+	this.meterValue;
+
+	this.meterMin = 8;
+	this.meterMax = 86;
+
+	this.meterInt;
+
 	this.pubSubs = [];
 
 	this.timeLengthGlobalTaskResult = config.get('eventTimes')['GlobalTaskResult'];
@@ -25,6 +36,9 @@ TaskLifesupport.prototype.init = function()
 	debug.debug('TaskLifesupport init');
 
 	this.startTask();
+
+	this.domMeterBar = $(".section-lifesupport-failure .oxygen-level");
+	this.domMeterVal = $(".section-lifesupport-failure .oxygen-percent");
 
 	PubSub.publish('audio', {name: 'alarm', action: 'play', loop: true});
 
@@ -48,11 +62,17 @@ TaskLifesupport.prototype.init = function()
 				self.processResults(data.result);
 		})
 	);
+
+	// turn off fake fluxtuation in statsChart
+	PubSub.publish('stats', {event: 'fluxtuations', command: 'stop', name: 'Oxygen'});
+	this.meterValue = this.meterMax;
+	this.runMeter();
 };
 
 // to be called when game exists
 TaskLifesupport.prototype.exit = function()
 {
+	clearInterval(this.meterInt);
 	PubSub.publish('audio', {name: 'alarm', action: 'stop'});
 
 	// remove pubsubs
@@ -60,6 +80,7 @@ TaskLifesupport.prototype.exit = function()
 	{
 		PubSub.unsubscribe(this.pubSubs[i]);
 	}
+	PubSub.publish('stats', {event: 'fluxtuations', command: 'start', name: 'Oxygen'});
 };
 
 TaskLifesupport.prototype.startTask = function()
@@ -89,6 +110,23 @@ TaskLifesupport.prototype.stopTask = function()
 		}
 	});
 };
+
+TaskLifesupport.prototype.runMeter = function()
+{
+	var self = this;
+
+	this.meterInt = setInterval(function() {
+		if (self.resultStatus != 'success' && self.meterValue > self.meterMin)
+			self.meterValue--;
+		if (self.resultStatus == 'success' && self.meterValue < self.meterMax)
+			self.meterValue++;
+		debug.log('TaskLifesupport runMeter meterValue', self.meterValue, self.domMeterBar);
+		self.domMeterBar.width(self.meterValue+'%');
+		self.domMeterVal.html(self.meterValue+'%');
+		PubSub.publish('stats', {event: 'fluxtuations', command: 'set', name: 'Oxygen', value: self.meterValue});
+	}, 800);
+};
+
 
 TaskLifesupport.prototype.runFrame = function(joystick)
 {

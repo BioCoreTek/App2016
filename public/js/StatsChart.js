@@ -14,7 +14,7 @@ function StatsChart()
 
 	// ranges for random fluxtuations
 	this.fluxDataRanges = [];
-	this.fluxDataRanges[0] = [86, 100];
+	this.fluxDataRanges[0] = [86, 92];
 	this.fluxDataRanges[1] = [1, 6];
 	this.fluxDataRanges[2] = [42, 81];
 	this.fluxDataRanges[3] = [76, 97];

@@ -668,8 +668,30 @@ Orange
 
 /* ************************ LIFE SUPPORT ****************************** */
 
-.section .section-lifesupport-failure canvas
+.section .section-lifesupport-failure h2
 {
+	font-family: Audiowide, monospace;
+	color: #4db8ff;
+	margin-top: 30px;
+}
+.section-lifesupport-failure div.oxygen-percent
+{
+	font-family: 'Share Tech Mono', monospace;
+	color: #4db8ff;
+	font-size: 40px;
+	line-height: 36px;
+}
+.section-lifesupport-failure div.oxygen-level-container
+{
+	background-color: #004d80;
+	width: 100%;
+	margin-bottom: 20px;
+}
+.section-lifesupport-failure div.oxygen-level
+{
+	background-color: #4db8ff;
+	width: 86%;
+	height: 40px;
 }
 
 /* *********************** COMMUNICATIONS ***************************** */
