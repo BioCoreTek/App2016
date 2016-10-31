@@ -82,12 +82,28 @@
 
         function doShieldPress()
         {
-          socket.emit("new message", { event: "task", command: "start", data: { taskname: "TaskShieldPress" } });
+          //socket.emit("new message", { event: "task", command: "start", data: { taskname: "TaskIpadshieldsManual" } });
+            socket.emit("new message", {
+                event: 'task',
+                command: 'check',
+                data: {
+                    taskname: 'TaskIpadshieldsManual',
+                    result: 'press'
+                }
+            });
         }
 
         function doShieldUp()
         {
-          socket.emit("new message", { event: "task", command: "stop", data: { taskname: "TaskShieldPress" } });
+          //socket.emit("new message", { event: "task", command: "stop", data: { taskname: "TaskIpadshieldsManual" } });
+            socket.emit("new message", {
+                event: 'task',
+                command: 'check',
+                data: {
+                    taskname: 'TaskIpadshieldsManual',
+                    result: 'release'
+                }
+            });
         }
 
     </script>
