@@ -20,7 +20,7 @@ var SCREEN_WIDTH = 500,
 	camera, scene, renderer;
 
 
-var glitch = false;
+var glitch = true;
 
 function AIsetParams(AI_style){
 	if(AI_style == "bad")
