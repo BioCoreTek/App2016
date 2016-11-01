@@ -108,7 +108,6 @@
 
         function doSelfDestruct()
         {
-          //socket.emit("new message", { event: "task", command: "stop", data: { taskname: "TaskIpadshieldsManual" } });
             socket.emit("new message", {
                 event: 'state',
                 command: 'set',
@@ -122,6 +121,67 @@
                 command: 'interrupt',
                 data: {
                     group: 'selfdestruct'
+                }
+            });
+        }
+
+        function doShields()
+        {
+            socket.emit("new message", {
+                event: 'state',
+                command: 'set',
+                data: {
+                    group: 'shields',
+                    state: 'manual'
+                }
+            });
+            socket.emit("new message", {
+                event: 'state',
+                command: 'interrupt',
+                data: {
+                    group: 'shields'
+                }
+            });
+        }
+
+        function doShieldsSuccess()
+        {
+            sockets.emit('new message', {
+                message: {
+                    event: 'task',
+                    command: 'result',
+                    data: {
+                        taskname: 'TaskShieldsManual',
+                        result: true
+                    }
+                }
+            });
+            sockets.emit('new message', {
+                message: {
+                    event: 'task',
+                    command: 'result',
+                    data: {
+                        taskname: 'TaskIpadshieldsManual',
+                        result: true
+                    }
+                }
+            });
+        }
+        function doPigPen()
+        {
+            socket.emit("new message", {
+                event: 'state',
+                command: 'set',
+                data: {
+                    group: 'aibad',
+                    state: 'pigpen'
+                }
+            });
+            socket.emit("new message", {
+                event: 'state',
+                command: 'interrupt',
+                data: {
+                    group: 'aibad'
                 }
             });
         }
@@ -144,6 +204,9 @@
     <button onmousedown="doShieldPress();" onmouseup="doShieldUp();">Simulate Hand Pressing</button><br />
     <button id="">Force Solar Flare Complete</button><br />
     <button onmousedown="doSelfDestruct();" id="">Force Self Destruct</button><br />
+    <button onmousedown="doShields();" id="">Force Shields</button><br />
+    <button onmousedown="doShieldsSuccess();" id="">Force Shields Success</button><br />
+    <button onmousedown="doPigPen();" id="">doPigPen</button><br />
     <br />
     <button id="">Replay Admiral</button><br />
     <button id="">Replay Counter Mission</button><br />
